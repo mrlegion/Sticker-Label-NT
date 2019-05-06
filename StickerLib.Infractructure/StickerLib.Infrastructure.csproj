@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\FileExistRuleType.cs" />
+    <Compile Include="Common\Properties.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="Helpers\AnchorType.cs" />
     <Compile Include="Helpers\OrientationType.cs" />
@@ -56,5 +58,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
