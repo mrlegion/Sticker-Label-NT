@@ -104,6 +104,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Build\Interfaces\INuper.cs" />
+    <Compile Include="Build\Interfaces\IShuffler.cs" />
+    <Compile Include="Build\Implimentations\Shuffler.cs" />
     <Compile Include="DomainModule.cs" />
     <Compile Include="Helpers\ConvertManager.cs" />
     <Compile Include="Helpers\DuplicationType.cs" />
@@ -113,12 +116,21 @@
     <Compile Include="Helpers\PdfReadHelper.cs" />
     <Compile Include="Helpers\PdfWriteHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Services\IStickerService.cs" />
     <Compile Include="Services\StickerService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
