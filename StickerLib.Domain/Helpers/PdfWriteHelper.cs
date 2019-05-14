@@ -6,6 +6,7 @@ using iText.Kernel.Pdf;
 using Serilog;
 using StickerLib.Infrastructure.Common;
 using StickerLib.Infrastructure.Entities;
+using Config = StickerLib.Infrastructure.Common.Properties;
 
 namespace StickerLib.Domain.Helpers
 {
@@ -51,7 +52,7 @@ namespace StickerLib.Domain.Helpers
             if (info.Exists)
             {
                 Log.Information("File for saving is exist!");
-                switch (Properties.FileExistRule)
+                switch (Config.GetInstance().FileExistRule)
                 {
                     case FileExistRuleType.Replace:
                         Log.Information("Replace old file: FILE[ {@file} ]", file);

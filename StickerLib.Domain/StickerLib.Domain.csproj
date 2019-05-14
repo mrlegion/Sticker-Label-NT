@@ -107,6 +107,9 @@
     <Compile Include="Build\Interfaces\INuper.cs" />
     <Compile Include="Build\Interfaces\IShuffler.cs" />
     <Compile Include="Build\Implimentations\Shuffler.cs" />
+    <Compile Include="Build\Implimentations\Nuper.cs" />
+    <Compile Include="Build\Interfaces\IStickerBuilder.cs" />
+    <Compile Include="Common\Page.cs" />
     <Compile Include="DomainModule.cs" />
     <Compile Include="Helpers\ConvertManager.cs" />
     <Compile Include="Helpers\DuplicationType.cs" />

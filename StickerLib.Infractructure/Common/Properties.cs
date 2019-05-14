@@ -6,6 +6,7 @@ namespace StickerLib.Infrastructure.Common
     {
         private static readonly Properties Instance = new Properties();
         private bool _autoGenerateColsAndRows;
+        private bool _autoShufflePattern;
         private PrintPage _stickerPageSize;
         private PrintPage _printPageSize;
         private OrientationType _orientation;
@@ -15,6 +16,21 @@ namespace StickerLib.Infrastructure.Common
         private Properties() {}
 
         public FileExistRuleType FileExistRule { get; set; }
+
+        public string DirectoryForSaving { get; set; }
+
+        public bool AutoShufflePattern
+        {
+            get { return _autoShufflePattern; }
+            set
+            {
+                _autoShufflePattern = value;
+                if (_autoShufflePattern)
+                    GenerateShufflePattern();
+            }
+        }
+
+        public string ShufflePattern { get; set; }
 
         public int Column
         {
@@ -106,6 +122,12 @@ namespace StickerLib.Infrastructure.Common
             // calculated rows
             if (PrintPageSize.Height <= StickerPageSize.Height) Row = 1;
             else Row = (int) (PrintPageSize.Height / StickerPageSize.Height);
+        }
+
+        private void GenerateShufflePattern()
+        {
+            ShufflePattern = "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16";
+            // TODO: create module cut and stack and use it
         }
     }
 }

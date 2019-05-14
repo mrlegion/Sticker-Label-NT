@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using StickerLib.Infrastructure.Annotations;
 using StickerLib.Infrastructure.Entities;
@@ -12,6 +13,7 @@ namespace StickerLib.Infrastructure
         private string _name;
         private int _count;
         private IEnumerable<Sticker> _stickers;
+        private int _stickerCountInGroup;
 
         public string Name
         {
@@ -28,7 +30,17 @@ namespace StickerLib.Infrastructure
         public IEnumerable<Sticker> Stickers
         {
             get => _stickers;
-            set => Set(ref _stickers, value);
+            set
+            {
+                Set(ref _stickers, value);
+                StickerCountInGroup = Stickers.ToList().Count;
+            }
+        }
+
+        public int StickerCountInGroup
+        {
+            get => _stickerCountInGroup;
+            private set => Set(ref _stickerCountInGroup, value);
         }
 
         public Group(string name, int count, IEnumerable<Sticker> stickers)
