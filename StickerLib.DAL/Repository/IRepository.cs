@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using StickerLib.Infrastructure.Entities;
 
 namespace StickerLib.DAL.Repository
 {
@@ -15,5 +17,6 @@ namespace StickerLib.DAL.Repository
         bool Update(T entity);
 
         bool Delete(T entity);
+        Task<IEnumerable<Sticker>> GetAllAsync();
     }
 }

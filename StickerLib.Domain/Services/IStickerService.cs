@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using StickerLib.Infrastructure.Entities;
 
 namespace StickerLib.Domain.Services
@@ -7,6 +8,7 @@ namespace StickerLib.Domain.Services
     {
         Sticker Get(int id);
         IEnumerable<Sticker> GetAll();
+        Task<IEnumerable<Sticker>> GetAllAsync();
         bool Add(Sticker sticker);
         bool AddRange(IEnumerable<Sticker> stickers);
         bool Update(Sticker sticker);

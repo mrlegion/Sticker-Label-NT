@@ -6,7 +6,7 @@ using Serilog;
 
 namespace StickerLib.Domain.Helpers
 {
-    internal class PdfReadHelper
+    public class PdfReadHelper
     {
         public static byte[] ReadToStreamByte(string file)
         {

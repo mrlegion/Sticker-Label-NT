@@ -16,7 +16,7 @@ using Path = System.IO.Path;
 
 namespace StickerLib.Domain.Helpers
 {
-    internal class PdfWriteHelper
+    public class PdfWriteHelper
     {
         public static void WriteToFileWithNup(IEnumerable<Sticker> stickers, Queue<Page> pages, string file)
         {

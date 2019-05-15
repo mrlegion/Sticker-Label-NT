@@ -1,6 +1,6 @@
 ﻿namespace StickerLib.Domain.Common
 {
-    internal struct Page
+    public struct Page
     {
         public int[,] Pages { get; set; }
 

@@ -5,7 +5,7 @@ using Serilog;
 
 namespace StickerLib.Domain.Helpers
 {
-    internal class FileReaderHelper
+    public class FileReaderHelper
     {
         public static List<string> Read(string file)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Serilog;
 using StickerLib.DAL.DbScope.Interfaces;
 using StickerLib.DAL.Repository;
@@ -12,7 +13,7 @@ namespace StickerLib.Domain.Services
         private readonly IDbContextScopeFactory _dbContextScopeFactory;
         private readonly IRepository<Sticker> _repository;
 
-        private StickerService(IDbContextScopeFactory dbContextScopeFactory, IRepository<Sticker> repository)
+        public StickerService(IDbContextScopeFactory dbContextScopeFactory, IRepository<Sticker> repository)
         {
             _dbContextScopeFactory = dbContextScopeFactory ?? throw new ArgumentNullException(nameof(dbContextScopeFactory));
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
@@ -28,6 +29,12 @@ namespace StickerLib.Domain.Services
         {
             using (_dbContextScopeFactory.CreateReadOnly())
                 return _repository.GetAll();
+        }
+
+        public Task<IEnumerable<Sticker>> GetAllAsync()
+        {
+            using (_dbContextScopeFactory.CreateReadOnly())
+                return _repository.GetAllAsync();
         }
 
         public bool Add(Sticker sticker)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using Serilog;
 using StickerLib.DAL.DbContexts;
 using StickerLib.DAL.DbScope.Interfaces;
@@ -108,6 +109,11 @@ namespace StickerLib.DAL.Repository
             Log.Debug("Deleted entity: {@name}", entity.Name);
             DbContext.Entry(entity).State = EntityState.Deleted;
             return true;
+        }
+
+        public Task<IEnumerable<Sticker>> GetAllAsync()
+        {
+            return Task<IEnumerable<Sticker>>.Factory.StartNew(() => DbContext.Stickers.ToList());
         }
     }
 }

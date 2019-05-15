@@ -1,41 +1,78 @@
-﻿namespace StickerLib.Console
+﻿using System;
+using System.IO;
+using System.Linq;
+using CommonServiceLocator;
+using StickerLib.Domain.Services;
+using StickerLib.Infrastructure.Entities;
+
+namespace StickerLib.Console
 {
     class Program
     {
         static void Main(string[] args)
         {
-            int[,] temp = new int[4,4];
-            // row 1
-            temp[0, 0] = 0;
-            temp[0, 1] = 1;
-            temp[0, 2] = 2;
-            temp[0, 3] = 3;
-            // row 2
-            temp[1, 0] = 4;
-            temp[1, 1] = 5;
-            temp[1, 2] = 6;
-            temp[1, 3] = 7;
-            // row 3
-            temp[2, 0] = 8;
-            temp[2, 1] = 9;
-            temp[2, 2] = 10;
-            temp[2, 3] = 11;
-            // row 4
-            temp[3, 0] = 12;
-            temp[3, 1] = 13;
-            temp[3, 2] = 14;
-            temp[3, 3] = 15;
+            // Start up operations
+            Initialization();
 
-            for (int rows = 0; rows < 4; rows++)
-            {
-                for (int cols = 0; cols < 4; cols++)
-                {
-                    string s = $"Rows: {rows}, Cols: {cols}, Value: {temp[rows, cols]}";
-                    System.Console.WriteLine(s);
-                }
-            }
+            ConsoleWriteListStickers();
+
+            var select = SelectStickers();
+
+
 
             System.Console.ReadKey();
+        }
+
+        private static void Initialization()
+        {
+            StartUp.InitAutofac();
+
+            if (!File.Exists(".\\db\\Sticker.db"))
+            {
+                string pdf = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Source\\Ярлыки ИП Герр.pdf");
+                string title = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Source\\Ярлыки.txt");
+
+                DataBase.FillDb(pdf, title);
+            }
+        }
+
+        private static int[] SelectStickers()
+        {
+            START:
+            System.Console.WriteLine();
+            System.Console.Write("Enter number of selected stickers with whitespace: ");
+            string selected = System.Console.ReadLine();
+            if (string.IsNullOrEmpty(selected) || string.IsNullOrWhiteSpace(selected))
+            {
+                System.Console.WriteLine("Error! You must enter number for selected stickers!");
+                goto START;
+            }
+            string[] splited = selected.Split(' ');
+            int[] result = new int[splited.Length];
+            for (int i = 0; i < splited.Length; i++)
+                result[i] = int.Parse(splited[i]);
+            return result;
+        }
+
+        private static int Count()
+        {
+
+        }
+
+        private static void ConsoleWriteListStickers()
+        {
+
+            var request = ServiceLocator.Current.GetInstance<IStickerService>().GetAll();
+            var list = request.ToList();
+
+            System.Console.WriteLine($"Stickers List [ Count in db: {list.Count}]:\n");
+            System.Console.WriteLine(new string('-', 100));
+
+            foreach (Sticker sticker in list)
+            {
+                System.Console.WriteLine($"  {sticker.Id}\t|  {sticker.Name}");
+                System.Console.WriteLine(new string('-', 100));
+            }
         }
     }
 }

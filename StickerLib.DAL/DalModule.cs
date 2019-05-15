@@ -11,16 +11,18 @@ namespace StickerLib.DAL
         protected override void Load(ContainerBuilder builder)
         {
             // register DbScope
-            builder.RegisterType<IAmbientDbContextLocator>().As<AmbientDbContextLocator>();
-            builder.RegisterType<IDbContextCollection>().As<DbContextCollection>();
-            builder.RegisterType<IDbContextFactory>().As<DbContextFactory>();
-            builder.RegisterType<IDbContextReadOnlyScope>().As<DbContextReadOnlyScope>();
-            builder.RegisterType<IDbContextScope>().As<DbContextScope>();
-            builder.RegisterType<IDbContextScopeFactory>().As<DbContextScopeFactory>();
+            builder.RegisterType<AmbientDbContextLocator>().As<IAmbientDbContextLocator>();
+            builder.RegisterType<DbContextCollection>().As<IDbContextCollection>();
+            builder.RegisterType<DbContextFactory>().As<IDbContextFactory>();
+            builder.RegisterType<DbContextReadOnlyScope>().As<IDbContextReadOnlyScope>();
+            builder.RegisterType<DbContextScope>().As<IDbContextScope>();
+            builder.RegisterType<DbContextScopeFactory>().As<IDbContextScopeFactory>();
             builder.RegisterType<AmbientContextSuppressor>();
 
             // register Repository
-            builder.RegisterType<IRepository<Sticker>>().As<StickerRepository>();
+            builder.RegisterType<StickerRepository>().As<IRepository<Sticker>>();
+
+
 
             base.Load(builder);
         }
