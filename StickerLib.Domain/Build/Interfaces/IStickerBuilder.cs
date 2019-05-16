@@ -7,7 +7,7 @@ namespace StickerLib.Domain.Build.Interfaces
         void DublicatedPages();
         void ShufflePages();
         void NupPages();
-        void SafeDocument();
+        void SafeDocument(bool saveEachFile);
 
         void SetGroup(Group group);
     }

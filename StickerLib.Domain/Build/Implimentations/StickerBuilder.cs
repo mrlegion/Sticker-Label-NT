@@ -40,16 +40,15 @@ namespace StickerLib.Domain.Build.Implimentations
 
         public void ShufflePages()
         {
-            _groupDao.SufflePages = _shuffler.Shuffle(_groupDao.SourcePages, Infrastructure.Common.Properties.GetInstance().Groups,
-                Infrastructure.Common.Properties.GetInstance().ShufflePattern);
+            _groupDao.SufflePages = _shuffler.Shuffle(_groupDao.DublicatedPages, Infrastructure.Common.Properties.GetInstance().Groups);
         }
 
         public void NupPages()
         {
-            _groupDao.NupPages = _nuper.Nup(_groupDao.SourcePages);
+            _groupDao.NupPages = _nuper.Nup(_groupDao.SufflePages);
         }
 
-        public void SafeDocument()
+        public void SafeDocument(bool saveEachFile)
         {
             PdfWriteHelper.WriteToFileWithNup(_groupDao.Group.Stickers, _groupDao.NupPages, _groupDao.File);
         }

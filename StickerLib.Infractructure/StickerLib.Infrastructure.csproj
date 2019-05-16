@@ -44,9 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\AnchorType.cs" />
     <Compile Include="Common\FileExistRuleType.cs" />
-    <Compile Include="Common\OrientationType.cs" />
     <Compile Include="Common\Properties.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="Helpers\AnchorType.cs" />

@@ -1,8 +1,6 @@
 ﻿using System.Windows;
 using StickerLib.Infrastructure.Entities;
 using StickerLib.Infrastructure.Helpers;
-using Anchor = StickerLib.Infrastructure.Common.AnchorType;
-using Orientation = StickerLib.Infrastructure.Common.OrientationType;
 using Setup = StickerLib.UI.Properties.Settings;
 
 namespace StickerLib.UI
@@ -28,8 +26,8 @@ namespace StickerLib.UI
             properties.StickerPageSize = stickerPage;
             properties.PrintPageSize = printPage;
 
-            properties.Anchor = (Anchor) Setup.Default.Anchor;
-            properties.Orientation = (Orientation) Setup.Default.Orientation;
+            properties.Anchor = (AnchorType) Setup.Default.Anchor;
+            properties.Orientation = (OrientationType) Setup.Default.Orientation;
 
             base.OnStartup(e);
         }

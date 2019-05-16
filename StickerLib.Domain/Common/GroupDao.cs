@@ -15,6 +15,7 @@ namespace StickerLib.Domain.Common
             set
             {
                 _group = value;
+                if (SourcePages == null) GenerateSourcePagesArray();
                 if (SourcePages.Length != _group.StickerCountInGroup)
                     GenerateSourcePagesArray();
             }

@@ -11,6 +11,7 @@ using Serilog;
 using StickerLib.Domain.Common;
 using StickerLib.Infrastructure.Common;
 using StickerLib.Infrastructure.Entities;
+using StickerLib.Infrastructure.Helpers;
 using Config = StickerLib.Infrastructure.Common.Properties;
 using Path = System.IO.Path;
 
@@ -39,10 +40,19 @@ namespace StickerLib.Domain.Helpers
 
             using (var document = new PdfDocument(new PdfWriter(info)))
             {
-                var width = Config.GetInstance().PrintPageSize.Width;
-                var height = Config.GetInstance().PrintPageSize.Height;
+                PrintPage documentPrintPage = Config.GetInstance().PrintPageSize;
+                if (Config.GetInstance().Orientation != documentPrintPage.GetOrientation())
+                    documentPrintPage = documentPrintPage.Rotation();
 
-                document.SetDefaultPageSize(new PageSize(width, height));
+                var documentWidth = documentPrintPage.SizeType == SizeType.Mm 
+                    ? documentPrintPage.GetWidthReverse() 
+                    : documentPrintPage.Width;
+
+                var documentHeight = documentPrintPage.SizeType == SizeType.Mm 
+                    ? documentPrintPage.GetHeightReverse() 
+                    : documentPrintPage.Height;
+
+                document.SetDefaultPageSize(new PageSize(documentWidth, documentHeight));
 
                 foreach (Page page in pages)
                 {
@@ -52,14 +62,21 @@ namespace StickerLib.Domain.Helpers
                         for (int cols = 0; cols < Config.GetInstance().Column; cols++)
                         {
                             int index = page.Pages[rows, cols];
+                            if (index == -1) continue;
                             using (var ms = new MemoryStream(stickerList[index].File))
                             {
                                 using (var sticker = new PdfDocument(new PdfReader(ms)))
                                 {
-                                    float x = Config.GetInstance().StickerPageSize.Width * (cols - 1);
-                                    float y = (Config.GetInstance().PrintPageSize.Height -
-                                               Config.GetInstance().StickerPageSize.Height) -
-                                              (Config.GetInstance().StickerPageSize.Height * rows);
+                                    float stickerWidth = Config.GetInstance().StickerPageSize.SizeType == SizeType.Mm
+                                        ? Config.GetInstance().StickerPageSize.GetWidthReverse()
+                                        : Config.GetInstance().StickerPageSize.Width;
+
+                                    float stickerHeight = Config.GetInstance().StickerPageSize.SizeType == SizeType.Mm
+                                        ? Config.GetInstance().StickerPageSize.GetHeightReverse()
+                                        : Config.GetInstance().StickerPageSize.Height;
+
+                                    float x = stickerWidth * cols;
+                                    float y = (documentHeight - stickerHeight) - (stickerHeight * rows);
                                     PdfFormXObject pdfFormXObject = sticker.GetFirstPage().CopyAsFormXObject(document);
                                     canvas.AddXObject(pdfFormXObject, x, y);
                                 }

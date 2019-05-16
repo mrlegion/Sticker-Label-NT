@@ -10,7 +10,7 @@ namespace StickerLib.Domain.Helpers
         public int[] AddEmptyPages(int[] source, int count, int defaultValue = -1)
         {
             Log.Debug("Start adding empty pages");
-            var temp = new List<int>(count);
+            var temp = new List<int>(source);
             for (int i = 0; i < count; i++)
                 temp.Add(defaultValue);
             Log.Debug("Adding pages is end");

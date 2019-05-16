@@ -1,4 +1,5 @@
-﻿using StickerLib.Infrastructure.Helpers;
+﻿using System;
+using StickerLib.Infrastructure.Helpers;
 
 namespace StickerLib.Infrastructure.Entities
 {
@@ -62,6 +63,34 @@ namespace StickerLib.Infrastructure.Entities
                 : Width < Height
                     ? OrientationType.Vertical
                     : OrientationType.None;
+        }
+
+        public float GetWidthReverse()
+        {
+            switch (SizeType)
+            {
+                case SizeType.Pt:
+                    return Width * 0.352778f;
+                case SizeType.Mm:
+                    return Width / 0.352778f;
+                case SizeType.None:
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public float GetHeightReverse()
+        {
+            switch (SizeType)
+            {
+                case SizeType.Pt:
+                    return Height * 0.352778f;
+                case SizeType.Mm:
+                    return Height / 0.352778f;
+                case SizeType.None:
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

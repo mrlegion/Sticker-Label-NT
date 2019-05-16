@@ -14,18 +14,25 @@ namespace StickerLib.Domain.Build
             _builder = builder;
         }
 
-        public void Create(IEnumerable<Group> groups)
+        public void Create(IEnumerable<Group> groups, bool saveEachFile)
         {
             var groupList = groups.ToList();
             foreach (Group group in groupList)
-            {
-                _builder.SetGroup(group);
+                Create(group, saveEachFile);
+        }
 
-                _builder.DublicatedPages();
-                _builder.ShufflePages();
-                _builder.NupPages();
-                _builder.SafeDocument();
-            }
+        public void Create(IEnumerable<Group> groups) => Create(groups, false);
+
+        public void Create(Group group) => Create(group, false);
+
+        public void Create(Group group, bool saveEachFile)
+        {
+            _builder.SetGroup(group);
+
+            _builder.DublicatedPages();
+            _builder.ShufflePages();
+            _builder.NupPages();
+            _builder.SafeDocument(saveEachFile);
         }
     }
 }
