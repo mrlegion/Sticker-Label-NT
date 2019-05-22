@@ -186,6 +186,8 @@
   <ItemGroup>
     <Folder Include="Common\Behaviors\" />
     <Folder Include="Common\Converters\" />
+    <Folder Include="Common\Dialogs\ViewModels\" />
+    <Folder Include="Common\Dialogs\Views\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Icon\data.ico" />
