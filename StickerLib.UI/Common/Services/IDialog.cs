@@ -12,6 +12,6 @@ namespace StickerLib.UI.Common.Services
         bool ShowRequest(string message);
         void ShowLoading(string message, Action callback);
 
-        void ShowDialog(ItemsControl content, string title);
+        void ShowDialog(UserControl content, string title);
     }
 }

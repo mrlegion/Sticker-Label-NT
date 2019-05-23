@@ -1,0 +1,1 @@
+﻿# ReadMe for StickerLib.UI.Common.Dialogs.ViewModels directory

@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="StickerLib.UI.Common.Dialogs.Views.AlertDialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StickerLib.UI.Common.Dialogs.Views"
+             mc:Ignorable="d"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             Background="{DynamicResource MaterialDesignPaper}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="14"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}"
+             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto" d:DesignWidth="400">
+    <Border Background="{DynamicResource ErrorColor}" 
+            BorderThickness="0" >
+        <StackPanel Orientation="Vertical">
+            <!--icon and title-->
+            <StackPanel Orientation="Vertical"
+                        Margin="40 20 40 40">
+                <md:PackIcon Kind="Error" 
+                             Width="60" Height="60"
+                             HorizontalAlignment="Center"
+                             Foreground="{DynamicResource WhiteTextColor}"/>
+                <TextBlock Text="Error heading title"
+                           TextAlignment="Center"
+                           Foreground="{DynamicResource WhiteTextColor}"
+                           Style="{StaticResource MaterialDesignHeadlineTextBlock}"
+                           TextWrapping="Wrap"
+                           Margin="0 10 0 0"/>
+            </StackPanel>
+
+            <TextBlock Text="Mauris eu nibh lacus. Mauris pharetra tortor eget sem pellentesque euismod. In vitae purus tincidunt, porta nisl non, tristique metus. Curabitur aliquet ex erat, sit amet pellentesque tortor consectetur sit amet. Donec tincidunt finibus porta. Donec sit amet malesuada magna. Donec congue id diam posuere volutpat."
+                       TextAlignment="Center"
+                       TextWrapping="Wrap"
+                       FontWeight="Light"
+                       Margin="40 0 40 0"
+                       Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                       Foreground="{DynamicResource WhiteTextColor}"/>
+
+            <Rectangle Fill="{DynamicResource WhiteTextColor}"
+                       Height="1" Margin="0 30 0 0" />
+
+            <Button Style="{StaticResource MaterialDesignFlatButton}"
+                    Content="ACCEPT"
+                    Height="50"
+                    Foreground="{DynamicResource WhiteTextColor}"/>
+        </StackPanel>
+    </Border>
+</UserControl>
