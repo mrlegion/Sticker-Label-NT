@@ -124,6 +124,7 @@
     </Compile>
     <Compile Include="Common\Services\DialogService.cs" />
     <Compile Include="Common\Services\FrameNavigationService.cs" />
+    <Compile Include="Common\Services\IDialog.cs" />
     <Compile Include="Common\Services\IFrameNavigationService.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
@@ -184,13 +185,20 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Common\Behaviors\" />
-    <Folder Include="Common\Converters\" />
     <Folder Include="Common\Dialogs\ViewModels\" />
     <Folder Include="Common\Dialogs\Views\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Icon\data.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Common\Behaviors\readme.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Common\Converters\readme.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Common\Services\readme.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.110.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.110.0\build\net46\System.Data.SQLite.Core.targets')" />
