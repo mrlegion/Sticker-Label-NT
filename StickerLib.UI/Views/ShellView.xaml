@@ -53,5 +53,13 @@
 
         <!--main frame-->
         <Frame Grid.Row="2" x:Name="RootFrame"/>
+
+        <!--dialog host-->
+        <md:DialogHost Grid.Row="0" 
+                       Grid.RowSpan="3"
+                       BorderBrush="Transparent"
+                       BorderThickness="0"
+                       Background="Transparent"
+                       Identifier="AlertDialogHost"/>
     </Grid>
 </Window>

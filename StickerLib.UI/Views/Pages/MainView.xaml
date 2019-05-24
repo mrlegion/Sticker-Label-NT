@@ -14,10 +14,34 @@
       d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
         <TextBlock Style="{StaticResource MaterialDesignDisplay3TextBlock}"
                    Text="Main view"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"/>
+
+        <UniformGrid Grid.Row="1" Columns="4">
+            <Button Content="Show Info dialog" 
+                    Command="{Binding ShowDialogCommand}"
+                    CommandParameter="info"
+                    Style="{StaticResource MaterialDesignFlatAccentButton}"/>
+            <Button Content="Show Success dialog" 
+                    Command="{Binding ShowDialogCommand}"
+                    CommandParameter="success"
+                    Style="{StaticResource MaterialDesignFlatAccentButton}"/>
+            <Button Content="Show Warning dialog" 
+                    Command="{Binding ShowDialogCommand}"
+                    CommandParameter="warning"
+                    Style="{StaticResource MaterialDesignFlatAccentButton}"/>
+            <Button Content="Show Error dialog" 
+                    Command="{Binding ShowDialogCommand}"
+                    CommandParameter="error"
+                    Style="{StaticResource MaterialDesignFlatAccentButton}"/>
+        </UniformGrid>
         
     </Grid>
 </Page>

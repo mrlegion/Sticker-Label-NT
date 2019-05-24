@@ -5,46 +5,63 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StickerLib.UI.Common.Dialogs.Views"
              mc:Ignorable="d"
+             xmlns:converters="clr-namespace:StickerLib.UI.Common.Converters"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-             Background="{DynamicResource MaterialDesignPaper}"
+             Background="{Binding ColorTheme}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="14"
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
-             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto" d:DesignWidth="400">
-    <Border Background="{DynamicResource ErrorColor}" 
-            BorderThickness="0" >
+             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto" MaxWidth="450">
+
+    <UserControl.Resources>
+        <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
+            <Setter Property="Foreground" Value="{StaticResource WhiteTextColor}"/>
+            <Setter Property="Height" Value="50"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="{Binding ColorTheme}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Foreground" Value="{StaticResource WhiteTextColor}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Border>
         <StackPanel Orientation="Vertical">
             <!--icon and title-->
             <StackPanel Orientation="Vertical"
-                        Margin="40 20 40 40">
-                <md:PackIcon Kind="Error" 
+                        Margin="40 20 40 0">
+                <md:PackIcon Kind="{Binding Icon}"
                              Width="60" Height="60"
                              HorizontalAlignment="Center"
                              Foreground="{DynamicResource WhiteTextColor}"/>
-                <TextBlock Text="Error heading title"
+                <TextBlock Text="{Binding Title}"
                            TextAlignment="Center"
                            Foreground="{DynamicResource WhiteTextColor}"
                            Style="{StaticResource MaterialDesignHeadlineTextBlock}"
                            TextWrapping="Wrap"
-                           Margin="0 10 0 0"/>
+                           Visibility="{Binding Title, Converter={StaticResource StringToVisibilityConverter}}"
+                           Margin="0 10 0 20"/>
             </StackPanel>
 
-            <TextBlock Text="Mauris eu nibh lacus. Mauris pharetra tortor eget sem pellentesque euismod. In vitae purus tincidunt, porta nisl non, tristique metus. Curabitur aliquet ex erat, sit amet pellentesque tortor consectetur sit amet. Donec tincidunt finibus porta. Donec sit amet malesuada magna. Donec congue id diam posuere volutpat."
-                       TextAlignment="Center"
+            <TextBlock TextAlignment="Center"
                        TextWrapping="Wrap"
                        FontWeight="Light"
-                       Margin="40 0 40 0"
+                       Text="{Binding Message}"
+                       Visibility="{Binding Message, Converter={StaticResource StringToVisibilityConverter}}"
+                       Margin="40 20 40 20"
                        Style="{StaticResource MaterialDesignCaptionTextBlock}"
                        Foreground="{DynamicResource WhiteTextColor}"/>
 
             <Rectangle Fill="{DynamicResource WhiteTextColor}"
-                       Height="1" Margin="0 30 0 0" />
+                       Height="1" Margin="0 10 0 0" />
 
-            <Button Style="{StaticResource MaterialDesignFlatButton}"
-                    Content="ACCEPT"
-                    Height="50"
-                    Foreground="{DynamicResource WhiteTextColor}"/>
+            <Button Content="ACCEPT"
+                    Command="{x:Static md:DialogHost.CloseDialogCommand}"/>
         </StackPanel>
     </Border>
 </UserControl>

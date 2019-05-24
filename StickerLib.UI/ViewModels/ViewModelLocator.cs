@@ -3,6 +3,7 @@ using Autofac;
 using Autofac.Extras.CommonServiceLocator;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
+using StickerLib.UI.Common.Dialogs.Views;
 using StickerLib.UI.Common.Services;
 using StickerLib.UI.Views;
 using StickerLib.UI.Views.Pages;
@@ -23,6 +24,10 @@ namespace StickerLib.UI.ViewModels
             // register view models
             builder.RegisterType<ShellViewModel>();
             builder.RegisterType<MainViewModel>();
+
+            // dialog
+            builder.RegisterType<DialogService>().As<IDialog>();
+            builder.RegisterType<AlertDialogView>();
 
             // register navigation
             var navigationService = new FrameNavigationService("RootFrame");

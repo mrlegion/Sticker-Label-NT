@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:StickerLib.UI"
              xmlns:vm="clr-namespace:StickerLib.UI.ViewModels"
-             xmlns:vmd="clr-namespace:StickerLib.UI.Common.Dialogs"
              StartupUri="Views/ShellView.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -20,9 +19,6 @@
                     Source="Resources/Colors/ColorDictionary.xaml" />
                 <ResourceDictionary>
                     <vm:ViewModelLocator x:Key="Locator" />
-                </ResourceDictionary>
-                <ResourceDictionary>
-                    <vmd:ViewModelDialogLocator x:Key="DialogLocator"/>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
