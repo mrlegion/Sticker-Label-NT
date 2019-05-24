@@ -30,7 +30,7 @@ namespace StickerLib.UI.Common.Services
             ShowDialog(title, message, PackIconKind.WarningOutline, (SolidColorBrush)Application.Current.Resources["WarningColor"]);
         }
 
-        public bool ShowRequest(string message)
+        public TReturn ShowRequest<TReturn>(string message)
         {
             throw new NotImplementedException();
         }

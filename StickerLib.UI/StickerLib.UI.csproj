@@ -127,6 +127,9 @@
     <Compile Include="Common\Dialogs\Views\AlertDialogView.xaml.cs">
       <DependentUpon>AlertDialogView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\Dialogs\Views\QuestionDialogView.xaml.cs">
+      <DependentUpon>QuestionDialogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Common\Services\DialogService.cs" />
     <Compile Include="Common\Services\FrameNavigationService.cs" />
     <Compile Include="Common\Services\IDialog.cs" />
@@ -184,6 +187,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Common\Dialogs\Views\AlertDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Common\Dialogs\Views\QuestionDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
