@@ -5,7 +5,7 @@
     <SolidColorBrush Color="#FF8F00" x:Key="WarningColor"/>
     <SolidColorBrush Color="#4CAF50" x:Key="SuccessColor"/>
 
-    <SolidColorBrush Color="#B0BEC5" x:Key="GrayTextColor"/>
+    <SolidColorBrush Color="#757575" x:Key="GrayTextColor"/>
     <SolidColorBrush Color="#FAFAFA" x:Key="WhiteTextColor"/>
     <SolidColorBrush Color="#EEEEEE" x:Key="LightGrayColor"/>
 </ResourceDictionary>

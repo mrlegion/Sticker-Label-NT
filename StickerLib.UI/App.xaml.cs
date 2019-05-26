@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using GalaSoft.MvvmLight.Threading;
 using StickerLib.Infrastructure.Entities;
 using StickerLib.Infrastructure.Helpers;
 using Setup = StickerLib.UI.Properties.Settings;
@@ -9,6 +10,8 @@ namespace StickerLib.UI
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            DispatcherHelper.Initialize();
+
             // Inint properties object when we start application
             var properties = Infrastructure.Common.Properties.GetInstance();
             properties.Column = Setup.Default.Columns;

@@ -7,6 +7,7 @@
              mc:Ignorable="d"
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              Background="{DynamicResource MaterialDesignPaper}"
              TextElement.FontWeight="Regular"
@@ -14,24 +15,37 @@
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
              MaxWidth="500">
     <StackPanel Orientation="Vertical">
-        <TextBlock Text="Default title for dialog?"
+        <TextBlock Text="{Binding Title}"
                    Margin="30 20 30 10"
                    TextWrapping="Wrap"
                    Style="{StaticResource MaterialDesignHeadlineTextBlock}"
                    FontWeight="Bold"/>
         <TextBlock Margin="30 10 30 30"
                    TextWrapping="Wrap"
-                   Text="In fermentum, ipsum id convallis porttitor, orci nulla dictum dui, sed tincidunt lacus magna nec nulla. Vivamus porta eros vel est ornare, at faucibus sem malesuada. Nulla cursus urna ex, vel feugiat nulla congue ac. Fusce dictum, eros sit amet rutrum faucibus, sapien justo ornare orci, sit amet pellentesque velit enim at mauris. Mauris eu sem nec massa hendrerit molestie. In elementum nisl non est eleifend, ac cursus diam volutpat. In aliquam nibh a fringilla dapibus. Morbi quis porta elit. Morbi lobortis id orci in placerat. "
+                   Text="{Binding Message}"
                    Foreground="{DynamicResource GrayTextColor}"/>
         <UniformGrid Columns="2"
                      Background="{DynamicResource LightGrayColor}"
                      Height="50">
             <Button Style="{StaticResource MaterialDesignFlatButton}"
-                    Content="ACCEPT"
-                    Height="Auto"/>
+                    Content="{Binding PositiveButtonTitle}"
+                    Command="{x:Static md:DialogHost.CloseDialogCommand}"
+                    Height="Auto"
+                    Padding="20 0">
+                <Button.CommandParameter>
+                    <system:Boolean>True</system:Boolean>
+                </Button.CommandParameter>
+            </Button>
             <Button Style="{StaticResource MaterialDesignFlatButton}"
-                    Content="CANCEL"
-                    Height="Auto"/>
+                    IsCancel="True"
+                    Padding="20 0"
+                    Command="{x:Static md:DialogHost.CloseDialogCommand}"
+                    Content="{Binding NegativeButtonTitle}"
+                    Height="Auto">
+                <Button.CommandParameter>
+                    <system:Boolean>False</system:Boolean>
+                </Button.CommandParameter>
+            </Button>
         </UniformGrid>
     </StackPanel>
 </UserControl>

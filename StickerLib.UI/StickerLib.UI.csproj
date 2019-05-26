@@ -123,9 +123,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common\Converters\StringToVisibilityConverter.cs" />
-    <Compile Include="Common\Dialogs\ViewModels\AlertDialogViewModel.cs" />
+    <Compile Include="Common\Dialogs\Components\LoadingContentVIew.xaml.cs">
+      <DependentUpon>LoadingContentVIew.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Common\Dialogs\Views\AlertDialogView.xaml.cs">
       <DependentUpon>AlertDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Dialogs\Views\ContentDialogView.xaml.cs">
+      <DependentUpon>ContentDialogView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\Dialogs\Views\QuestionDialogView.xaml.cs">
       <DependentUpon>QuestionDialogView.xaml</DependentUpon>
@@ -186,7 +191,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Common\Dialogs\Components\LoadingContentVIew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Common\Dialogs\Views\AlertDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Common\Dialogs\Views\ContentDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

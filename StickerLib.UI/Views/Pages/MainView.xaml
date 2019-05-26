@@ -16,6 +16,9 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
@@ -24,22 +27,48 @@
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"/>
 
-        <UniformGrid Grid.Row="1" Columns="4">
-            <Button Content="Show Info dialog" 
-                    Command="{Binding ShowDialogCommand}"
+        <UniformGrid Grid.Row="1" Columns="5" Margin="0 10">
+            <TextBlock Text="Dialogs box:" VerticalAlignment="Center"
+                       Style="{StaticResource MaterialDesignTitleTextBlock}"
+                       Margin="20 0 0 0"/>
+            <Button Content="Info dialog" 
+                    Command="{Binding ShowAlertDialogCommand}"
                     CommandParameter="info"
                     Style="{StaticResource MaterialDesignFlatAccentButton}"/>
-            <Button Content="Show Success dialog" 
-                    Command="{Binding ShowDialogCommand}"
+            <Button Content="Success dialog" 
+                    Command="{Binding ShowAlertDialogCommand}"
                     CommandParameter="success"
                     Style="{StaticResource MaterialDesignFlatAccentButton}"/>
-            <Button Content="Show Warning dialog" 
-                    Command="{Binding ShowDialogCommand}"
+            <Button Content="Warning dialog" 
+                    Command="{Binding ShowAlertDialogCommand}"
                     CommandParameter="warning"
                     Style="{StaticResource MaterialDesignFlatAccentButton}"/>
-            <Button Content="Show Error dialog" 
-                    Command="{Binding ShowDialogCommand}"
+            <Button Content="Error dialog" 
+                    Command="{Binding ShowAlertDialogCommand}"
                     CommandParameter="error"
+                    Style="{StaticResource MaterialDesignFlatAccentButton}"/>
+        </UniformGrid>
+
+        <UniformGrid Grid.Row="2" Columns="4" Margin="0 10">
+            <TextBlock Text="Question dialogs:" VerticalAlignment="Center"
+                       Style="{StaticResource MaterialDesignTitleTextBlock}"
+                       Margin="20 0 0 0"/>
+            <Button Content="QD with default buttons" 
+                    Command="{Binding ShowQuestionDialogCommand}"
+                    CommandParameter="true"
+                    Style="{StaticResource MaterialDesignFlatAccentButton}"/>
+            <Button Content="QD with custom buttons" 
+                    Command="{Binding ShowQuestionDialogCommand}"
+                    CommandParameter="false"
+                    Style="{StaticResource MaterialDesignFlatAccentButton}"/>
+        </UniformGrid>
+
+        <UniformGrid Grid.Row="3" Columns="4" Margin="0 10">
+            <TextBlock Text="Loading dialogs:" VerticalAlignment="Center"
+                       Style="{StaticResource MaterialDesignTitleTextBlock}"
+                       Margin="20 0 0 0"/>
+            <Button Content="Loading dialog" 
+                    Command="{Binding ShowLoadingDialogCommand}"
                     Style="{StaticResource MaterialDesignFlatAccentButton}"/>
         </UniformGrid>
         
