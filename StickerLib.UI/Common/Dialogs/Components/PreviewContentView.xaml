@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="StickerLib.UI.Common.Dialogs.Components.PreviewContentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StickerLib.UI.Common.Dialogs.Components"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             Background="{DynamicResource MaterialDesignPaper}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="14"
+             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+             mc:Ignorable="d" 
+             MinWidth="350" MaxWidth="550">
+    <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Horizontal" Margin="30 20">
+            <md:PackIcon Kind="CheckCircleOutline"
+                         Width="30" Height="30"
+                         Margin="0 0 10 0"
+                         VerticalAlignment="Center"/>
+            <TextBlock Text="Preview custom title"
+                       Style="{StaticResource MaterialDesignHeadlineTextBlock}"
+                       FontWeight="Bold" 
+                       VerticalAlignment="Center" />
+        </StackPanel>
+        
+        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                   Foreground="{StaticResource GrayTextColor}"
+                   TextWrapping="Wrap"
+                   Margin="30 0 30 20">
+            Nibh dolore praesent ipsum velit dolor duis dolore amet nonummy sed labore tempor dolore lorem sit ex et ex consectetuer te voluptua voluptua amet takimata dolore sanctus consetetur esse ea sed eum sed adipiscing magna aliquyam soluta erat sit rebum sit amet hendrerit doming magna labore consetetur sea ipsum et illum lorem doming aliquyam eirmod amet euismod invidunt sed erat sed soluta veniam lobortis ipsum rebum dolore sit dolor exerci duis vero magna dolor justo amet illum aliquyam duo eos dolore nihil dolor clita diam at sit kasd dolore et ut et eirmod ullamcorper vero autem delenit nonumy nihil sit
+        </TextBlock>
+
+        <Button Content="Accept"
+                Style="{StaticResource MaterialDesignFlatButton}"
+                Height="40"
+                HorizontalAlignment="Right"
+                Padding="30 0"
+                IsCancel="True"
+                IsDefault="True"
+                Margin="30 0 30 10"
+                Command="{x:Static md:DialogHost.CloseDialogCommand}"/>
+    </StackPanel>
+</UserControl>

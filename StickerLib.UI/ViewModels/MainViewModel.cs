@@ -1,6 +1,8 @@
 ﻿using System.Threading;
+using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using StickerLib.UI.Common.Dialogs.Components;
 using StickerLib.UI.Common.Services;
 
 namespace StickerLib.UI.ViewModels
@@ -73,6 +75,20 @@ namespace StickerLib.UI.ViewModels
                 return _showLoadingDialogCommand ?? (_showLoadingDialogCommand = new RelayCommand(() =>
                 {
                     _dialogService.ShowLoading("Example loading dialog message..", () => Thread.Sleep(2000));
+                }));
+            }
+        }
+
+        private RelayCommand _showCustomDialogCommand;
+
+        public RelayCommand ShowCustomDialogCommand
+        {
+            get
+            {
+                return _showCustomDialogCommand ?? (_showCustomDialogCommand = new RelayCommand(() =>
+                {
+                    var content = ServiceLocator.Current.GetInstance<PreviewContentView>();
+                    _dialogService.ShowDialog(content);
                 }));
             }
         }

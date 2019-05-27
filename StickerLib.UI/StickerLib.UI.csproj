@@ -126,6 +126,9 @@
     <Compile Include="Common\Dialogs\Components\LoadingContentVIew.xaml.cs">
       <DependentUpon>LoadingContentVIew.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\Dialogs\Components\PreviewContentView.xaml.cs">
+      <DependentUpon>PreviewContentView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Common\Dialogs\Views\AlertDialogView.xaml.cs">
       <DependentUpon>AlertDialogView.xaml</DependentUpon>
     </Compile>
@@ -192,6 +195,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Common\Dialogs\Components\LoadingContentVIew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Common\Dialogs\Components\PreviewContentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

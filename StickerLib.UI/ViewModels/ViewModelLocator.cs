@@ -31,6 +31,7 @@ namespace StickerLib.UI.ViewModels
             builder.RegisterType<QuestionDialogView>();
             builder.RegisterType<LoadingContentVIew>();
             builder.RegisterType<ContentDialogView>();
+            builder.RegisterType<PreviewContentView>();
 
             // register navigation
             var navigationService = new FrameNavigationService("RootFrame");

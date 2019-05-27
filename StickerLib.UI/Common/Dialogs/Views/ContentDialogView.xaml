@@ -19,9 +19,10 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Loading..."
+        <TextBlock Text="{Binding Title}"
                    Margin="30 20"
                    Grid.Row="0"
+                   Visibility="{Binding Title, Converter={StaticResource StringIsEmptyVisibilityConverter}}"
                    Style="{StaticResource MaterialDesignTitleTextBlock}" />
 
         <Frame Grid.Row="1" Content="{Binding DialogContent}"/>

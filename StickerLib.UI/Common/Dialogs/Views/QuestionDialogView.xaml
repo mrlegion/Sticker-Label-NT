@@ -13,7 +13,7 @@
              TextElement.FontWeight="Regular"
              TextElement.FontSize="14"
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-             MaxWidth="500">
+             MaxWidth="500"> 
     <StackPanel Orientation="Vertical">
         <TextBlock Text="{Binding Title}"
                    Margin="30 20 30 10"
