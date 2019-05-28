@@ -61,7 +61,7 @@ namespace StickerLib.UI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("75")]
+        [global::System.Configuration.DefaultSettingValueAttribute("105")]
         public float StickerPageWidth {
             get {
                 return ((float)(this["StickerPageWidth"]));
@@ -73,7 +73,7 @@ namespace StickerLib.UI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("105")]
+        [global::System.Configuration.DefaultSettingValueAttribute("75")]
         public float StickerPageHeight {
             get {
                 return ((float)(this["StickerPageHeight"]));
@@ -85,7 +85,7 @@ namespace StickerLib.UI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
         public int StickerPageOrientation {
             get {
                 return ((int)(this["StickerPageOrientation"]));
@@ -145,7 +145,7 @@ namespace StickerLib.UI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
         public int Orientation {
             get {
                 return ((int)(this["Orientation"]));

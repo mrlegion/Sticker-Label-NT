@@ -12,13 +12,13 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="StickerPageWidth" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">75</Value>
-    </Setting>
-    <Setting Name="StickerPageHeight" Type="System.Single" Scope="User">
       <Value Profile="(Default)">105</Value>
     </Setting>
+    <Setting Name="StickerPageHeight" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">75</Value>
+    </Setting>
     <Setting Name="StickerPageOrientation" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1</Value>
+      <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="PrintPageWidth" Type="System.Single" Scope="User">
       <Value Profile="(Default)">297</Value>
@@ -33,7 +33,7 @@
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="Orientation" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1</Value>
+      <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="StickerPageName" Type="System.String" Scope="User">
       <Value Profile="(Default)">sticker</Value>
