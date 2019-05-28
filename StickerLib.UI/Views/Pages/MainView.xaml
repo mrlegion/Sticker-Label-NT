@@ -47,7 +47,7 @@
         </ListView>
 
         <!--основные настройки для сборки ярлыков-->
-        <DockPanel Grid.Column="1" Width="500" Margin="40 0 20 0" >
+        <DockPanel Grid.Column="1" Width="500" Margin="40 20 20 10" >
             <Grid DockPanel.Dock="Top" VerticalAlignment="Top" Margin="0 0 0 20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2.5*" />
@@ -108,8 +108,12 @@
                     <md:MaterialDataGridTextColumn Binding="{Binding Name}"
                                                    Header="Group name"
                                                    FontWeight="SemiBold"
-                                                   Width="*"/>
-                    <DataGridTemplateColumn Header="Control" Width="Auto">
+                                                   Width="2.5*"/>
+                    <md:MaterialDataGridTextColumn Binding="{Binding StickerCountInGroup}"
+                                                   Header="Count"
+                                                   FontWeight="SemiBold"
+                                                   Width=".7*"/>
+                    <DataGridTemplateColumn Header="Control" Width="1*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -144,11 +148,11 @@
             <UniformGrid Columns="3"
                          DockPanel.Dock="Bottom"
                          VerticalAlignment="Bottom">
-                <Button Command="{Binding ClearCommand, Mode=OneWay}"
+                <Button Command="{Binding ClearAllCommand, Mode=OneWay}"
                         CommandParameter="{Binding ElementName=StickerListView}"
                         Style="{StaticResource MaterialDesignFlatButton}"
                         Content="Clear all" />
-                <Button Command="{Binding DebugSelectedItemCommand, Mode=OneWay}"
+                <Button Command="{Binding CollectFileCommand, Mode=OneWay}"
                         Style="{StaticResource MaterialDesignFlatButton}"
                         Content="Collects files" />
             </UniformGrid>

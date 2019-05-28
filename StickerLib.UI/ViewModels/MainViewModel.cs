@@ -8,9 +8,12 @@ using System.Collections.ObjectModel;
 using StickerLib.Infrastructure.Entities;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Documents;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Threading;
+using StickerLib.Domain.Build;
 using StickerLib.Domain.Services;
 using StickerLib.Infrastructure;
 
@@ -34,7 +37,23 @@ namespace StickerLib.UI.ViewModels
 
             CViewSource = new CollectionViewSource();
             CViewSource.Filter += NamingFilter;
-            _dialog.ShowLoading("Load data..", OnLoad);
+
+            OnLoadData();
+        }
+
+        private void OnLoadData()
+        {
+            _dialog.ShowLoading("Load data..", () =>
+            {
+                var service = ServiceLocator.Current.GetInstance<IStickerService>();
+                var all = service.GetAll();
+                _stickers = new ObservableCollection<Sticker>(all);
+                DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                {
+                    CViewSource.Source = _stickers;
+                    FilteredItems = CViewSource.View;
+                });
+            });
         }
 
         private int[] GenereteCountList(int step, int count)
@@ -72,18 +91,6 @@ namespace StickerLib.UI.ViewModels
                     args.Accepted = (sticker.Name.IndexOf(SearchName, StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
-        private void OnLoad()
-        {
-            var service = ServiceLocator.Current.GetInstance<IStickerService>();
-            var all = service.GetAll();
-            _stickers = new ObservableCollection<Sticker>(all);
-            DispatcherHelper.CheckBeginInvokeOnUI(() =>
-            {
-                CViewSource.Source = _stickers;
-                FilteredItems = CViewSource.View;
-            });
-        }
-
         private int _count;
 
         public int Count
@@ -100,16 +107,25 @@ namespace StickerLib.UI.ViewModels
             set { Set(nameof(CountList), ref _countList, value); }
         }
 
-        private RelayCommand _addGroupCommand;
+        private RelayCommand<ListView> _addGroupCommand;
 
-        public RelayCommand AddGroupCommand
+        public RelayCommand<ListView> AddGroupCommand
         {
             get
             {
-                return _addGroupCommand ?? (_addGroupCommand = new RelayCommand(() =>
+                return _addGroupCommand ?? (_addGroupCommand = new RelayCommand<ListView>((list) =>
                 {
-                    var group = new Group("Stickers group for " + Count, Count, SelectedItems.Cast<Sticker>());
+                    if (list == null)
+                    {
+                        _dialog.ShowError("Cannot resolve object", "Sending object in command to adding group cannot be resolved, please check your code!");
+                        return;
+                    }
+
+                    var group = new Group("Sticker group for " + Count + " counts", Count,
+                        new List<Sticker>(list.SelectedItems.Cast<Sticker>()));
                     _groups.Add(group);
+                    // clear selection
+                    list.UnselectAll();
                 }));
             }
         }
@@ -121,5 +137,61 @@ namespace StickerLib.UI.ViewModels
             set { Set(nameof(SelectedItems), ref _selectedItems, value); }
         }
 
+        public ObservableCollection<Group> Groups
+        {
+            get { return _groups.Groups; }
+        }
+
+        private RelayCommand<ListView> _clearAllCommand;
+
+        public RelayCommand<ListView> ClearAllCommand
+        {
+            get
+            {
+                return _clearAllCommand ?? (_clearAllCommand = new RelayCommand<ListView>(async (list) =>
+                {
+                    bool request = await _dialog.ShowRequest("Clear all data",
+                        "You really want clear all data? \rUnselect all select stickers\rClear all group collection", "Clear", "Cancel");
+                    if (!request) return;
+                    _groups.Clear();
+                    list.UnselectAll();
+                    Count = 100;
+                    SearchName = string.Empty;
+                }));
+            }
+        }
+
+        private bool _useShuffle;
+
+        public bool UseShuffle
+        {
+            get { return _useShuffle; }
+            set { Set(nameof(UseShuffle), ref _useShuffle, value); }
+        }
+
+        private bool _toPrintPage;
+
+        public bool ToPrintPage
+        {
+            get { return _toPrintPage; }
+            set { Set(nameof(ToPrintPage), ref _toPrintPage, value); }
+        }
+
+        private RelayCommand _collectFileCommand;
+
+        public RelayCommand CollectFileCommand
+        {
+            get
+            {
+                return _collectFileCommand ?? (_collectFileCommand = new RelayCommand(() =>
+                {
+                    _dialog.ShowLoading("Collect sticker files..", () =>
+                    {
+                        var creator = ServiceLocator.Current.GetInstance<Creator>();
+                        creator.Create(new List<Group>(_groups.Groups));
+                    });
+                }));
+            }
+        }
     }
 }

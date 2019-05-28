@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using StickerLib.Infrastructure;
 using StickerLib.Infrastructure.Entities;
@@ -8,11 +9,13 @@ namespace StickerLib.Domain.Services
 {
     public class GroupService : IGroupService
     {
-        private readonly List<Group> _groups;
+        private readonly ObservableCollection<Group> _groups;
+
+        public ObservableCollection<Group> Groups => _groups;
 
         public GroupService()
         {
-            _groups = new List<Group>();
+            _groups = new ObservableCollection<Group>();
         }
 
         public Group Get(int count)
@@ -22,7 +25,7 @@ namespace StickerLib.Domain.Services
 
         public IEnumerable<Group> GetAll()
         {
-            return new List<Group>(_groups);
+            return new ObservableCollection<Group>(_groups);
         }
 
         public void Add(Group group)
@@ -31,7 +34,7 @@ namespace StickerLib.Domain.Services
             {
                 int index = _groups.IndexOf(group);
                 var stickers = _groups[index].Stickers.ToList();
-                foreach (Sticker sticker in stickers)
+                foreach (Sticker sticker in group.Stickers.ToList())
                     if (stickers.Contains(sticker)) continue;
                     else stickers.Add(sticker);
                 _groups[index].Stickers = stickers;
@@ -55,6 +58,11 @@ namespace StickerLib.Domain.Services
         public void Remove(Group group)
         {
             _groups.Remove(group);
+        }
+
+        public void Clear()
+        {
+            _groups.Clear();
         }
     }
 }

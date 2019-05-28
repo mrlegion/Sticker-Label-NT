@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows;
 using System.Configuration;
 using GalaSoft.MvvmLight.Threading;
+using StickerLib.Infrastructure.Common;
 using StickerLib.Infrastructure.Entities;
 using StickerLib.Infrastructure.Helpers;
 using Setup = StickerLib.UI.Properties.Settings;
@@ -34,6 +35,12 @@ namespace StickerLib.UI
 
             properties.Anchor = (AnchorType) Setup.Default.Anchor;
             properties.Orientation = (OrientationType) Setup.Default.Orientation;
+
+            // Todo: init to config file
+            properties.DirectoryForSaving =
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Герр");
+            properties.FileExistRule = FileExistRuleType.Replace;
+            properties.AutoShufflePattern = true;
 
             base.OnStartup(e);
         }
