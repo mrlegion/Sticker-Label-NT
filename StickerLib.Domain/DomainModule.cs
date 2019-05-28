@@ -16,6 +16,7 @@ namespace StickerLib.Domain
 
             builder.RegisterType<PageManager>().As<IPageManager>();
             builder.RegisterType<StickerService>().As<IStickerService>();
+            builder.RegisterType<GroupService>().As<IGroupService>();
 
             builder.RegisterType<Nuper>().As<INuper>();
             builder.RegisterType<Shuffler>().As<IShuffler>();

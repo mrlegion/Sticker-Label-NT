@@ -20,6 +20,22 @@
                 <ResourceDictionary>
                     <vm:ViewModelLocator x:Key="Locator" />
                 </ResourceDictionary>
+                <ResourceDictionary>
+                    <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    </Style>
+                    <Style TargetType="{x:Type DataGrid}" BasedOn="{StaticResource MaterialDesignDataGrid}" x:Key="DataGridBase">
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="IsReadOnly" Value="True"/>
+                        <Setter Property="CanUserAddRows" Value="False"/>
+                        <Setter Property="CanUserSortColumns" Value="True"/>
+                        <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+                        <Setter Property="SelectionUnit" Value="FullRow"/>
+                        <Setter Property="AutoGenerateColumns" Value="False"/>
+                    </Style>
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

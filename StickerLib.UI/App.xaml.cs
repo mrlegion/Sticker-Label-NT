@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.IO;
+using System.Windows;
+using System.Configuration;
 using GalaSoft.MvvmLight.Threading;
 using StickerLib.Infrastructure.Entities;
 using StickerLib.Infrastructure.Helpers;

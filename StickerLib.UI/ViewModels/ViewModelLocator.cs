@@ -2,6 +2,7 @@
 using Autofac;
 using Autofac.Extras.CommonServiceLocator;
 using CommonServiceLocator;
+using StickerLib.Domain;
 using StickerLib.UI.Common.Dialogs.Components;
 using StickerLib.UI.Common.Dialogs.Views;
 using StickerLib.UI.Common.Services;
@@ -16,6 +17,9 @@ namespace StickerLib.UI.ViewModels
         {
             // base init
             var builder = new ContainerBuilder();
+
+            // register module
+            builder.RegisterModule<DomainModule>();
 
             // register views
             builder.RegisterType<ShellView>();

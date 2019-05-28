@@ -1,96 +1,125 @@
-﻿using System.Threading;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using StickerLib.UI.Common.Dialogs.Components;
 using StickerLib.UI.Common.Services;
+using System.Collections.ObjectModel;
+using StickerLib.Infrastructure.Entities;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows.Data;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Threading;
+using StickerLib.Domain.Services;
+using StickerLib.Infrastructure;
 
 namespace StickerLib.UI.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private readonly IDialog _dialogService;
+        private ObservableCollection<Sticker> _stickers;
+        private readonly IDialog _dialog;
+        private ICollectionView _filteredItems;
+        private string _searchName;
+        private readonly IGroupService _groups;
 
-        public MainViewModel(IDialog dialog)
+        public MainViewModel(IDialog dialog, IGroupService groups)
         {
-            _dialogService = dialog;
+            _dialog = dialog;
+            _groups = groups;
+
+            Count = 100;
+            CountList = GenereteCountList(50, 20);
+
+            CViewSource = new CollectionViewSource();
+            CViewSource.Filter += NamingFilter;
+            _dialog.ShowLoading("Load data..", OnLoad);
         }
 
-        private RelayCommand<string> _showDialogCommand;
+        private int[] GenereteCountList(int step, int count)
+        {
+            var list = new List<int>();
+            for (int i = 1; i <= count; i++)
+                list.Add(i * step);
+            return list.ToArray();
+        }
 
-        public RelayCommand<string> ShowAlertDialogCommand
+        private CollectionViewSource CViewSource { get; }
+
+        public ICollectionView FilteredItems
+        {
+            get { return _filteredItems; }
+            set { Set(nameof(FilteredItems), ref _filteredItems, value); }
+        }
+
+        public string SearchName 
+        {
+            get { return _searchName; }
+            set 
+            { 
+                Set(nameof(SearchName), ref _searchName, value); 
+                CViewSource.View.Refresh();
+            }
+        }
+
+        private void NamingFilter(object sender, FilterEventArgs args)
+        {
+            if (args.Item is Sticker sticker)
+                if (string.IsNullOrWhiteSpace(SearchName) || SearchName.Length == 0)
+                    args.Accepted = true;
+                else
+                    args.Accepted = (sticker.Name.IndexOf(SearchName, StringComparison.OrdinalIgnoreCase) >= 0);
+        }
+
+        private void OnLoad()
+        {
+            var service = ServiceLocator.Current.GetInstance<IStickerService>();
+            var all = service.GetAll();
+            _stickers = new ObservableCollection<Sticker>(all);
+            DispatcherHelper.CheckBeginInvokeOnUI(() =>
+            {
+                CViewSource.Source = _stickers;
+                FilteredItems = CViewSource.View;
+            });
+        }
+
+        private int _count;
+
+        public int Count
+        {
+            get { return _count; }
+            set { Set(nameof(Count), ref _count, value); }
+        }
+
+        private int[] _countList;
+
+        public int[] CountList
+        {
+            get { return _countList; }
+            set { Set(nameof(CountList), ref _countList, value); }
+        }
+
+        private RelayCommand _addGroupCommand;
+
+        public RelayCommand AddGroupCommand
         {
             get
             {
-                return _showDialogCommand ?? (_showDialogCommand = new RelayCommand<string>((type) =>
+                return _addGroupCommand ?? (_addGroupCommand = new RelayCommand(() =>
                 {
-                    switch (type)
-                    {
-                        case "info":
-                            _dialogService.ShowInfo("Тестирование инфо диалога", "Someone message");
-                            break;
-                        case "success":
-                            _dialogService.ShowSuccess(null, "This dialog without title");
-                            break;
-                        case "warning":
-                            _dialogService.ShowWarning("test warning", "Warning message");
-                            break;
-                        case "error":
-                            _dialogService.ShowError("Error dialog without text", null);
-                            break;
-                    }
+                    var group = new Group("Stickers group for " + Count, Count, SelectedItems.Cast<Sticker>());
+                    _groups.Add(group);
                 }));
             }
         }
 
-        private RelayCommand<string> _showQuestionDialogCommand;
-
-        public RelayCommand<string> ShowQuestionDialogCommand
+        private IList _selectedItems;
+        public IList SelectedItems
         {
-            get
-            {
-                return _showQuestionDialogCommand ?? (_showQuestionDialogCommand = new RelayCommand<string>((type) =>
-                {
-                    switch (type)
-                    {
-                        case "true":
-                            _dialogService.ShowRequest("You realy need this view?",
-                                "Here use default view and content for control buttons");
-                            break;
-                        case "false":
-                            _dialogService.ShowRequest("How you to this view?", "Here using custom naming to buttons",
-                                "Cool!", "FUUUUUUU!");
-                            break;
-                    }
-                }));
-            }
+            get { return _selectedItems; }
+            set { Set(nameof(SelectedItems), ref _selectedItems, value); }
         }
 
-        private RelayCommand _showLoadingDialogCommand;
-
-        public RelayCommand ShowLoadingDialogCommand
-        {
-            get
-            {
-                return _showLoadingDialogCommand ?? (_showLoadingDialogCommand = new RelayCommand(() =>
-                {
-                    _dialogService.ShowLoading("Example loading dialog message..", () => Thread.Sleep(2000));
-                }));
-            }
-        }
-
-        private RelayCommand _showCustomDialogCommand;
-
-        public RelayCommand ShowCustomDialogCommand
-        {
-            get
-            {
-                return _showCustomDialogCommand ?? (_showCustomDialogCommand = new RelayCommand(() =>
-                {
-                    var content = ServiceLocator.Current.GetInstance<PreviewContentView>();
-                    _dialogService.ShowDialog(content);
-                }));
-            }
-        }
     }
 }

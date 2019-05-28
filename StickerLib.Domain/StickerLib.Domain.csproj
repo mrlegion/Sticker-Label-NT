@@ -127,6 +127,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Services\GroupService.cs" />
+    <Compile Include="Services\IGroupService.cs" />
     <Compile Include="Services\IStickerService.cs" />
     <Compile Include="Services\StickerService.cs" />
   </ItemGroup>
