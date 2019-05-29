@@ -145,10 +145,20 @@
     <Compile Include="Common\Services\FrameNavigationService.cs" />
     <Compile Include="Common\Services\IDialog.cs" />
     <Compile Include="Common\Services\IFrameNavigationService.cs" />
+    <Compile Include="ViewModels\GroupEditViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\ViewModelCustom.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\GroupWindow.xaml.cs">
+      <DependentUpon>GroupWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\GroupAddListView.xaml.cs">
+      <DependentUpon>GroupAddListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\GroupEditView.xaml.cs">
+      <DependentUpon>GroupEditView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -218,6 +228,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Colors\ColorDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GroupWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\GroupAddListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\GroupEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -35,6 +35,9 @@ namespace StickerLib.UI.Common.Services
         {
             get { return _historic.Count > 1; }
         }
+
+        public Window MainWindow { private get; set; }
+
         public void NavigateTo(string pageKey)
         {
             NavigateTo(pageKey, null);
@@ -45,7 +48,7 @@ namespace StickerLib.UI.Common.Services
             lock (_pagesByKey)
             {
                 if (!_pagesByKey.ContainsKey(pageKey)) throw new ArgumentException($"No such page: {pageKey}", "pageKey");
-                if (GetDescendantFromName(Application.Current.MainWindow, FrameName) is Frame frame)
+                if (GetDescendantFromName(MainWindow, FrameName) is Frame frame)
                     frame.Source = _pagesByKey[pageKey];
                 Parameter = parameter;
                 _historic.Push(pageKey);

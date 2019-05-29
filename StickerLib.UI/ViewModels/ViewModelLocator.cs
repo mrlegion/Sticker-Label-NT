@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using Autofac;
 using Autofac.Extras.CommonServiceLocator;
 using CommonServiceLocator;
@@ -15,6 +16,8 @@ namespace StickerLib.UI.ViewModels
     {
         static ViewModelLocator()
         {
+            IContainer container;
+
             // base init
             var builder = new ContainerBuilder();
 
@@ -22,12 +25,16 @@ namespace StickerLib.UI.ViewModels
             builder.RegisterModule<DomainModule>();
 
             // register views
-            builder.RegisterType<ShellView>();
+            builder.RegisterType<ShellView>().SingleInstance();
             builder.RegisterType<MainView>();
+            builder.RegisterType<GroupWindow>();
+            builder.RegisterType<GroupEditView>();
 
             // register view models
             builder.RegisterType<ShellViewModel>();
             builder.RegisterType<MainViewModel>();
+            builder.RegisterType<GroupEditViewModel>();
+            builder.RegisterType<GroupAddListView>();
 
             // dialog
             builder.RegisterType<DialogService>().As<IDialog>();
@@ -38,13 +45,18 @@ namespace StickerLib.UI.ViewModels
             builder.RegisterType<PreviewContentView>();
 
             // register navigation
-            var navigationService = new FrameNavigationService("RootFrame");
-            navigationService.Configure("main", new Uri("..\\Views\\Pages\\MainView.xaml", UriKind.Relative));
+            var rootNavigationService = new FrameNavigationService("RootFrame");
+            rootNavigationService.Configure("main", new Uri("..\\Views\\Pages\\MainView.xaml", UriKind.Relative));
+            builder.Register(c => rootNavigationService).Named<IFrameNavigationService>("Root");
 
-            builder.Register(c => navigationService).As<IFrameNavigationService>();
+            // group navigation service
+            var groupNavigationService = new FrameNavigationService("GroupFrame");
+            groupNavigationService.Configure("groupEdit", new Uri("..\\Views\\Pages\\GroupEditView.xaml", UriKind.Relative));
+            groupNavigationService.Configure("groupList", new Uri("..\\Views\\Pages\\GroupAddListView.xaml", UriKind.Relative));
+            builder.Register(c => groupNavigationService).Named<IFrameNavigationService>("Group");
 
             // register ioc
-            var container = builder.Build();
+            container = builder.Build();
             ServiceLocator.SetLocatorProvider(() => new AutofacServiceLocator(container));
         }
 
@@ -56,6 +68,11 @@ namespace StickerLib.UI.ViewModels
         public MainViewModel Main
         {
             get { return ServiceLocator.Current.GetInstance<MainViewModel>(); }
+        }
+
+        public GroupEditViewModel GroupEdit
+        {
+            get { return ServiceLocator.Current.GetInstance<GroupEditViewModel>(); }
         }
     }
 }

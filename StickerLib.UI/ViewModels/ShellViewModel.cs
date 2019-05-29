@@ -4,7 +4,7 @@ namespace StickerLib.UI.ViewModels
 {
     public class ShellViewModel : ViewModelCustom
     {
-        public ShellViewModel(IFrameNavigationService navigationService) : base(navigationService) 
+        public ShellViewModel()
         {
             Title = Properties.Settings.Default.TitleForApplication;
         }

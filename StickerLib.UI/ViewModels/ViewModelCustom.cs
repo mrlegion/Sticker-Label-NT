@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Windows;
+using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using StickerLib.UI.Common.Services;
@@ -9,9 +11,10 @@ namespace StickerLib.UI.ViewModels
     {
         protected readonly IFrameNavigationService NavigationService;
 
-        public ViewModelCustom(IFrameNavigationService navigationService)
+        public ViewModelCustom()
         {
-            NavigationService = navigationService;
+            NavigationService = ServiceLocator.Current.GetInstance<IFrameNavigationService>("Root");
+            NavigationService.MainWindow = Application.Current.MainWindow;
         }
 
         private RelayCommand<string> _navigateToCommand;
