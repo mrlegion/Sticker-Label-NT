@@ -8,5 +8,6 @@
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
     <Frame x:Name="GroupFrame"
-           Content="{Binding ViewContent}"></Frame>
+           NavigationUIVisibility="Hidden"
+           Content="{Binding ViewContent}"/>
 </Window>

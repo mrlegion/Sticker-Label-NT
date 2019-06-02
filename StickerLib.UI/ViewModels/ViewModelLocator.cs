@@ -29,12 +29,17 @@ namespace StickerLib.UI.ViewModels
             builder.RegisterType<MainView>();
             builder.RegisterType<GroupWindow>();
             builder.RegisterType<GroupEditView>();
+            builder.RegisterType<GroupAddListView>();
+            builder.RegisterType<PreferenceWindow>();
+            builder.RegisterType<LibraryView>();
+            builder.RegisterType<LibraryWindow>();
 
             // register view models
             builder.RegisterType<ShellViewModel>();
             builder.RegisterType<MainViewModel>();
             builder.RegisterType<GroupEditViewModel>();
-            builder.RegisterType<GroupAddListView>();
+            builder.RegisterType<PreferenceViewModel>();
+            builder.RegisterType<LibraryViewModel>();
 
             // dialog
             builder.RegisterType<DialogService>().As<IDialog>();
@@ -55,6 +60,11 @@ namespace StickerLib.UI.ViewModels
             groupNavigationService.Configure("groupList", new Uri("..\\Views\\Pages\\GroupAddListView.xaml", UriKind.Relative));
             builder.Register(c => groupNavigationService).Named<IFrameNavigationService>("Group");
 
+            // library navigation service
+            var libraryNavigationService = new FrameNavigationService("LibraryFrame");
+            libraryNavigationService.Configure("library", new Uri("..\\Views\\Pages\\LibraryView.xaml", UriKind.Relative));
+            builder.Register(c => libraryNavigationService).Named<IFrameNavigationService>("Library");
+
             // register ioc
             container = builder.Build();
             ServiceLocator.SetLocatorProvider(() => new AutofacServiceLocator(container));
@@ -73,6 +83,16 @@ namespace StickerLib.UI.ViewModels
         public GroupEditViewModel GroupEdit
         {
             get { return ServiceLocator.Current.GetInstance<GroupEditViewModel>(); }
+        }
+
+        public PreferenceViewModel Preference
+        {
+            get { return ServiceLocator.Current.GetInstance<PreferenceViewModel>(); }
+        }
+
+        public LibraryViewModel Library
+        {
+            get { return ServiceLocator.Current.GetInstance<LibraryViewModel>(); }
         }
     }
 }

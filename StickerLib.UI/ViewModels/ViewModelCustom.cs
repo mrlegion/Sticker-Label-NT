@@ -9,7 +9,7 @@ namespace StickerLib.UI.ViewModels
 {
     public class ViewModelCustom : ViewModelBase
     {
-        protected readonly IFrameNavigationService NavigationService;
+        protected IFrameNavigationService NavigationService;
 
         public ViewModelCustom()
         {

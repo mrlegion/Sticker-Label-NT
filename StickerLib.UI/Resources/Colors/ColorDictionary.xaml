@@ -6,6 +6,9 @@
     <SolidColorBrush Color="#4CAF50" x:Key="SuccessColor"/>
 
     <SolidColorBrush Color="#757575" x:Key="GrayTextColor"/>
+    <SolidColorBrush Color="#CFD8DC" x:Key="MidGrayTextColor"/>
     <SolidColorBrush Color="#FAFAFA" x:Key="WhiteTextColor"/>
     <SolidColorBrush Color="#EEEEEE" x:Key="LightGrayColor"/>
+    <SolidColorBrush Color="#263238" x:Key="DarkColorBg"/>
+    <SolidColorBrush Color="#455A64" x:Key="LightDarkColorBg"/>
 </ResourceDictionary>

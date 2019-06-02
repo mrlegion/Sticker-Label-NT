@@ -1,0 +1,36 @@
+﻿<Window x:Class="StickerLib.UI.Views.PreferenceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Title="Preferences" Height="500" Width="700"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        DataContext="{Binding Preference, Source={StaticResource Locator}}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <TextBlock Text="Preferences window"
+                   Style="{StaticResource MaterialDesignDisplay3TextBlock}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontWeight="SemiBold"
+                   Grid.Row="0" />
+        <Button Grid.Row="1"
+                Content="Exit on preference"
+                Margin="10"
+                HorizontalAlignment="Right"
+                Command="{Binding CloseWindowCommand, Mode=OneWay}"
+                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+    </Grid>
+</Window>

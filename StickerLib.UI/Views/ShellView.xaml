@@ -33,7 +33,10 @@
                 <MenuItem Header="Exit"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Edit">
-                <MenuItem Header="_Preferences"></MenuItem>
+                <MenuItem Header="_Open Library"
+                          Command="{Binding OpenLibraryCommand, Mode=OneWay}"/>
+                <MenuItem Header="_Preferences"
+                          Command="{Binding OpenPreferenceCommand, Mode=OneWay}"/>
             </MenuItem>
             <MenuItem Header="_Help">
                 <MenuItem Header="FAQ"></MenuItem>
@@ -52,7 +55,7 @@
         </ToolBarTray>
 
         <!--main frame-->
-        <Frame Grid.Row="2" x:Name="RootFrame"/>
+        <Frame Grid.Row="2" x:Name="RootFrame" NavigationUIVisibility="Hidden"/>
 
         <!--dialog host-->
         <md:DialogHost Grid.Row="0" 

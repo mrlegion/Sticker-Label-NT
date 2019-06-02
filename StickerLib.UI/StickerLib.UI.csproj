@@ -146,12 +146,17 @@
     <Compile Include="Common\Services\IDialog.cs" />
     <Compile Include="Common\Services\IFrameNavigationService.cs" />
     <Compile Include="ViewModels\GroupEditViewModel.cs" />
+    <Compile Include="ViewModels\LibraryViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\PreferenceViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\ViewModelCustom.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\GroupWindow.xaml.cs">
       <DependentUpon>GroupWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LibraryWindow.xaml.cs">
+      <DependentUpon>LibraryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\GroupAddListView.xaml.cs">
       <DependentUpon>GroupAddListView.xaml</DependentUpon>
@@ -159,8 +164,14 @@
     <Compile Include="Views\Pages\GroupEditView.xaml.cs">
       <DependentUpon>GroupEditView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\LibraryView.xaml.cs">
+      <DependentUpon>LibraryView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PreferenceWindow.xaml.cs">
+      <DependentUpon>PreferenceWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
@@ -235,6 +246,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\LibraryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\GroupAddListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -243,7 +258,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\LibraryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PreferenceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
