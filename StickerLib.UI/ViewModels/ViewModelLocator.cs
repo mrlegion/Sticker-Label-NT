@@ -31,15 +31,23 @@ namespace StickerLib.UI.ViewModels
             builder.RegisterType<GroupEditView>();
             builder.RegisterType<GroupAddListView>();
             builder.RegisterType<PreferenceWindow>();
-            builder.RegisterType<LibraryView>();
+
+            // register library window
             builder.RegisterType<LibraryWindow>();
+            builder.RegisterType<LibraryView>();
+            builder.RegisterType<LibraryViewModel>();
+            builder.RegisterType<LibraryAddStickerView>();
+            builder.RegisterType<LibraryAddStickerViewModel>();
+            builder.RegisterType<LibraryAddStickerListView>();
+            builder.RegisterType<LibraryAddStickerListViewModel>();
+            builder.RegisterType<LibraryBackupView>();
+            builder.RegisterType<LibraryBackupViewModel>();
 
             // register view models
             builder.RegisterType<ShellViewModel>();
             builder.RegisterType<MainViewModel>();
             builder.RegisterType<GroupEditViewModel>();
             builder.RegisterType<PreferenceViewModel>();
-            builder.RegisterType<LibraryViewModel>();
 
             // dialog
             builder.RegisterType<DialogService>().As<IDialog>();
@@ -63,6 +71,9 @@ namespace StickerLib.UI.ViewModels
             // library navigation service
             var libraryNavigationService = new FrameNavigationService("LibraryFrame");
             libraryNavigationService.Configure("library", new Uri("..\\Views\\Pages\\LibraryView.xaml", UriKind.Relative));
+            libraryNavigationService.Configure("add", new Uri("..\\Views\\Pages\\LibraryAddStickerView.xaml", UriKind.Relative));
+            libraryNavigationService.Configure("addList", new Uri("..\\Views\\Pages\\LibraryAddStickerListView.xaml", UriKind.Relative));
+            libraryNavigationService.Configure("backup", new Uri("..\\Views\\Pages\\LibraryBackupView.xaml", UriKind.Relative));
             builder.Register(c => libraryNavigationService).Named<IFrameNavigationService>("Library");
 
             // register ioc
@@ -93,6 +104,21 @@ namespace StickerLib.UI.ViewModels
         public LibraryViewModel Library
         {
             get { return ServiceLocator.Current.GetInstance<LibraryViewModel>(); }
+        }
+
+        public LibraryAddStickerViewModel LibraryAddSticker
+        {
+            get { return ServiceLocator.Current.GetInstance<LibraryAddStickerViewModel>(); }
+        }
+
+        public LibraryAddStickerListViewModel LibraryAddStickers
+        {
+            get { return ServiceLocator.Current.GetInstance<LibraryAddStickerListViewModel>(); }
+        }
+
+        public LibraryBackupViewModel LibraryBackup
+        {
+            get { return ServiceLocator.Current.GetInstance<LibraryBackupViewModel>(); }
         }
     }
 }

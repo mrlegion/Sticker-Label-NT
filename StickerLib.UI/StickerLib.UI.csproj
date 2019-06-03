@@ -146,6 +146,9 @@
     <Compile Include="Common\Services\IDialog.cs" />
     <Compile Include="Common\Services\IFrameNavigationService.cs" />
     <Compile Include="ViewModels\GroupEditViewModel.cs" />
+    <Compile Include="ViewModels\LibraryAddStickerListViewModel.cs" />
+    <Compile Include="ViewModels\LibraryAddStickerViewModel.cs" />
+    <Compile Include="ViewModels\LibraryBackupViewModel.cs" />
     <Compile Include="ViewModels\LibraryViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PreferenceViewModel.cs" />
@@ -163,6 +166,15 @@
     </Compile>
     <Compile Include="Views\Pages\GroupEditView.xaml.cs">
       <DependentUpon>GroupEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\LibraryAddStickerListView.xaml.cs">
+      <DependentUpon>LibraryAddStickerListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\LibraryAddStickerView.xaml.cs">
+      <DependentUpon>LibraryAddStickerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\LibraryBackupView.xaml.cs">
+      <DependentUpon>LibraryBackupView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\LibraryView.xaml.cs">
       <DependentUpon>LibraryView.xaml</DependentUpon>
@@ -255,6 +267,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\GroupEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\LibraryAddStickerListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\LibraryAddStickerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\LibraryBackupView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
