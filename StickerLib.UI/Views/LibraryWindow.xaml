@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        DataContext="{Binding Library, Source={StaticResource Locator}}"
+        DataContext="{Binding LibraryWindow, Source={StaticResource Locator}}"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ml="http://www.galasoft.ch/mvvmlight"
         Title="Library Db control"
@@ -48,7 +48,8 @@
         <!--library main frame-->
         <Frame Grid.Row="1"
                Grid.Column="0"
-               x:Name="LibraryFrame" />
+               x:Name="LibraryFrame" 
+               NavigationUIVisibility="Hidden" />
 
         <!--library control toolbar-->
         <md:ColorZone Grid.Row="0" Mode="Light">

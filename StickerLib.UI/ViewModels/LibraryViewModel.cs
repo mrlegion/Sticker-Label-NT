@@ -19,6 +19,11 @@ namespace StickerLib.UI.ViewModels
         {
             _dialog = dialog;
             NavigationService = ServiceLocator.Current.GetInstance<IFrameNavigationService>("Library");
+            Window main = Application.Current.MainWindow;
+            if (main != null)
+                foreach (Window window in main.OwnedWindows)
+                    if (window.GetType() == typeof(LibraryWindow))
+                        NavigationService.MainWindow = window;
             _stickers = new ObservableCollection<Sticker>();
 
             OnLoadData();

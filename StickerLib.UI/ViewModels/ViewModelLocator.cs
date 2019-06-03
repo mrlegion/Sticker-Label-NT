@@ -34,6 +34,7 @@ namespace StickerLib.UI.ViewModels
 
             // register library window
             builder.RegisterType<LibraryWindow>();
+            builder.RegisterType<LibraryWindowViewModel>();
             builder.RegisterType<LibraryView>();
             builder.RegisterType<LibraryViewModel>();
             builder.RegisterType<LibraryAddStickerView>();
@@ -119,6 +120,11 @@ namespace StickerLib.UI.ViewModels
         public LibraryBackupViewModel LibraryBackup
         {
             get { return ServiceLocator.Current.GetInstance<LibraryBackupViewModel>(); }
+        }
+
+        public LibraryWindowViewModel LibraryWindow
+        {
+            get { return ServiceLocator.Current.GetInstance<LibraryWindowViewModel>(); }
         }
     }
 }

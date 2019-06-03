@@ -47,6 +47,7 @@ namespace StickerLib.UI.ViewModels
                 {
                     LibraryWindow library = ServiceLocator.Current.GetInstance<LibraryWindow>();
                     library.Owner = Application.Current.MainWindow;
+                    library.DataContext = ServiceLocator.Current.GetInstance<LibraryWindowViewModel>();
                     library.ShowDialog();
                 }));
             }

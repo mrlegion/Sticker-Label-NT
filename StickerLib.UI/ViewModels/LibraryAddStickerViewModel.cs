@@ -2,7 +2,7 @@
 
 namespace StickerLib.UI.ViewModels
 {
-    public class LibraryAddStickerViewModel : ViewModelBase
+    public class LibraryAddStickerViewModel : ViewModelLibrary
     {
     }
 }

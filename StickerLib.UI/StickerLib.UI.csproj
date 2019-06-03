@@ -150,10 +150,12 @@
     <Compile Include="ViewModels\LibraryAddStickerViewModel.cs" />
     <Compile Include="ViewModels\LibraryBackupViewModel.cs" />
     <Compile Include="ViewModels\LibraryViewModel.cs" />
+    <Compile Include="ViewModels\LibraryWindowViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PreferenceViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\ViewModelCustom.cs" />
+    <Compile Include="ViewModels\ViewModelLibrary.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\GroupWindow.xaml.cs">
       <DependentUpon>GroupWindow.xaml</DependentUpon>
