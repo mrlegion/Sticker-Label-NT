@@ -47,4 +47,25 @@ namespace StickerLib.UI.ViewModels
             }
         }
     }
+
+    public abstract class ViewModel
+    {
+        protected IFrameNavigationService NavigationService;
+
+        private RelayCommand<string> _navigateToCommand;
+
+        public  RelayCommand<string> NavigateToCommand
+        {
+            get
+            {
+                return _navigateToCommand ?? (_navigateToCommand = new RelayCommand<string>((page) =>
+                {
+                    if (string.IsNullOrEmpty(page) || string.IsNullOrWhiteSpace(page))
+                        throw new ArgumentNullException(nameof(page), "Navigation page name cannot be empty or null!");
+
+                    NavigationService.NavigateTo(page);
+                }));
+            }
+        }
+    }
 }

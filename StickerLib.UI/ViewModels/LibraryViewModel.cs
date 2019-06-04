@@ -1,9 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using CommonServiceLocator;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Threading;
 using StickerLib.Domain.Services;
 using StickerLib.Infrastructure.Entities;
 using StickerLib.UI.Common.Services;
@@ -11,25 +9,17 @@ using StickerLib.UI.Views;
 
 namespace StickerLib.UI.ViewModels
 {
-    public class LibraryViewModel : ViewModelCustom
+    public class LibraryViewModel : ViewModelLibrary
     {
         private readonly IDialog _dialog;
 
         public LibraryViewModel(IDialog dialog)
         {
             _dialog = dialog;
-            NavigationService = ServiceLocator.Current.GetInstance<IFrameNavigationService>("Library");
-            Window main = Application.Current.MainWindow;
-            if (main != null)
-                foreach (Window window in main.OwnedWindows)
-                    if (window.GetType() == typeof(LibraryWindow))
-                        NavigationService.MainWindow = window;
-            _stickers = new ObservableCollection<Sticker>();
-
             OnLoadData();
         }
 
-        private void OnLoadData()
+        private void OnLoadData ()
         {
             _dialog.ShowLoading("Load data for database..", () =>
             {
