@@ -69,6 +69,12 @@
                        BorderBrush="Transparent"
                        BorderThickness="0"
                        Background="Transparent"
+                       Identifier="LoadingDialogHost"/>
+        <md:DialogHost Grid.Row="0" 
+                       Grid.RowSpan="3"
+                       BorderBrush="Transparent"
+                       BorderThickness="0"
+                       Background="Transparent"
                        Identifier="CustomDialogHost"/>
     </Grid>
 </Window>

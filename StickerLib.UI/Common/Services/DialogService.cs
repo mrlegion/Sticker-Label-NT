@@ -26,7 +26,8 @@ namespace StickerLib.UI.Common.Services
 
         public void ShowInfo(string title, string message, string identifier)
         {
-            ShowDialog(title, message, PackIconKind.InformationOutline, (SolidColorBrush)Application.Current.Resources["InfoColor"], identifier);
+            ShowDialog(title, message, PackIconKind.InformationOutline,
+                (SolidColorBrush) Application.Current.Resources["InfoColor"], identifier);
         }
 
         /// <summary>
@@ -41,7 +42,8 @@ namespace StickerLib.UI.Common.Services
 
         public void ShowSuccess(string title, string message, string identifier)
         {
-            ShowDialog(title, message, PackIconKind.CheckCircleOutline, (SolidColorBrush)Application.Current.Resources["SuccessColor"], identifier);
+            ShowDialog(title, message, PackIconKind.CheckCircleOutline,
+                (SolidColorBrush) Application.Current.Resources["SuccessColor"], identifier);
         }
 
         /// <summary>
@@ -56,7 +58,8 @@ namespace StickerLib.UI.Common.Services
 
         public void ShowError(string title, string message, string identifier)
         {
-            ShowDialog(title, message, PackIconKind.ErrorOutline, (SolidColorBrush)Application.Current.Resources["ErrorColor"], identifier);
+            ShowDialog(title, message, PackIconKind.ErrorOutline,
+                (SolidColorBrush) Application.Current.Resources["ErrorColor"], identifier);
         }
 
         /// <summary>
@@ -71,7 +74,8 @@ namespace StickerLib.UI.Common.Services
 
         public void ShowWarning(string title, string message, string identifier)
         {
-            ShowDialog(title, message, PackIconKind.WarningOutline, (SolidColorBrush)Application.Current.Resources["WarningColor"], identifier);
+            ShowDialog(title, message, PackIconKind.WarningOutline,
+                (SolidColorBrush) Application.Current.Resources["WarningColor"], identifier);
         }
 
         /// <summary>
@@ -81,24 +85,24 @@ namespace StickerLib.UI.Common.Services
         /// <param name="callback">Action for work in other thread</param>
         public void ShowLoading(string message, Action callback)
         {
-            ShowLoading(message, callback, "AlertDialogHost");
+            ShowLoading(message, callback, "LoadingDialogHost");
         }
 
         public async void ShowLoading(string message, Action callback, string identifier)
         {
-            LoadingContentVIew content = ServiceLocator.Current.GetInstance<LoadingContentVIew>();
+            var content = ServiceLocator.Current.GetInstance<LoadingContentVIew>();
             content.Message = message;
-            ContentDialogView dialogContent = ServiceLocator.Current.GetInstance<ContentDialogView>();
+            var dialogContent = ServiceLocator.Current.GetInstance<ContentDialogView>();
             dialogContent.DialogContent = content;
             dialogContent.Title = "Loading..";
             await DialogHost.Show(dialogContent, identifier, delegate(object sender, DialogOpenedEventArgs args)
+            {
+                ThreadPool.QueueUserWorkItem(state =>
                 {
-                    ThreadPool.QueueUserWorkItem(state =>
-                    {
-                        callback.Invoke();
-                        DispatcherHelper.CheckBeginInvokeOnUI(() => args.Session.Close(true));
-                    });
+                    callback.Invoke();
+                    DispatcherHelper.CheckBeginInvokeOnUI(() => args.Session.Close(true));
                 });
+            });
         }
 
         public void ShowDialog(UserControl content)
@@ -113,7 +117,7 @@ namespace StickerLib.UI.Common.Services
 
         public async void ShowDialog(UserControl content, string title, string identifier)
         {
-            ContentDialogView dialogContent = ServiceLocator.Current.GetInstance<ContentDialogView>();
+            var dialogContent = ServiceLocator.Current.GetInstance<ContentDialogView>();
             dialogContent.DialogContent = content;
             dialogContent.Title = title;
             await DialogHost.Show(dialogContent, identifier);
@@ -124,9 +128,10 @@ namespace StickerLib.UI.Common.Services
             ShowDialog(title, message, icon, theme, "AlertDialogHost");
         }
 
-        public async void ShowDialog(string title, string message, PackIconKind icon, SolidColorBrush theme, string identifier)
+        public async void ShowDialog(string title, string message, PackIconKind icon, SolidColorBrush theme,
+            string identifier)
         {
-            AlertDialogView content = ServiceLocator.Current.GetInstance<AlertDialogView>();
+            var content = ServiceLocator.Current.GetInstance<AlertDialogView>();
             content.ColorTheme = theme;
             content.Title = title;
             content.Message = message;
@@ -140,18 +145,20 @@ namespace StickerLib.UI.Common.Services
         }
 
         public async Task<bool> ShowRequest(string title, string message, string identifier)
-        {
+        { 
             return await ShowRequest(title, message, "ACCEPT", "CANCEL", identifier);
         }
 
-        public async Task<bool> ShowRequest(string title, string message, string positiveButtonTitle, string negativeButtonTitle)
+        public async Task<bool> ShowRequest(string title, string message, string positiveButtonTitle,
+            string negativeButtonTitle)
         {
             return await ShowRequest(title, message, positiveButtonTitle, negativeButtonTitle, "AlertDialogHost");
         }
 
-        public async Task<bool> ShowRequest(string title, string message, string positiveButtonTitle, string negativeButtonTitle, string identifier)
+        public async Task<bool> ShowRequest(string title, string message, string positiveButtonTitle,
+            string negativeButtonTitle, string identifier)
         {
-            QuestionDialogView content = ServiceLocator.Current.GetInstance<QuestionDialogView>();
+            var content = ServiceLocator.Current.GetInstance<QuestionDialogView>();
             content.Title = title;
             content.Message = message;
             content.PositiveButtonTitle = positiveButtonTitle;

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StickerLib.UI.Common.Dialogs.Views"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d"
              xmlns:converters="clr-namespace:StickerLib.UI.Common.Converters"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -50,18 +51,21 @@
 
             <TextBlock TextAlignment="Center"
                        TextWrapping="Wrap"
-                       FontWeight="Light"
                        Text="{Binding Message}"
                        Visibility="{Binding Message, Converter={StaticResource StringToVisibilityConverter}}"
                        Margin="40 20 40 20"
-                       Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                       Style="{StaticResource MaterialDesignSubheadingTextBlock}"
                        Foreground="{DynamicResource WhiteTextColor}"/>
 
             <Rectangle Fill="{DynamicResource WhiteTextColor}"
                        Height="1" Margin="0 10 0 0" />
 
             <Button Content="ACCEPT"
-                    Command="{x:Static md:DialogHost.CloseDialogCommand}"/>
+                    Command="{x:Static md:DialogHost.CloseDialogCommand}">
+                <Button.CommandParameter>
+                    <system:Boolean>False</system:Boolean>
+                </Button.CommandParameter>
+            </Button>
         </StackPanel>
     </Border>
 </UserControl>

@@ -145,6 +145,11 @@
     <Compile Include="Common\Services\FrameNavigationService.cs" />
     <Compile Include="Common\Services\IDialog.cs" />
     <Compile Include="Common\Services\IFrameNavigationService.cs" />
+    <Compile Include="Localization\ru-Ru\Library.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Library.resx</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\GroupEditViewModel.cs" />
     <Compile Include="ViewModels\LibraryAddStickerListViewModel.cs" />
     <Compile Include="ViewModels\LibraryAddStickerViewModel.cs" />
@@ -205,6 +210,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Localization\ru-Ru\Library.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Library.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

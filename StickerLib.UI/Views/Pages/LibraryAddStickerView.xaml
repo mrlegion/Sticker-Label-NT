@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:StickerLib.UI.Views.Pages"
+      xmlns:converters="clr-namespace:StickerLib.UI.Common.Converters"
       DataContext="{Binding LibraryAddSticker, Source={StaticResource Locator}}"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -14,6 +15,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LibraryAddStickerView">
+    <Page.Resources>
+        <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
+    </Page.Resources>
 
     <Grid Margin="150 20">
         <Grid.RowDefinitions>
@@ -33,27 +37,40 @@
         </StackPanel>
         
         <DockPanel Grid.Row="1">
-            <TextBox md:HintAssist.Hint="Наименование ярлыка"
+            <TextBox md:HintAssist.Hint="Sticker name"
                      DockPanel.Dock="Top"
                      VerticalAlignment="Top"
-                     Text="{Binding Name}"
+                     IsEnabled="{Binding UseFileName, Converter={StaticResource InverseBoolConverter}}"
+                     Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      Margin="0 0 0 30"/>
-            <Button VerticalAlignment="Top"
-                    DockPanel.Dock="Top"
-                    Width="200"
-                    Command="{Binding SelectPdfFileCommand, Mode=OneWay}"
-                    Margin="0 0 0 20">
-                <StackPanel Orientation="Horizontal">
-                    <md:PackIcon Kind="File"/>
-                    <TextBlock Text="Выбрать файл"
-                               Margin="10 0 0 0"/>
-                </StackPanel>
-            </Button>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        DockPanel.Dock="Top">
+                <Button VerticalAlignment="Top"
+                        Width="250"
+                        Command="{Binding SelectPdfFileCommand, Mode=OneWay}"
+                        Margin="0 0 0 20">
+                    <StackPanel Orientation="Horizontal">
+                        <md:PackIcon Kind="File"/>
+                        <TextBlock Text="{Binding TitleForButton, UpdateSourceTrigger=PropertyChanged}"
+                                   Margin="10 0 0 0"/>
+                    </StackPanel>
+                </Button>
+                <Button VerticalAlignment="Top"
+                        Width="30"
+                        Padding="0"
+                        ToolTip="Clear selected file"
+                        Style="{DynamicResource MaterialDesignFlatAccentButton}"
+                        Command="{Binding ClearSelectFileCommand, Mode=OneWay}"
+                        Margin="5 0 0 20">
+                    <md:PackIcon Kind="Clear"/>
+                </Button>
+            </StackPanel>
             <CheckBox DockPanel.Dock="Top"
                       VerticalAlignment="Top"
-                      IsChecked="{Binding UseFileName}"
-                      Content="Использовать наименование файла, как имя для ярлыка"/>
+                      IsChecked="{Binding UseFileName, UpdateSourceTrigger=PropertyChanged}"
+                      Content="Use name PDF file how naming new sticker"/>
             <StackPanel Orientation="Horizontal"
                         DockPanel.Dock="Bottom"
                         VerticalAlignment="Bottom"
@@ -62,14 +79,14 @@
                         Command="{Binding AcceptCommand, Mode=OneWay}">
                     <StackPanel Orientation="Horizontal">
                         <md:PackIcon Kind="ContentSave"/>
-                        <TextBlock Text="Сохранить" Margin="10 0 0 0"/>
+                        <TextBlock Text="Save" Margin="10 0 0 0"/>
                     </StackPanel>
                 </Button>
                 <Button Style="{StaticResource MaterialDesignRaisedAccentButton}"
                         Command="{Binding GoBackCommand, Mode=OneWay}">
                     <StackPanel Orientation="Horizontal">
                         <md:PackIcon Kind="Cancel"/>
-                        <TextBlock Text="Отмена" Margin="10 0 0 0"/>
+                        <TextBlock Text="Cancel" Margin="10 0 0 0"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
