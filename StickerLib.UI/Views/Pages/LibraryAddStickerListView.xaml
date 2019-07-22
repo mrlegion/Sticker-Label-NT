@@ -1,8 +1,8 @@
 ﻿<Page x:Class="StickerLib.UI.Views.Pages.LibraryAddStickerListView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:StickerLib.UI.Views.Pages"
       DataContext="{Binding LibraryAddStickers, Source={StaticResource Locator}}"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -11,11 +11,114 @@
       TextElement.FontWeight="Regular"
       TextElement.FontSize="14"
       FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LibraryAddStickerListView">
 
-    <Grid>
+    <Grid Margin="150 20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <DockPanel Grid.Row="0">
+                <!-- кнопки добавления файлов с наименованием и этикетками -->
+                <UniformGrid Columns="2"
+                             DockPanel.Dock="Top"
+                             VerticalAlignment="Top">
+                    <Button VerticalAlignment="Top"
+                            Command="{Binding SelectFileCommand, Mode=OneWay}"
+                            Margin="0 0 10 20">
+                        <StackPanel Orientation="Horizontal">
+                            <md:PackIcon Kind="FileCsv" />
+                            <TextBlock Text="Select file with Titles"
+                                       Margin="10 0 0 0" />
+                        </StackPanel>
+                    </Button>
+                    <Button VerticalAlignment="Top"
+                            Command="{Binding SelectFileCommand, Mode=OneWay}"
+                            Margin="10 0 0 20">
+                        <StackPanel Orientation="Horizontal">
+                            <md:PackIcon Kind="FilePdf" />
+                            <TextBlock Text="Select file with Stickers"
+                                       Margin="10 0 0 0" />
+                        </StackPanel>
+                    </Button>
+                </UniformGrid>
+
+                <DataGrid Style="{StaticResource DataGridBase}"
+                          ItemsSource="{Binding Stickers, UpdateSourceTrigger=PropertyChanged}"
+                          md:DataGridAssist.CellPadding="13 8 8 8"
+                          md:DataGridAssist.ColumnHeaderPadding="8">
+                    <DataGrid.Columns>
+                        <md:MaterialDataGridTextColumn Header="Title"
+                                                       Binding="{Binding Name}"
+                                                       FontWeight="SemiBold"
+                                                       Width="3*" />
+                        <DataGridTemplateColumn Header="Sticker"
+                                                Width="1.5*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox IsSynchronizedWithCurrentItem="True"
+                                              md:HintAssist.Hint="Select sticker.."
+                                              SelectedItem="{Binding Sticker, Mode=OneWayToSource}"
+                                              ItemsSource="{Binding StickerList, Mode=OneWay}"
+                                              HorizontalAlignment="Stretch" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Control">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Style="{StaticResource MaterialDesignToolButton}"
+                                            ToolTip="Delete this sticker on Database"
+                                            Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=SelectedItem}"
+                                            Padding="5 0"
+                                            Height="Auto">
+                                        <md:PackIcon Kind="Delete" />
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                
+            </DockPanel>
+
+            <!-- кнопки сохранить и отмены -->
+            <StackPanel Orientation="Horizontal"
+                        Margin="0 20 0 0"
+                        Grid.Row="1"
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Right">
+                <Button Margin="20 0"
+                        Command="{Binding AcceptCommand, Mode=OneWay}">
+                    <StackPanel Orientation="Horizontal">
+                        <md:PackIcon Kind="ContentSave" />
+                        <TextBlock Text="Save"
+                                   Margin="10 0 0 0" />
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                        Command="{Binding NavigateToCommand, Mode=OneWay}"
+                        CommandParameter="library">
+                    <StackPanel Orientation="Horizontal">
+                        <md:PackIcon Kind="Cancel" />
+                        <TextBlock Text="Cancel"
+                                   Margin="10 0 0 0" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
         
+
     </Grid>
 </Page>

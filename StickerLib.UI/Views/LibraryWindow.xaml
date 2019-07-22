@@ -79,7 +79,8 @@
                            Height="50"
                            Fill="{DynamicResource MidGrayTextColor}" />
                 <Button Style="{StaticResource ToolBarButton}"
-                        Command="{Binding}">
+                        Command="{Binding NavigateToCommand, Mode=OneWay}"
+                        CommandParameter="addList">
                     <Grid Width="Auto">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40" />
@@ -103,7 +104,8 @@
                            Fill="{DynamicResource MidGrayTextColor}" />
 
                 <Button Style="{StaticResource ToolBarButton}"
-                        Command="{Binding}">
+                        Command="{Binding NavigateToCommand, Mode=OneWay}"
+                        CommandParameter="backup">
                     <Grid Width="Auto">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40" />

@@ -86,7 +86,8 @@
                     </StackPanel>
                 </Button>
                 <Button Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                        Command="{Binding GoBackCommand, Mode=OneWay}">
+                        Command="{Binding NavigateToCommand, Mode=OneWay}"
+                        CommandParameter="library">
                     <StackPanel Orientation="Horizontal">
                         <md:PackIcon Kind="Cancel"/>
                         <TextBlock Text="Cancel" Margin="10 0 0 0"/>
