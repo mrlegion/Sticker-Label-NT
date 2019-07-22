@@ -8,6 +8,12 @@ namespace StickerLib.UI.Common.Services
 {
     public interface IDialog
     {
+        // Identifier
+        string AlertDialogHost { get; set; }
+        string LoadingDialogHost { get; set; }
+        string CustomDialogHost { get; set; }
+
+
         /// <summary>
         /// Показать информационное диалоговое окно
         /// </summary>

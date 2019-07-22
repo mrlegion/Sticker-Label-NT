@@ -141,6 +141,7 @@
       <DependentUpon>QuestionDialogView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\Helpers\ListViewHelper.cs" />
+    <Compile Include="Common\Helpers\OpenWindowType.cs" />
     <Compile Include="Common\Services\DialogService.cs" />
     <Compile Include="Common\Services\FrameNavigationService.cs" />
     <Compile Include="Common\Services\IDialog.cs" />

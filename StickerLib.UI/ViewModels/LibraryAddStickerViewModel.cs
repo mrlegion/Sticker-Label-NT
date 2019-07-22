@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Threading;
@@ -6,6 +7,7 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using StickerLib.Domain.Helpers;
 using StickerLib.Domain.Services;
 using StickerLib.Infrastructure.Entities;
+using StickerLib.UI.Common.Helpers;
 using StickerLib.UI.Common.Services;
 
 namespace StickerLib.UI.ViewModels
@@ -20,9 +22,12 @@ namespace StickerLib.UI.ViewModels
         private string _titleForButton;
         private bool _useFileName;
         private string _file;
+        private Sticker _sticker;
         private RelayCommand _selectPdfFileCommand;
         private RelayCommand _clearSelectFileCommand;
         private RelayCommand _acceptCommand;
+        private readonly OpenWindowType _type = OpenWindowType.Create;
+        private string _oldName = "";
 
         #endregion
 
@@ -41,10 +46,13 @@ namespace StickerLib.UI.ViewModels
             {
                 Set(nameof(UseFileName), ref _useFileName, value);
                 if (UseFileName)
+                {
+                    _oldName = Name;
                     Name = FileIsEmpty()
                         ? FileIsNotSelected
-                        : System.IO.Path.GetFileNameWithoutExtension(File);
-                else Name = "";
+                        : Path.GetFileNameWithoutExtension(File);
+                }
+                else Name = _oldName;
             }
         }
 
@@ -63,7 +71,12 @@ namespace StickerLib.UI.ViewModels
         public string File
         {
             get => _file;
-            set => Set(nameof(File), ref _file, value);
+            set
+            {
+                Set(nameof(File), ref _file, value);
+                ShowClearButton = !FileIsEmpty();
+                ClearSelectFileCommand.RaiseCanExecuteChanged();;
+            }
         }
 
         public RelayCommand SelectPdfFileCommand
@@ -83,9 +96,7 @@ namespace StickerLib.UI.ViewModels
                     File = dialog.FileName;
                     TitleForButton = "File is selected";
                     if (UseFileName)
-                        Name = System.IO.Path.GetFileNameWithoutExtension(File);
-
-                    ClearSelectFileCommand.RaiseCanExecuteChanged();
+                        Name = Path.GetFileNameWithoutExtension(File);
                 }));
             }
         }
@@ -94,12 +105,16 @@ namespace StickerLib.UI.ViewModels
         {
             get
             {
-                return _clearSelectFileCommand ?? (_clearSelectFileCommand = new RelayCommand(() =>
+                return _clearSelectFileCommand ?? (_clearSelectFileCommand = new RelayCommand(async () =>
                 {
+                    var response = await _dialog.ShowRequest("Deleted selected file",
+                        "You really want clear selected file for sticker?", "Clear", "Cancel");
+
+                    if (!response) return;
+
+                    Name = (Name == Path.GetFileNameWithoutExtension(File)) ? "" : Name;
                     File = "";
-                    Name = "";
                     TitleForButton = "Select PDF file for sticker";
-                    ClearSelectFileCommand.RaiseCanExecuteChanged();
                 }, () => !FileIsEmpty()));
             }
         }
@@ -133,12 +148,24 @@ namespace StickerLib.UI.ViewModels
 
                     _dialog.ShowLoading("Saving sticker in db...", () =>
                     {
-                        var sticker = new Sticker(Name, PdfReadHelper.ReadToStreamByte(File));
                         var service = ServiceLocator.Current.GetInstance<IStickerService>();
-                        service.Add(sticker);
+                        switch (_type)
+                        {
+                            case OpenWindowType.Create:
+                                _sticker = new Sticker(Name, PdfReadHelper.ReadToStreamByte(File));
+                                service.Add(_sticker);
+                                break;
+                            case OpenWindowType.Editable:
+                                _sticker.Name = Name;
+                                if (File != Enum.GetName(typeof(OpenWindowType), OpenWindowType.Editable))
+                                    _sticker.File = PdfReadHelper.ReadToStreamByte(File);
+                                service.Update(_sticker);
+                                break;
+                        }
+                        
                         DispatcherHelper.CheckBeginInvokeOnUI(() =>
                         {
-                            _dialog.ShowSuccess("Adding sticker", "Success adding new sticker to db");
+                            _dialog.ShowSuccess("Save changes", "Success saving sticker changes into database");
                             NavigationService.GoBack();
                         });
                     });
@@ -153,7 +180,19 @@ namespace StickerLib.UI.ViewModels
         public LibraryAddStickerViewModel(IDialog dialog)
         {
             _dialog = dialog;
+            _dialog.AlertDialogHost = "AlertLibraryDialogHost";
+            _dialog.LoadingDialogHost = "LoadingLibraryDialogHost";
+
             TitleForButton = "Select PDF file for sticker";
+
+            if (NavigationService.Parameter != null)
+                if (NavigationService.Parameter is Sticker sticker)
+                {
+                    _sticker = sticker;
+                    Name = _sticker.Name;
+                    TitleForButton = "Change file for sticker";
+                    _type = OpenWindowType.Editable;
+                }
         }
 
         #endregion
@@ -171,5 +210,13 @@ namespace StickerLib.UI.ViewModels
         }
 
         #endregion
+
+        private bool _showClearButton;
+
+        public bool ShowClearButton
+        {
+            get { return _showClearButton; }
+            set { Set(nameof(ShowClearButton), ref _showClearButton, value); }
+        }
     }
 }

@@ -14,6 +14,10 @@ namespace StickerLib.UI.Common.Services
 {
     public class DialogService : IDialog
     {
+        public string AlertDialogHost { get; set; } = "AlertDialogHost";
+        public string LoadingDialogHost { get; set; } = "LoadingDialogHost";
+        public string CustomDialogHost { get; set; } = "CustomDialogHost";
+
         /// <summary>
         /// Show information dialog box
         /// </summary>
@@ -21,7 +25,7 @@ namespace StickerLib.UI.Common.Services
         /// <param name="message">Information message in dialog box</param>
         public void ShowInfo(string title, string message)
         {
-            ShowInfo(title, message, "AlertDialogHost");
+            ShowInfo(title, message, AlertDialogHost);
         }
 
         public void ShowInfo(string title, string message, string identifier)
@@ -37,7 +41,7 @@ namespace StickerLib.UI.Common.Services
         /// <param name="message">Success message in dialog box</param>
         public void ShowSuccess(string title, string message)
         {
-            ShowSuccess(title, message, "AlertDialogHost");
+            ShowSuccess(title, message, AlertDialogHost);
         }
 
         public void ShowSuccess(string title, string message, string identifier)
@@ -53,7 +57,7 @@ namespace StickerLib.UI.Common.Services
         /// <param name="message">Error message in dialog box</param>
         public void ShowError(string title, string message)
         {
-            ShowError(title, message, "AlertDialogHost");
+            ShowError(title, message, AlertDialogHost);
         }
 
         public void ShowError(string title, string message, string identifier)
@@ -69,7 +73,7 @@ namespace StickerLib.UI.Common.Services
         /// <param name="message">Warning message in dialog box</param>
         public void ShowWarning(string title, string message)
         {
-            ShowWarning(title, message, "AlertDialogHost");
+            ShowWarning(title, message, AlertDialogHost);
         }
 
         public void ShowWarning(string title, string message, string identifier)
@@ -85,7 +89,7 @@ namespace StickerLib.UI.Common.Services
         /// <param name="callback">Action for work in other thread</param>
         public void ShowLoading(string message, Action callback)
         {
-            ShowLoading(message, callback, "LoadingDialogHost");
+            ShowLoading(message, callback, LoadingDialogHost);
         }
 
         public async void ShowLoading(string message, Action callback, string identifier)
@@ -107,7 +111,7 @@ namespace StickerLib.UI.Common.Services
 
         public void ShowDialog(UserControl content)
         {
-            ShowDialog(content, "CustomDialogHost");
+            ShowDialog(content, CustomDialogHost);
         }
 
         public void ShowDialog(UserControl content, string identifier)
@@ -125,7 +129,7 @@ namespace StickerLib.UI.Common.Services
 
         public void ShowDialog(string title, string message, PackIconKind icon, SolidColorBrush theme)
         {
-            ShowDialog(title, message, icon, theme, "AlertDialogHost");
+            ShowDialog(title, message, icon, theme, AlertDialogHost);
         }
 
         public async void ShowDialog(string title, string message, PackIconKind icon, SolidColorBrush theme,
@@ -141,7 +145,7 @@ namespace StickerLib.UI.Common.Services
 
         public async Task<bool> ShowRequest(string title, string message)
         {
-            return await ShowRequest(title, message, "AlertDialogHost");
+            return await ShowRequest(title, message, AlertDialogHost);
         }
 
         public async Task<bool> ShowRequest(string title, string message, string identifier)
@@ -152,7 +156,7 @@ namespace StickerLib.UI.Common.Services
         public async Task<bool> ShowRequest(string title, string message, string positiveButtonTitle,
             string negativeButtonTitle)
         {
-            return await ShowRequest(title, message, positiveButtonTitle, negativeButtonTitle, "AlertDialogHost");
+            return await ShowRequest(title, message, positiveButtonTitle, negativeButtonTitle, AlertDialogHost);
         }
 
         public async Task<bool> ShowRequest(string title, string message, string positiveButtonTitle,

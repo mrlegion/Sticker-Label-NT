@@ -29,6 +29,8 @@ namespace StickerLib.UI.ViewModels
         public LibraryViewModel(IDialog dialog)
         {
             _dialog = dialog;
+            _dialog.AlertDialogHost = "AlertLibraryDialogHost";
+            _dialog.LoadingDialogHost = "LoadingLibraryDialogHost";
             OnLoadData();
         }
 
@@ -102,5 +104,24 @@ namespace StickerLib.UI.ViewModels
         }
 
         #endregion
+
+        private RelayCommand<Sticker> _editCommand;
+
+        public RelayCommand<Sticker> EditCommand
+        {
+            get
+            {
+                return _editCommand ?? (_editCommand = new RelayCommand<Sticker>((sticker) =>
+                {
+                    if (sticker == null)
+                    {
+                        _dialog.ShowError("Not select sticker", "Cannot edit selected sticker! Please check");
+                        return;
+                    }
+
+                    NavigationService.NavigateTo("add", sticker);
+                }));
+            }
+        }
     }
 }

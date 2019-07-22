@@ -58,13 +58,16 @@
                     </StackPanel>
                 </Button>
                 <Button VerticalAlignment="Top"
-                        Width="30"
-                        Padding="0"
+                        Padding="10 0"
+                        Visibility="{Binding ShowClearButton, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                         ToolTip="Clear selected file"
                         Style="{DynamicResource MaterialDesignFlatAccentButton}"
                         Command="{Binding ClearSelectFileCommand, Mode=OneWay}"
                         Margin="5 0 0 20">
-                    <md:PackIcon Kind="Clear"/>
+                    <StackPanel Orientation="Horizontal">
+                        <md:PackIcon Kind="Clear" />
+                        <TextBlock Text="Clear" Margin="5 0 0 0"/>
+                    </StackPanel>
                 </Button>
             </StackPanel>
             <CheckBox DockPanel.Dock="Top"
