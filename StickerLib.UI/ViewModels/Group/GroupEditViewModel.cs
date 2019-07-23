@@ -6,7 +6,7 @@ using GalaSoft.MvvmLight.Command;
 using StickerLib.UI.Common.Services;
 using StickerLib.UI.Views;
 
-namespace StickerLib.UI.ViewModels
+namespace StickerLib.UI.ViewModels.Group
 {
     public class GroupEditViewModel : ViewModelBase
     {

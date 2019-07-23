@@ -16,10 +16,8 @@ using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
 using StickerLib.Domain.Build;
 using StickerLib.Domain.Services;
-using StickerLib.Infrastructure;
 using StickerLib.UI.Common.Helpers;
 using StickerLib.UI.Views;
-using StickerLib.UI.Views.Pages;
 using StickerLib.UI.Views.Pages.Group;
 
 namespace StickerLib.UI.ViewModels
@@ -41,8 +39,8 @@ namespace StickerLib.UI.ViewModels
         private RelayCommand<ListView> _addGroupCommand;
         private RelayCommand<ListView> _clearAllCommand;
         private RelayCommand _collectFileCommand;
-        private RelayCommand<Group> _deleteGroupCommand;
-        private RelayCommand<Group> _editGroupCommand;
+        private RelayCommand<Infrastructure.Group> _deleteGroupCommand;
+        private RelayCommand<Infrastructure.Group> _editGroupCommand;
 
         #endregion
 
@@ -108,7 +106,7 @@ namespace StickerLib.UI.ViewModels
             set { Set(nameof(SelectedItems), ref _selectedItems, value); }
         }
 
-        public ObservableCollection<Group> Groups
+        public ObservableCollection<Infrastructure.Group> Groups
         {
             get { return _groups.Groups; }
         }
@@ -137,7 +135,7 @@ namespace StickerLib.UI.ViewModels
                         return;
                     }
 
-                    var group = new Group("Sticker group for " + Count + " counts", Count,
+                    var group = new Infrastructure.Group("Sticker group for " + Count + " counts", Count,
                         new List<Sticker>(list.SelectedItems.Cast<Sticker>()));
                     _groups.Add(group);
                     // clear selection
@@ -172,17 +170,17 @@ namespace StickerLib.UI.ViewModels
                     _dialog.ShowLoading("Collect sticker files..", () =>
                     {
                         var creator = ServiceLocator.Current.GetInstance<Creator>();
-                        creator.Create(new List<Group>(_groups.Groups));
+                        creator.Create(new List<Infrastructure.Group>(_groups.Groups));
                     });
                 }));
             }
         }
 
-        public RelayCommand<Group> DeleteGroupCommand
+        public RelayCommand<Infrastructure.Group> DeleteGroupCommand
         {
             get
             {
-                return _deleteGroupCommand ?? (_deleteGroupCommand = new RelayCommand<Group>(async (g) =>
+                return _deleteGroupCommand ?? (_deleteGroupCommand = new RelayCommand<Infrastructure.Group>(async (g) =>
                 {
                     if (g == null)
                     {
@@ -200,11 +198,11 @@ namespace StickerLib.UI.ViewModels
             }
         }
 
-        public RelayCommand<Group> EditGroupCommand
+        public RelayCommand<Infrastructure.Group> EditGroupCommand
         {
             get
             {
-                return _editGroupCommand ?? (_editGroupCommand = new RelayCommand<Group>((g) =>
+                return _editGroupCommand ?? (_editGroupCommand = new RelayCommand<Infrastructure.Group>((g) =>
                 {
                     var groupWindow = ServiceLocator.Current.GetInstance<GroupWindow>();
                     groupWindow.ViewContent = ServiceLocator.Current.GetInstance<GroupEditView>();

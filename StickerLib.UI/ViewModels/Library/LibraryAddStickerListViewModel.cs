@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using StickerLib.UI.Common.Services;
 
-namespace StickerLib.UI.ViewModels
+namespace StickerLib.UI.ViewModels.Library
 {
     public class LibraryAddStickerListViewModel : ViewModelLibrary
     {

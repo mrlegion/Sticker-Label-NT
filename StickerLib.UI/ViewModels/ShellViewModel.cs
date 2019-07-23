@@ -2,6 +2,7 @@
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Command;
 using StickerLib.UI.Common.Services;
+using StickerLib.UI.ViewModels.Library;
 using StickerLib.UI.Views;
 using StickerLib.UI.Views.Pages;
 

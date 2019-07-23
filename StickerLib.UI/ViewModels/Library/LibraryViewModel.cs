@@ -10,7 +10,7 @@ using StickerLib.UI.Common.Helpers;
 using StickerLib.UI.Common.Services;
 using StickerLib.UI.Views;
 
-namespace StickerLib.UI.ViewModels
+namespace StickerLib.UI.ViewModels.Library
 {
     public class LibraryViewModel : ViewModelLibrary
     {

@@ -3,7 +3,7 @@ using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
-namespace StickerLib.UI.ViewModels
+namespace StickerLib.UI.ViewModels.Preference
 {
     public class PreferenceViewModel : ViewModelBase
     {
