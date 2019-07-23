@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace StickerLib.UI.Common.Services
 {
@@ -133,5 +135,30 @@ namespace StickerLib.UI.Common.Services
         void ShowDialog(UserControl content, string title, string identifier);
         void ShowDialog(string title, string message, PackIconKind icon, SolidColorBrush theme);
         void ShowDialog(string title, string message, PackIconKind icon, SolidColorBrush theme, string identifier);
+        
+        // Open file dialog
+        
+        /// <summary>
+        /// Показать диалоговое окно выбора файла
+        /// </summary>
+        /// <param name="title">Заголовок диалогового окна</param>
+        /// <param name="filters">Фильтры для выбора файла, то есть какой тип файла нужно выбирать</param>
+        /// <returns>Путь для выбранного файла в типе строки</returns>
+        string OpenFileDialog(string title, IEnumerable<CommonFileDialogFilter> filters);
+        
+        /// <summary>
+        /// Показать диалоговое окно выбора нескольких файлов
+        /// </summary>
+        /// <param name="title">Заголовок диалогового окна</param>
+        /// <param name="filters">Фильтры для выбора файла, то есть какой тип файла нужно выбирать</param>
+        /// <returns>Коллекция путей для выбранных файлов</returns>
+        IEnumerable<string> OpenMultiselectFileDialog(string title, IEnumerable<CommonFileDialogFilter> filters);
+        
+        string OpenFolderDialog(string title);
+        
+        IEnumerable<string> OpenMultiselectFolderDilaog(string title);
+
+        IEnumerable<string> OpenDialog(string title, IEnumerable<CommonFileDialogFilter> filters,
+            bool multiselect = false, bool isFolderPicker = false);
     }
 }

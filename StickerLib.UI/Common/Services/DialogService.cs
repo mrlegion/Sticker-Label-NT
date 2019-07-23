@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -7,6 +9,7 @@ using System.Windows.Media;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Threading;
 using MaterialDesignThemes.Wpf;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using StickerLib.UI.Common.Dialogs.Components;
 using StickerLib.UI.Common.Dialogs.Views;
 
@@ -171,6 +174,53 @@ namespace StickerLib.UI.Common.Services
             if (request is bool result)
                 return result;
             return false;
+        }
+
+        public IEnumerable<string> OpenDialog(string title, IEnumerable<CommonFileDialogFilter> filters,
+            bool multiselect = false, bool isFolderPicker = false)
+        {
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog()
+            {
+                Multiselect = multiselect,
+                Title = title ?? "Default title dialog",
+                IsFolderPicker = isFolderPicker,
+                AllowNonFileSystemItems = true,
+                DefaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+            };
+
+            if (filters != null)
+            {
+                var filterArray = filters.ToArray();
+                if (filterArray.Length > 0)
+                    foreach (var filter in filterArray)
+                        dialog.Filters.Add(filter);
+            }
+
+            return (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                ? dialog.FileNames
+                : null;
+        }
+        
+        public string OpenFileDialog(string title, IEnumerable<CommonFileDialogFilter> filters)
+        {
+            var response = OpenDialog(title, filters);
+            return response.FirstOrDefault();
+        }
+
+        public IEnumerable<string> OpenMultiselectFileDialog(string title, IEnumerable<CommonFileDialogFilter> filters)
+        {
+            return OpenDialog(title, filters, true);
+        }
+
+        public string OpenFolderDialog(string title)
+        {
+            var response = OpenDialog(title, null, false, true);
+            return response.FirstOrDefault();
+        }
+
+        public IEnumerable<string> OpenMultiselectFolderDilaog(string title)
+        {
+            return OpenDialog(title, null, true, true);
         }
     }
 }
