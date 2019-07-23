@@ -112,6 +112,38 @@ namespace StickerLib.UI.Common.Services
             });
         }
 
+        public void ShowInfoTiming(string message)
+        {
+            ShowInfoTiming("Information", message, 1500, AlertDialogHost);
+        }
+        
+        public void ShowInfoTiming(string title, string message)
+        {
+            ShowInfoTiming(title, message, 1000, AlertDialogHost);
+        }
+        
+        public void ShowInfoTiming(string title, string message, int delay)
+        {
+            ShowInfoTiming(title, message, delay, AlertDialogHost);
+        }
+        
+        public async void ShowInfoTiming(string title, string message, int delay, string identifier)
+        {
+            var content = ServiceLocator.Current.GetInstance<InfoContentView>();
+            content.Message = message;
+            var dialogContent = ServiceLocator.Current.GetInstance<ContentDialogView>();
+            dialogContent.DialogContent = content;
+            dialogContent.Title = title;
+            await DialogHost.Show(dialogContent, identifier, delegate(object sender, DialogOpenedEventArgs args)
+                {
+                    ThreadPool.QueueUserWorkItem(state =>
+                    {
+                        Thread.Sleep(delay);
+                        DispatcherHelper.CheckBeginInvokeOnUI(() => args.Session.Close(true));
+                    });
+                });
+        }
+
         public void ShowDialog(UserControl content)
         {
             ShowDialog(content, CustomDialogHost);

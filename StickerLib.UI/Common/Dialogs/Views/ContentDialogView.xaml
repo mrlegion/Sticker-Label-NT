@@ -25,8 +25,8 @@
                    Visibility="{Binding Title, Converter={StaticResource StringIsEmptyVisibilityConverter}}"
                    Style="{StaticResource MaterialDesignTitleTextBlock}" />
 
-        <Frame Grid.Row="1" Content="{Binding DialogContent}"/>
-        
+        <Frame Grid.Row="1" Content="{Binding DialogContent}" />
+
 
     </Grid>
 </UserControl>

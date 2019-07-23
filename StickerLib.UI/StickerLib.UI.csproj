@@ -125,6 +125,9 @@
     </Compile>
     <Compile Include="Common\Converters\InverseBoolConverter.cs" />
     <Compile Include="Common\Converters\StringToVisibilityConverter.cs" />
+    <Compile Include="Common\Dialogs\Components\InfoContentView.xaml.cs">
+      <DependentUpon>InfoContentView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Common\Dialogs\Components\LoadingContentVIew.xaml.cs">
       <DependentUpon>LoadingContentVIew.xaml</DependentUpon>
     </Compile>
@@ -243,6 +246,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Common\Dialogs\Components\InfoContentView.xaml" />
     <Page Include="Common\Dialogs\Components\LoadingContentVIew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
+using System.Threading;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using StickerLib.Domain.Common;
@@ -121,15 +122,26 @@ namespace StickerLib.UI.ViewModels.Library
             }
         }
 
-        private RelayCommand _deleteCommand;
+        private RelayCommand<Title> _deleteCommand;
 
-        public RelayCommand DeleteCommand
+        public RelayCommand<Title> DeleteCommand
         {
             get
             {
-                return _deleteCommand ?? (_deleteCommand = new RelayCommand(() =>
+                return _deleteCommand ?? (_deleteCommand = new RelayCommand<Title>(async (title) =>
                 {
-                    
+                    if (title != null)
+                    {
+                        bool response = await Dialog.ShowRequest("Delete element",
+                            $"You really want delete selected sticker \"{title.Name}\"",
+                            "Delete", "Cancel");
+
+                        if (response)
+                            Titles.Remove(title);
+                        
+                        Dialog.ShowInfoTiming("Deleted success!", "Deleted select item is success!");
+                    }
+                        
                 }));
             }
         }

@@ -130,6 +130,11 @@ namespace StickerLib.UI.Common.Services
         /// <param name="identifier">Идентификатор для <see cref="DialogHost"/></param>
         void ShowLoading(string message, Action callback, string identifier);
 
+        void ShowInfoTiming(string message);
+        void ShowInfoTiming(string title, string message);
+        void ShowInfoTiming(string title, string message, int delay);
+        void ShowInfoTiming(string title, string message, int delay, string identifier);
+
         void ShowDialog(UserControl content);
         void ShowDialog(UserControl content, string title);
         void ShowDialog(UserControl content, string title, string identifier);

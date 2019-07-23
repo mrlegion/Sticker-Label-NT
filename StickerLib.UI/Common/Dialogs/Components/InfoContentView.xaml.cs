@@ -1,17 +1,17 @@
-﻿using System.Windows;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace StickerLib.UI.Common.Dialogs.Components
 {
-    public partial class LoadingContentVIew : UserControl
+    public partial class InfoContentView : UserControl
     {
-        public LoadingContentVIew()
+        public InfoContentView()
         {
             InitializeComponent();
         }
 
         public static readonly DependencyProperty MessageProperty =
-            DependencyProperty.Register(nameof(Message), typeof(string), typeof(LoadingContentVIew),
+            DependencyProperty.Register("Message", typeof(string), typeof(InfoContentView),
                 new PropertyMetadata("Please wait..."));
 
         public string Message
