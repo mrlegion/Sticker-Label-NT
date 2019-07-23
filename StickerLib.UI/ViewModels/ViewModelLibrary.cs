@@ -8,8 +8,15 @@ namespace StickerLib.UI.ViewModels
 {
     public class ViewModelLibrary : ViewModelCustom
     {
-        public ViewModelLibrary()
+        protected readonly IDialog Dialog;
+
+        public ViewModelLibrary(IDialog dialog)
         {
+            Dialog = dialog;
+            dialog.AlertDialogHost = "AlertLibraryDialogHost";
+            dialog.LoadingDialogHost = "LoadingLibraryDialogHost";
+            
+            
             NavigationService = ServiceLocator.Current.GetInstance<IFrameNavigationService>("Library");
             Window main = Application.Current.MainWindow;
             if (main != null)

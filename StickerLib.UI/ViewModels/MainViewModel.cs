@@ -12,12 +12,15 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
 using StickerLib.Domain.Build;
 using StickerLib.Domain.Services;
 using StickerLib.Infrastructure;
+using StickerLib.UI.Common.Helpers;
 using StickerLib.UI.Views;
 using StickerLib.UI.Views.Pages;
+using StickerLib.UI.Views.Pages.Group;
 
 namespace StickerLib.UI.ViewModels
 {
@@ -57,6 +60,12 @@ namespace StickerLib.UI.ViewModels
             CViewSource.Filter += NamingFilter;
 
             OnLoadData();
+
+            Messenger.Default.Register<NotificationMessage<CloseEventType>>(this, (message) =>
+            {
+                if (message.Content == CloseEventType.Update)
+                    OnLoadData();
+            });
         }
 
         #endregion

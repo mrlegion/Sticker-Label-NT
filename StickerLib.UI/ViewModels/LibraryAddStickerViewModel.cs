@@ -18,7 +18,6 @@ namespace StickerLib.UI.ViewModels
 
         private const string FileIsNotSelected = "File is not selected, please select file!";
         private string _name;
-        private readonly IDialog _dialog;
         private string _titleForButton;
         private bool _useFileName;
         private string _file;
@@ -75,7 +74,8 @@ namespace StickerLib.UI.ViewModels
             {
                 Set(nameof(File), ref _file, value);
                 ShowClearButton = !FileIsEmpty();
-                ClearSelectFileCommand.RaiseCanExecuteChanged();;
+                ClearSelectFileCommand.RaiseCanExecuteChanged();
+                ;
             }
         }
 
@@ -85,15 +85,12 @@ namespace StickerLib.UI.ViewModels
             {
                 return _selectPdfFileCommand ?? (_selectPdfFileCommand = new RelayCommand(() =>
                 {
-                    var dialog = new CommonOpenFileDialog()
-                    {
-                        Title = "Select PDF file for new sticker",
-                        Multiselect = false,
-                        Filters = {new CommonFileDialogFilter("Pdf files", "pdf")},
-                        DefaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-                    };
-                    if (dialog.ShowDialog() != CommonFileDialogResult.Ok) return;
-                    File = dialog.FileName;
+                    var file = Dialog.OpenFileDialog("Select PDF file for new sticker",
+                        new[] {new CommonFileDialogFilter("Pdf files", "pdf")});
+                    
+                    if (file == null) return;
+                    
+                    File = file;
                     TitleForButton = "File is selected";
                     if (UseFileName)
                         Name = Path.GetFileNameWithoutExtension(File);
@@ -107,7 +104,7 @@ namespace StickerLib.UI.ViewModels
             {
                 return _clearSelectFileCommand ?? (_clearSelectFileCommand = new RelayCommand(async () =>
                 {
-                    var response = await _dialog.ShowRequest("Deleted selected file",
+                    var response = await Dialog.ShowRequest("Deleted selected file",
                         "You really want clear selected file for sticker?", "Clear", "Cancel");
 
                     if (!response) return;
@@ -127,26 +124,26 @@ namespace StickerLib.UI.ViewModels
                 {
                     if (FileIsEmpty())
                     {
-                        _dialog.ShowError("File is Empty",
+                        Dialog.ShowError("File is Empty",
                             "PDF file for new sticker is not selected! Please click on button \"Select PDF file for sticker\" and select it");
                         return;
                     }
 
                     if (!System.IO.File.Exists(File))
                     {
-                        _dialog.ShowError("Selected file is not found",
+                        Dialog.ShowError("Selected file is not found",
                             "Selected file for new sticker not found! Please check path or file on disk");
                         return;
                     }
 
                     if (NameIsEmpty())
                     {
-                        _dialog.ShowError("Sticker name is Empty",
+                        Dialog.ShowError("Sticker name is Empty",
                             $"Field \"Name\" cannot be empty! Please, enter name for adding sticker!");
                         return;
                     }
 
-                    _dialog.ShowLoading("Saving sticker in db...", () =>
+                    Dialog.ShowLoading("Saving sticker in db...", () =>
                     {
                         var service = ServiceLocator.Current.GetInstance<IStickerService>();
                         switch (_type)
@@ -162,10 +159,10 @@ namespace StickerLib.UI.ViewModels
                                 service.Update(_sticker);
                                 break;
                         }
-                        
+
                         DispatcherHelper.CheckBeginInvokeOnUI(() =>
                         {
-                            _dialog.ShowSuccess("Save changes", "Success saving sticker changes into database");
+                            Dialog.ShowSuccess("Save changes", "Success saving sticker changes into database");
                             NavigationService.GoBack();
                         });
                     });
@@ -177,12 +174,8 @@ namespace StickerLib.UI.ViewModels
 
         #region Constructor
 
-        public LibraryAddStickerViewModel(IDialog dialog)
+        public LibraryAddStickerViewModel(IDialog dialog) : base(dialog)
         {
-            _dialog = dialog;
-            _dialog.AlertDialogHost = "AlertLibraryDialogHost";
-            _dialog.LoadingDialogHost = "LoadingLibraryDialogHost";
-
             TitleForButton = "Select PDF file for sticker";
 
             if (NavigationService.Parameter != null)

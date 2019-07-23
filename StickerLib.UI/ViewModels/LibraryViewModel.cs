@@ -2,9 +2,11 @@
 using System.Windows;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
 using StickerLib.Domain.Services;
 using StickerLib.Infrastructure.Entities;
+using StickerLib.UI.Common.Helpers;
 using StickerLib.UI.Common.Services;
 using StickerLib.UI.Views;
 
@@ -14,23 +16,16 @@ namespace StickerLib.UI.ViewModels
     {
         #region Fields
 
-        private readonly IDialog _dialog;
-
         private ObservableCollection<Sticker> _stickers;
-
         private RelayCommand _closeWindowCommand;
-
         private RelayCommand<Sticker> _deleteCommand;
 
         #endregion
 
         #region Constructor
 
-        public LibraryViewModel(IDialog dialog)
+        public LibraryViewModel(IDialog dialog) : base(dialog)
         {
-            _dialog = dialog;
-            _dialog.AlertDialogHost = "AlertLibraryDialogHost";
-            _dialog.LoadingDialogHost = "LoadingLibraryDialogHost";
             OnLoadData();
         }
 
@@ -54,7 +49,10 @@ namespace StickerLib.UI.ViewModels
                     if (main != null)
                         foreach (Window owned in main.OwnedWindows)
                             if (owned.GetType() == typeof(LibraryWindow))
+                            {
                                 owned.Close();
+                                Messenger.Default.Send(new NotificationMessage<CloseEventType>(CloseEventType.Update, "Update sticker list"));
+                            }
                 }));
             }
         }
@@ -67,22 +65,23 @@ namespace StickerLib.UI.ViewModels
                 {
                     if (sticker == null)
                     {
-                        _dialog.ShowWarning("Sticker is not selected", "Please check selected sticker for deleted!");
+                        Dialog.ShowWarning("Sticker is not selected", "Please check selected sticker for deleted!");
                         return;
                     }
 
-                    var response = await _dialog.ShowRequest("Delete sticker",
+                    var response = await Dialog.ShowRequest("Delete sticker",
                         $"You really want deleted {sticker.Name} sticker?", "Delete", "Cancel");
 
                     if (response)
                     {
-                        _dialog.ShowLoading($"Deleted stickers: {sticker.Name}", () =>
+                        Dialog.ShowLoading($"Deleted stickers: {sticker.Name}", () =>
                         {
                             var service = ServiceLocator.Current.GetInstance<IStickerService>();
                             if (service.Delete(sticker))
                             {
                                 Stickers = new ObservableCollection<Sticker>(service.GetAll());
-                                DispatcherHelper.CheckBeginInvokeOnUI(() => _dialog.ShowSuccess("Deleted success", "Sticker is success deleted!"));
+                                DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                                    Dialog.ShowSuccess("Deleted success", "Sticker is success deleted!"));
                             }
                         });
                     }
@@ -94,9 +93,9 @@ namespace StickerLib.UI.ViewModels
 
         #region Private methods
 
-        private void OnLoadData ()
+        private void OnLoadData()
         {
-            _dialog.ShowLoading("Load data for database..", () =>
+            Dialog.ShowLoading("Load data for database..", () =>
             {
                 var service = ServiceLocator.Current.GetInstance<IStickerService>();
                 Stickers = new ObservableCollection<Sticker>(service.GetAll());
@@ -115,7 +114,7 @@ namespace StickerLib.UI.ViewModels
                 {
                     if (sticker == null)
                     {
-                        _dialog.ShowError("Not select sticker", "Cannot edit selected sticker! Please check");
+                        Dialog.ShowError("Not select sticker", "Cannot edit selected sticker! Please check");
                         return;
                     }
 
@@ -123,5 +122,7 @@ namespace StickerLib.UI.ViewModels
                 }));
             }
         }
+
+        
     }
 }

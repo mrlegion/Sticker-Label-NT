@@ -9,6 +9,8 @@ using StickerLib.UI.Common.Dialogs.Views;
 using StickerLib.UI.Common.Services;
 using StickerLib.UI.Views;
 using StickerLib.UI.Views.Pages;
+using StickerLib.UI.Views.Pages.Group;
+using StickerLib.UI.Views.Pages.Library;
 
 namespace StickerLib.UI.ViewModels
 {
@@ -65,16 +67,16 @@ namespace StickerLib.UI.ViewModels
 
             // group navigation service
             var groupNavigationService = new FrameNavigationService("GroupFrame");
-            groupNavigationService.Configure("groupEdit", new Uri("..\\Views\\Pages\\GroupEditView.xaml", UriKind.Relative));
-            groupNavigationService.Configure("groupList", new Uri("..\\Views\\Pages\\GroupAddListView.xaml", UriKind.Relative));
+            groupNavigationService.Configure("groupEdit", new Uri("..\\Views\\Pages\\Group\\GroupEditView.xaml", UriKind.Relative));
+            groupNavigationService.Configure("groupList", new Uri("..\\Views\\Pages\\Group\\GroupAddListView.xaml", UriKind.Relative));
             builder.Register(c => groupNavigationService).Named<IFrameNavigationService>("Group");
 
             // library navigation service
             var libraryNavigationService = new FrameNavigationService("LibraryFrame");
-            libraryNavigationService.Configure("library", new Uri("..\\Views\\Pages\\LibraryView.xaml", UriKind.Relative));
-            libraryNavigationService.Configure("add", new Uri("..\\Views\\Pages\\LibraryAddStickerView.xaml", UriKind.Relative));
-            libraryNavigationService.Configure("addList", new Uri("..\\Views\\Pages\\LibraryAddStickerListView.xaml", UriKind.Relative));
-            libraryNavigationService.Configure("backup", new Uri("..\\Views\\Pages\\LibraryBackupView.xaml", UriKind.Relative));
+            libraryNavigationService.Configure("library", new Uri("..\\Views\\Pages\\Library\\LibraryView.xaml", UriKind.Relative));
+            libraryNavigationService.Configure("add", new Uri("..\\Views\\Pages\\Library\\LibraryAddStickerView.xaml", UriKind.Relative));
+            libraryNavigationService.Configure("addList", new Uri("..\\Views\\Pages\\Library\\LibraryAddStickerListView.xaml", UriKind.Relative));
+            libraryNavigationService.Configure("backup", new Uri("..\\Views\\Pages\\Library\\LibraryBackupView.xaml", UriKind.Relative));
             builder.Register(c => libraryNavigationService).Named<IFrameNavigationService>("Library");
 
             // register ioc

@@ -8,7 +8,7 @@ namespace StickerLib.UI.ViewModels
 {
     public class LibraryWindowViewModel : ViewModelLibrary
     {
-        public LibraryWindowViewModel()
+        public LibraryWindowViewModel(IDialog dialog) : base(dialog)
         {
             
         }
