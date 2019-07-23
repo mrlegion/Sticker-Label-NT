@@ -14,7 +14,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LibraryAddStickerListView">
 
-    <Grid Margin="150 20">
+    <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -28,42 +28,60 @@
 
             <DockPanel Grid.Row="0">
                 <!-- кнопки добавления файлов с наименованием и этикетками -->
-                <UniformGrid Columns="2"
-                             DockPanel.Dock="Top"
-                             VerticalAlignment="Top">
+                <Grid DockPanel.Dock="Top"
+                      VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+
                     <Button VerticalAlignment="Top"
-                            Command="{Binding SelectFileCommand, Mode=OneWay}"
-                            CommandParameter="title"
+                            Grid.Column="0"
+                            Command="{Binding SelectTitleFileCommand, Mode=OneWay}"
                             Margin="0 0 10 20">
                         <StackPanel Orientation="Horizontal">
                             <md:PackIcon Kind="FileCsv" />
-                            <TextBlock Text="Select file with Titles"
+                            <TextBlock Text="{Binding TitleButtonText, UpdateSourceTrigger=PropertyChanged}"
                                        Margin="10 0 0 0" />
                         </StackPanel>
                     </Button>
+
                     <Button VerticalAlignment="Top"
-                            Command="{Binding SelectFileCommand, Mode=OneWay}"
-                            CommandParameter="sticker"
-                            Margin="10 0 0 20">
+                            Grid.Column="1"
+                            Command="{Binding SelectStickerFileCommand, Mode=OneWay}"
+                            Margin="10 0 10 20">
                         <StackPanel Orientation="Horizontal">
                             <md:PackIcon Kind="FilePdf" />
-                            <TextBlock Text="Select file with Stickers"
+                            <TextBlock Text="{Binding StickerButtonText, UpdateSourceTrigger=PropertyChanged}"
                                        Margin="10 0 0 0" />
                         </StackPanel>
                     </Button>
-                </UniformGrid>
+
+                    <Button VerticalAlignment="Top"
+                            Grid.Column="2"
+                            Command="{Binding LoadCommand, Mode=OneWay}"
+                            Margin="10 0 10 20">
+                        <StackPanel Orientation="Horizontal">
+                            <md:PackIcon Kind="Upload" />
+                            <TextBlock Text="Load"
+                                       Margin="10 0 0 0" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
 
                 <DataGrid Style="{StaticResource DataGridBase}"
-                          ItemsSource="{Binding Stickers, UpdateSourceTrigger=PropertyChanged}"
+                          IsReadOnly="False"
+                          ItemsSource="{Binding Titles, UpdateSourceTrigger=PropertyChanged}"
                           md:DataGridAssist.CellPadding="13 8 8 8"
                           md:DataGridAssist.ColumnHeaderPadding="8">
                     <DataGrid.Columns>
                         <md:MaterialDataGridTextColumn Header="Title"
-                                                       Binding="{Binding Title}"
+                                                       Binding="{Binding Name}"
                                                        FontWeight="SemiBold"
                                                        Width="3*" />
-                        <md:MaterialDataGridComboBoxColumn Header="Page number"
-                                                           SelectedItemBinding="{Binding PageNumber}"
+                        <md:MaterialDataGridComboBoxColumn Header="Page"
+                                                           SelectedValueBinding="{Binding PageInFile}"
                                                            ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.Pages}"/>
                         <DataGridTemplateColumn Header="Control">
                             <DataGridTemplateColumn.CellTemplate>
@@ -82,7 +100,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                
+
             </DockPanel>
 
             <!-- кнопки сохранить и отмены -->
@@ -95,7 +113,7 @@
                         Command="{Binding AcceptCommand, Mode=OneWay}">
                     <StackPanel Orientation="Horizontal">
                         <md:PackIcon Kind="ContentSave" />
-                        <TextBlock Text="Save"
+                        <TextBlock Text="Marge"
                                    Margin="10 0 0 0" />
                     </StackPanel>
                 </Button>
@@ -110,7 +128,7 @@
                 </Button>
             </StackPanel>
         </Grid>
-        
+
 
     </Grid>
 </Page>

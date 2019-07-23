@@ -1,101 +1,158 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Text;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using StickerLib.Domain.Common;
+using StickerLib.Domain.Helpers;
 using StickerLib.UI.Common.Services;
 
 namespace StickerLib.UI.ViewModels.Library
 {
     public class LibraryAddStickerListViewModel : ViewModelLibrary
     {
+        private string _titlesFile;
+        private string _stickersFile;
 
         public LibraryAddStickerListViewModel(IDialog dialog) : base(dialog)
         {
+            TitleButtonText = "Select File With Titles";
+            StickerButtonText = "Select File With Stickers";
+            Pages = new ObservableCollection<int>();
         }
 
-        private RelayCommand<string> _selectFileCommand;
+        private string _titleButtonText;
 
-        public RelayCommand<string> SelectFileCommand
+        public string TitleButtonText
+        {
+            get { return _titleButtonText; }
+            set { Set(nameof(TitleButtonText), ref _titleButtonText, value); }
+        }
+
+        private string _stickerButtonText;
+
+        public string StickerButtonText
+        {
+            get { return _stickerButtonText; }
+            set { Set(nameof(StickerButtonText), ref _stickerButtonText, value); }
+        }
+
+        private RelayCommand _selectTitleFileCommand;
+
+        public RelayCommand SelectTitleFileCommand
         {
             get
             {
-                return _selectFileCommand ?? (_selectFileCommand = new RelayCommand<string>((type) =>
+                return _selectTitleFileCommand ?? (_selectTitleFileCommand = new RelayCommand(() =>
                 {
-                    if (IsEmpty(type)) return;
-                    var file = Dialog.OpenFileDialog("Select file for Titles",
-                        new[] {new CommonFileDialogFilter("CSV file", "csv"),});
-                    Dialog.ShowInfo("Select file", file);
+                    var file = Dialog.OpenFileDialog("Select Titles file",
+                        new[]
+                        {
+                            new CommonFileDialogFilter("Titles file", "*.txt, *.csv"),
+                        });
+
+                    if (file == null) return;
+                    _titlesFile = file;
+                    TitleButtonText = "File Is Selected";
+                    LoadCommand.RaiseCanExecuteChanged();
                 }));
             }
         }
 
-        private bool IsEmpty(string value)
+        private RelayCommand _selectStickerFileCommand;
+
+        public RelayCommand SelectStickerFileCommand
         {
-            return string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value);
-        }
-
-        private ObservableCollection<Item> _collection;
-
-        private ReadOnlyObservableCollection<Item> _stickers;
-
-        public ReadOnlyObservableCollection<Item> Stickers
-        {
-            get { return _stickers; }
-            set { Set(nameof(Stickers), ref _stickers, value); }
-        }
-
-        private RelayCommand<Item> _deleteCommand;
-
-        public RelayCommand<Item> DeleteCommand
-        {
-            get { return _deleteCommand ?? (_deleteCommand = new RelayCommand<Item>(async (item) =>
+            get
+            {
+                return _selectStickerFileCommand ?? (_selectStickerFileCommand = new RelayCommand(() =>
                 {
-                    if (item != null)
-                    {
-                        var response = await Dialog.ShowRequest("Deleted item",
-                            $"You really want deleted selected item: \"{item.Title}\"",
-                            "Deleted", "Cancel");
-                        if (response)
+                    var file = Dialog.OpenFileDialog("Select Stickers pdf file",
+                        new[]
                         {
-                            _collection.Remove(item);
-                            Stickers = new ReadOnlyObservableCollection<Item>(_collection);
-                        }
-                        
+                            new CommonFileDialogFilter("PDF file", "pdf"),
+                        });
+
+                    if (file == null) return;
+                    _stickersFile = file;
+                    StickerButtonText = "File Is Selected";
+                    LoadCommand.RaiseCanExecuteChanged();
+                    
+                    // Fill pages collection
+                    try
+                    {
+                        Dialog.ShowLoading("Inizialize..", () =>
+                        {
+                            int count = PdfReadHelper.CountPageInDocument(file);
+                            for (int i = 1; i <= count; i++) 
+                                Pages.Add(i);
+                        });
+                    }
+                    catch (Exception e)
+                    {
+                        Dialog.ShowError("Error select sticker file", e.Message);
+                        return;
                     }
                 }));
             }
         }
 
-        private IEnumerable<int> _pages;
+        private RelayCommand _loadCommand;
 
-        public IEnumerable<int> Pages
+        public RelayCommand LoadCommand
+        {
+            get
+            {
+                return _loadCommand ?? (_loadCommand = new RelayCommand(() =>
+                {
+                    try
+                    {
+                        var t = FileReaderHelper.ReadTitlesFile(_titlesFile);
+                        Titles = new ObservableCollection<Title>(t);
+                    }
+                    catch (Exception e)
+                    {
+                        Dialog.ShowError("Error in Loading", e.Message);
+                        return;
+                    }
+                }, () => !IsEmpty(_titlesFile) && !IsEmpty(_stickersFile)));
+            }
+        }
+
+        private RelayCommand _deleteCommand;
+
+        public RelayCommand DeleteCommand
+        {
+            get
+            {
+                return _deleteCommand ?? (_deleteCommand = new RelayCommand(() =>
+                {
+                    
+                }));
+            }
+        }
+
+        private ObservableCollection<int> _pages;
+
+        public ObservableCollection<int> Pages
         {
             get { return _pages; }
             set { Set(nameof(Pages), ref _pages, value); }
         }
+        
+        private ObservableCollection<Title> _titles;
 
-        public class Item
+        public ObservableCollection<Title> Titles
         {
-            public string Title { get; }
-            public int PageNumber { get; set; }
-
-            public Item(string title, int pageNumber = 0)
-            {
-                Title = title;
-                PageNumber = pageNumber;
-            }
+            get { return _titles; }
+            set { Set(nameof(Titles), ref _titles, value); }
         }
 
-        public class PageItem
+        private bool IsEmpty(string value)
         {
-            public byte[] Content { get; }
-            public int Number { get; }
-
-            public PageItem(int number, byte[] content)
-            {
-                Content = content;
-                Number = number;
-            }
+            return string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value);
         }
     }
 }

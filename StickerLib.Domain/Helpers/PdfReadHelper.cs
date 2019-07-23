@@ -52,6 +52,12 @@ namespace StickerLib.Domain.Helpers
             return document;
         }
 
+        public static int CountPageInDocument(string file)
+        {
+            using (var sourceDocument = new PdfDocument(new PdfReader(file)))
+                return sourceDocument.GetNumberOfPages();
+        }
+
         public static Task<byte[]> ReadToStreamByteAsync(string file, int page)
         {
             return Task.Factory.StartNew(() => ReadToStreamByte(file, page));

@@ -204,7 +204,7 @@ namespace StickerLib.UI.Common.Services
         public string OpenFileDialog(string title, IEnumerable<CommonFileDialogFilter> filters)
         {
             var response = OpenDialog(title, filters);
-            return response.FirstOrDefault();
+            return response?.FirstOrDefault();
         }
 
         public IEnumerable<string> OpenMultiselectFileDialog(string title, IEnumerable<CommonFileDialogFilter> filters)
@@ -215,7 +215,7 @@ namespace StickerLib.UI.Common.Services
         public string OpenFolderDialog(string title)
         {
             var response = OpenDialog(title, null, false, true);
-            return response.FirstOrDefault();
+            return response?.FirstOrDefault();
         }
 
         public IEnumerable<string> OpenMultiselectFolderDilaog(string title)

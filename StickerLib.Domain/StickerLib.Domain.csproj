@@ -113,6 +113,7 @@
     <Compile Include="Build\Interfaces\IStickerBuilder.cs" />
     <Compile Include="Build\Implimentations\StickerBuilder.cs" />
     <Compile Include="Common\Page.cs" />
+    <Compile Include="Common\Title.cs" />
     <Compile Include="DomainModule.cs" />
     <Compile Include="Helpers\ConvertManager.cs" />
     <Compile Include="Helpers\DuplicationType.cs" />

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using Serilog;
+using StickerLib.Domain.Common;
 
 namespace StickerLib.Domain.Helpers
 {
@@ -31,6 +33,30 @@ namespace StickerLib.Domain.Helpers
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        public static IEnumerable<Title> ReadTitlesFile(string file, bool useHeaders = false)
+        {
+            if (!File.Exists(file)) throw new FileNotFoundException("Not found file with titles", nameof(file));
+            List<Title> list = null;
+            try
+            {
+                using (StreamReader sr = new StreamReader(file, Encoding.Default))
+                {
+                    list = new List<Title>();
+                    while (!sr.EndOfStream)
+                    {
+                        string[] row = sr.ReadLine()?.Split(';');
+                        if (row != null) list.Add(new Title() { Name = row[0], PageInFile = Int32.Parse(row[1]), });
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            return list;
         }
 
         // maybe create string template for file
