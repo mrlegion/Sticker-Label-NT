@@ -140,6 +140,7 @@
     <Compile Include="Common\Dialogs\Views\QuestionDialogView.xaml.cs">
       <DependentUpon>QuestionDialogView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\Helpers\CloseEventType.cs" />
     <Compile Include="Common\Helpers\ListViewHelper.cs" />
     <Compile Include="Common\Helpers\OpenWindowType.cs" />
     <Compile Include="Common\Services\DialogService.cs" />
@@ -169,22 +170,22 @@
     <Compile Include="Views\LibraryWindow.xaml.cs">
       <DependentUpon>LibraryWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages\GroupAddListView.xaml.cs">
+    <Compile Include="Views\Pages\Group\GroupAddListView.xaml.cs">
       <DependentUpon>GroupAddListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages\GroupEditView.xaml.cs">
+    <Compile Include="Views\Pages\Group\GroupEditView.xaml.cs">
       <DependentUpon>GroupEditView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages\LibraryAddStickerListView.xaml.cs">
+    <Compile Include="Views\Pages\Library\LibraryAddStickerListView.xaml.cs">
       <DependentUpon>LibraryAddStickerListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages\LibraryAddStickerView.xaml.cs">
+    <Compile Include="Views\Pages\Library\LibraryAddStickerView.xaml.cs">
       <DependentUpon>LibraryAddStickerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages\LibraryBackupView.xaml.cs">
+    <Compile Include="Views\Pages\Library\LibraryBackupView.xaml.cs">
       <DependentUpon>LibraryBackupView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages\LibraryView.xaml.cs">
+    <Compile Include="Views\Pages\Library\LibraryView.xaml.cs">
       <DependentUpon>LibraryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\MainView.xaml.cs">
@@ -274,27 +275,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\GroupAddListView.xaml">
+    <Page Include="Views\Pages\Group\GroupAddListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\GroupEditView.xaml">
+    <Page Include="Views\Pages\Group\GroupEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\LibraryAddStickerListView.xaml">
+    <Page Include="Views\Pages\Library\LibraryAddStickerListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\LibraryAddStickerView.xaml">
+    <Page Include="Views\Pages\Library\LibraryAddStickerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\LibraryBackupView.xaml">
+    <Page Include="Views\Pages\Library\LibraryBackupView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\LibraryView.xaml">
+    <Page Include="Views\Pages\Library\LibraryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -329,6 +330,7 @@
   <ItemGroup>
     <Resource Include="Images\folder32x32.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.110.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.110.0\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

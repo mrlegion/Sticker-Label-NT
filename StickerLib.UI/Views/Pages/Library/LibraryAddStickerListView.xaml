@@ -1,9 +1,8 @@
-﻿<Page x:Class="StickerLib.UI.Views.Pages.LibraryAddStickerListView"
+﻿<Page x:Class="StickerLib.UI.Views.Pages.Library.LibraryAddStickerListView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:StickerLib.UI.Views.Pages"
       DataContext="{Binding LibraryAddStickers, Source={StaticResource Locator}}"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -60,21 +59,12 @@
                           md:DataGridAssist.ColumnHeaderPadding="8">
                     <DataGrid.Columns>
                         <md:MaterialDataGridTextColumn Header="Title"
-                                                       Binding="{Binding Name}"
+                                                       Binding="{Binding Title}"
                                                        FontWeight="SemiBold"
                                                        Width="3*" />
-                        <DataGridTemplateColumn Header="Sticker"
-                                                Width="1.5*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ComboBox IsSynchronizedWithCurrentItem="True"
-                                              md:HintAssist.Hint="Select sticker.."
-                                              SelectedItem="{Binding Sticker, Mode=OneWayToSource}"
-                                              ItemsSource="{Binding StickerList, Mode=OneWay}"
-                                              HorizontalAlignment="Stretch" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                        <md:MaterialDataGridComboBoxColumn Header="Page number"
+                                                           SelectedItemBinding="{Binding PageNumber}"
+                                                           ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.Pages}"/>
                         <DataGridTemplateColumn Header="Control">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
