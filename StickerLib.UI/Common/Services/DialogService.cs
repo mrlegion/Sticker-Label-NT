@@ -18,11 +18,19 @@ namespace StickerLib.UI.Common.Services
 {
     public class DialogService : IDialog
     {
+        #region Properties
+
         public string AlertDialogHost { get; set; } = "AlertDialogHost";
         public string LoadingDialogHost { get; set; } = "LoadingDialogHost";
         public string CustomDialogHost { get; set; } = "CustomDialogHost";
 
         public int DelayShortValue { get; set; } = 1500;
+
+        #endregion
+
+        #region Dialogs
+
+        #region Info dialog
 
         /// <summary>
         /// Show information dialog box
@@ -39,6 +47,10 @@ namespace StickerLib.UI.Common.Services
             ShowDialog(title, message, PackIconKind.InformationOutline, DialogThemeType.Info, identifier);
         }
 
+        #endregion
+
+        #region Success dialog
+
         /// <summary>
         /// Show success dialog box
         /// </summary>
@@ -53,6 +65,10 @@ namespace StickerLib.UI.Common.Services
         {
             ShowDialog(title, message, PackIconKind.CheckCircleOutline, DialogThemeType.Success, identifier);
         }
+
+        #endregion
+
+        #region Error dialog
 
         /// <summary>
         /// Show error dialog box
@@ -69,6 +85,10 @@ namespace StickerLib.UI.Common.Services
             ShowDialog(title, message, PackIconKind.ErrorOutline, DialogThemeType.Error, identifier);
         }
 
+        #endregion
+
+        #region Warning dialog
+
         /// <summary>
         /// Show warning dialog box
         /// </summary>
@@ -83,6 +103,10 @@ namespace StickerLib.UI.Common.Services
         {
             ShowDialog(title, message, PackIconKind.WarningOutline, DialogThemeType.Warning, identifier);
         }
+
+        #endregion
+
+        #region Loading dialog
 
         /// <summary>
         /// Show loading dialog box when data or your operation work in other thread
@@ -111,117 +135,57 @@ namespace StickerLib.UI.Common.Services
             });
         }
 
-        public void ShowShortInfo(string message)
+        #endregion
+
+        #region Short Info Dialog
+
+        public void ShowShortInfo(string title, string message, int delay = 1500, DialogThemeType theme = DialogThemeType.Info,
+            PackIconKind icon = PackIconKind.InfoCircleOutline, string identifier = null)
         {
-            ShowShortInfo("Information", message);
+
         }
 
-        public void ShowShortInfo(string title, string message)
+        #endregion
+
+        #region Short Success Dialog
+
+        public void ShowShortSuccess(string title, string message, int delay = 1500,
+            DialogThemeType theme = DialogThemeType.Success,
+            PackIconKind icon = PackIconKind.CheckCircleOutline, string identifier = null)
         {
-            ShowShortInfo(title, message, DelayShortValue);
+
         }
 
-        public void ShowShortInfo(string title, string message, int delay)
+        #endregion
+
+        #region Short Warning Dialog
+
+        public void ShowShortWarning(string title, string message, int delay = 1500,
+            DialogThemeType theme = DialogThemeType.Warning,
+            PackIconKind icon = PackIconKind.Warning, string identifier = null)
         {
-            ShowShortInfo(title, message, delay, AlertDialogHost);
+
         }
 
-        public void ShowShortInfo(string title, string message, int delay, string identifier)
-        {
-            ShowShort(title, message, delay, DialogThemeType.Info, identifier);
-        }
+        #endregion
 
-        public void ShowShortSuccess(string message)
-        {
-            ShowShortSuccess("Success", message);
-        }
-
-        public void ShowShortSuccess(string title, string message)
-        {
-            ShowShortSuccess(title, message, DelayShortValue);
-        }
-
-        public void ShowShortSuccess(string title, string message, int delay)
-        {
-            ShowShortSuccess(title, message, delay, AlertDialogHost);
-        }
-
-        public void ShowShortSuccess(string title, string message, int delay, string identifier)
-        {
-            ShowShort(title, message, delay, DialogThemeType.Success, identifier);
-        }
-
-        public void ShowShortWarning(string message)
-        {
-            ShowShortWarning("Warning", message);
-        }
-
-        public void ShowShortWarning(string title, string message)
-        {
-            ShowShortWarning(title, message, DelayShortValue);
-        }
-
-        public void ShowShortWarning(string title, string message, int delay)
-        {
-            ShowShortWarning(title, message, delay, AlertDialogHost);
-        }
-
-        public void ShowShortWarning(string title, string message, int delay, string identifier)
-        {
-            ShowShort(title, message, delay, DialogThemeType.Warning, identifier);
-        }
-
-        public void ShowShortError(string message)
-        {
-            ShowShortError("Error", message);
-        }
+        #region Short Error Dialog
 
         public void ShowShortError(string title, string message)
         {
-            ShowShortError(title, message, DelayShortValue);
+            ShowShortError(title, message, AlertDialogHost);
         }
 
-        public void ShowShortError(string title, string message, int delay)
+        public void ShowShortError(string title, string message, string identifier)
         {
-            ShowShortError(title, message, delay, AlertDialogHost);
+            ShowShort(title, message, DelayShortValue, DialogThemeType.Error, PackIconKind.ErrorOutline, identifier);
         }
 
-        public void ShowShortError(string title, string message, int delay, string identifier)
-        {
-            ShowShort(title, message, delay, DialogThemeType.Error, identifier);
-        }
+        #endregion
 
-        public void ShowShort(string message)
-        {
-            ShowShort("Information", message);
-        }
+        #region Short Dialog
 
-        public void ShowShort(string title, string message)
-        {
-            ShowShort(title, message, DelayShortValue);
-        }
-
-        public void ShowShort(string title, string message, PackIconKind icon)
-        {
-            ShowShort(title, message, DelayShortValue, icon);
-        }
-
-        public void ShowShort(string title, string message, int delay)
-        {
-            ShowShort(title, message, delay, AlertDialogHost);
-        }
-
-        public void ShowShort(string title, string message, int delay, string identifier)
-        {
-            ShowShort(title, message, delay, DialogThemeType.Default, default(PackIconKind), identifier);
-        }
-
-        public void ShowShort(string title, string message, int delay, DialogThemeType theme, PackIconKind icon)
-        {
-            ShowShort(title, message, delay, theme, icon, AlertDialogHost);
-        }
-
-        public async void ShowShort(string title, string message, int delay, DialogThemeType theme, PackIconKind icon, string identifier)
+        public async void ShowShort(string title, string message, int delay = 1500, DialogThemeType theme = DialogThemeType.Default, PackIconKind icon = default, string identifier = null)
         {
             var content = ServiceLocator.Current.GetInstance<InfoContentView>();
             var dialogContent = ServiceLocator.Current.GetInstance<ContentDialogView>();
@@ -238,7 +202,7 @@ namespace StickerLib.UI.Common.Services
                 dialogContent.ThemeForeground = dialogTheme.GetForegroundBrush();
             }
             
-            await DialogHost.Show(dialogContent, identifier, delegate(object sender, DialogOpenedEventArgs args)
+            await DialogHost.Show(dialogContent, identifier ?? AlertDialogHost, delegate(object sender, DialogOpenedEventArgs args)
             {
                 ThreadPool.QueueUserWorkItem(state =>
                 {
@@ -247,6 +211,10 @@ namespace StickerLib.UI.Common.Services
                 });
             });
         }
+
+        #endregion
+
+        #region Show Dialog
 
         public void ShowDialog(UserControl content)
         {
@@ -287,6 +255,10 @@ namespace StickerLib.UI.Common.Services
             await DialogHost.Show(content, identifier);
         }
 
+        #endregion
+
+        #region Show Request Dialog
+
         public async Task<bool> ShowRequest(string title, string message)
         {
             return await ShowRequest(title, message, AlertDialogHost);
@@ -316,6 +288,10 @@ namespace StickerLib.UI.Common.Services
                 return result;
             return false;
         }
+
+        #endregion
+
+        #region Show File or Folder Dialog
 
         public IEnumerable<string> OpenDialog(string title, IEnumerable<CommonFileDialogFilter> filters,
             bool multiselect = false, bool isFolderPicker = false)
@@ -363,5 +339,9 @@ namespace StickerLib.UI.Common.Services
         {
             return OpenDialog(title, null, true, true);
         }
+
+        #endregion
+
+        #endregion
     }
 }

@@ -131,40 +131,31 @@ namespace StickerLib.UI.Common.Services
         /// <param name="identifier">Идентификатор для <see cref="DialogHost"/></param>
         void ShowLoading(string message, Action callback, string identifier);
 
-        void ShowShortInfo(string message);
-        void ShowShortInfo(string title, string message);
-        void ShowShortInfo(string title, string message, int delay);
-        void ShowShortInfo(string title, string message, int delay, string identifier);
+        void ShowShortInfo(string title, string message, int delay = 1500, DialogThemeType theme = DialogThemeType.Info,
+            PackIconKind icon = PackIconKind.InfoCircleOutline, string identifier = null);
 
-        void ShowShortSuccess(string message);
-        void ShowShortSuccess(string title, string message);
-        void ShowShortSuccess(string title, string message, int delay);
-        void ShowShortSuccess(string title, string message, int delay, string identifier);
+        void ShowShortSuccess(string title, string message, int delay = 1500,
+            DialogThemeType theme = DialogThemeType.Success,
+            PackIconKind icon = PackIconKind.CheckCircleOutline, string identifier = null);
 
-        void ShowShortWarning(string message);
-        void ShowShortWarning(string title, string message);
-        void ShowShortWarning(string title, string message, int delay);
-        void ShowShortWarning(string title, string message, int delay, string identifier);
+        void ShowShortWarning(string title, string message, int delay = 1500,
+            DialogThemeType theme = DialogThemeType.Warning,
+            PackIconKind icon = PackIconKind.Warning, string identifier = null);
 
-        void ShowShortError(string message);
         void ShowShortError(string title, string message);
-        void ShowShortError(string title, string message, int delay);
-        void ShowShortError(string title, string message, int delay, string identifier);
+        void ShowShortError(string title, string message, string identifier);
+        void ShowShortError(string title, string message, int delay,
+            DialogThemeType theme = DialogThemeType.Error,
+            PackIconKind icon = PackIconKind.ErrorOutline, string identifier = null);
 
-        void ShowShort(string message);
-        void ShowShort(string title, string message);
-        void ShowShort(string title, string message, int delay);
-        void ShowShort(string title, string message, int delay, string identifier);
-        void ShowShort(string title, string message, int delay, DialogThemeType theme, string identifier);
+        void ShowShort(string title, string message, int delay = 1500, DialogThemeType theme = DialogThemeType.Default,
+            PackIconKind icon = default, string identifier = null);
 
-        void ShowDialog(UserControl content);
-        void ShowDialog(UserControl content, string title);
-        void ShowDialog(UserControl content, string title, string identifier);
-        void ShowDialog(string title, string message, PackIconKind icon, DialogThemeType theme);
-        void ShowDialog(string title, string message, PackIconKind icon, DialogThemeType theme, string identifier);
-        
+        void ShowDialog(string title, string message, PackIconKind icon = default,
+            DialogThemeType theme = DialogThemeType.Default, string identifier = null);
+
         // Open file dialog
-        
+
         /// <summary>
         /// Показать диалоговое окно выбора файла
         /// </summary>
@@ -172,7 +163,7 @@ namespace StickerLib.UI.Common.Services
         /// <param name="filters">Фильтры для выбора файла, то есть какой тип файла нужно выбирать</param>
         /// <returns>Путь для выбранного файла в типе строки</returns>
         string OpenFileDialog(string title, IEnumerable<CommonFileDialogFilter> filters);
-        
+
         /// <summary>
         /// Показать диалоговое окно выбора нескольких файлов
         /// </summary>
@@ -180,9 +171,9 @@ namespace StickerLib.UI.Common.Services
         /// <param name="filters">Фильтры для выбора файла, то есть какой тип файла нужно выбирать</param>
         /// <returns>Коллекция путей для выбранных файлов</returns>
         IEnumerable<string> OpenMultiselectFileDialog(string title, IEnumerable<CommonFileDialogFilter> filters);
-        
+
         string OpenFolderDialog(string title);
-        
+
         IEnumerable<string> OpenMultiselectFolderDilaog(string title);
 
         IEnumerable<string> OpenDialog(string title, IEnumerable<CommonFileDialogFilter> filters,
