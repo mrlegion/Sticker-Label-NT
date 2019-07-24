@@ -33,13 +33,13 @@ namespace StickerLib.UI.Common.Dialogs.Views
             set { SetValue(MessageProperty, value); }
         }
 
-        public static readonly DependencyProperty ColorThemeProperty = 
-            DependencyProperty.Register(nameof(ColorTheme), typeof(SolidColorBrush), typeof(AlertDialogView), new PropertyMetadata(Application.Current.Resources["InfoColor"]));
+        public static readonly DependencyProperty ThemeBackgroundProperty = 
+            DependencyProperty.Register(nameof(ThemeBackground), typeof(SolidColorBrush), typeof(AlertDialogView), new PropertyMetadata(Application.Current.Resources["InfoColor"]));
 
-        public SolidColorBrush ColorTheme
+        public SolidColorBrush ThemeBackground
         {
-            get { return (SolidColorBrush)GetValue(ColorThemeProperty); }
-            set { SetValue(ColorThemeProperty, value); }
+            get { return (SolidColorBrush)GetValue(ThemeBackgroundProperty); }
+            set { SetValue(ThemeBackgroundProperty, value); }
         }
 
         public static readonly DependencyProperty TitleProperty =
@@ -49,6 +49,16 @@ namespace StickerLib.UI.Common.Dialogs.Views
         {
             get { return (string)GetValue(TitleProperty); }
             set { SetValue(TitleProperty, value); }
+        }
+
+        public static readonly DependencyProperty ThemeForegroundProperty = DependencyProperty.Register(
+            "ThemeForeground", typeof(SolidColorBrush), typeof(AlertDialogView), 
+            new PropertyMetadata((SolidColorBrush) Application.Current.Resources["MaterialDesignBody"]));
+
+        public SolidColorBrush ThemeForeground
+        {
+            get { return (SolidColorBrush) GetValue(ThemeForegroundProperty); }
+            set { SetValue(ThemeForegroundProperty, value); }
         }
     }
 }

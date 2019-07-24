@@ -139,7 +139,7 @@ namespace StickerLib.UI.ViewModels.Library
                         if (response)
                             Titles.Remove(title);
                         
-                        Dialog.ShowInfoTiming("Deleted success!", "Deleted select item is success!");
+                        Dialog.ShowShortSuccess("Deleted success!", "Deleted select item is success!");
                     }
                         
                 }));
@@ -165,6 +165,18 @@ namespace StickerLib.UI.ViewModels.Library
         private bool IsEmpty(string value)
         {
             return string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value);
+        }
+
+        private RelayCommand _acceptCommand;
+
+        public RelayCommand AcceptCommand
+        {
+            get
+            {
+                return _acceptCommand ?? (_acceptCommand = new RelayCommand(() =>
+                {
+                }));
+            }
         }
     }
 }

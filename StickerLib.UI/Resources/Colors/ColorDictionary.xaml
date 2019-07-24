@@ -11,4 +11,6 @@
     <SolidColorBrush Color="#EEEEEE" x:Key="LightGrayColor"/>
     <SolidColorBrush Color="#263238" x:Key="DarkColorBg"/>
     <SolidColorBrush Color="#455A64" x:Key="LightDarkColorBg"/>
+
+    <SolidColorBrush Color="{Binding Source={StaticResource MaterialDesignPaper}, Path=Color}" x:Key="MdPaperCustom"/>
 </ResourceDictionary>

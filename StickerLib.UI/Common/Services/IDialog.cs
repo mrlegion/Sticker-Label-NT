@@ -15,6 +15,7 @@ namespace StickerLib.UI.Common.Services
         string LoadingDialogHost { get; set; }
         string CustomDialogHost { get; set; }
 
+        int DelayShortValue { get; set; }
 
         /// <summary>
         /// Показать информационное диалоговое окно
@@ -130,16 +131,37 @@ namespace StickerLib.UI.Common.Services
         /// <param name="identifier">Идентификатор для <see cref="DialogHost"/></param>
         void ShowLoading(string message, Action callback, string identifier);
 
-        void ShowInfoTiming(string message);
-        void ShowInfoTiming(string title, string message);
-        void ShowInfoTiming(string title, string message, int delay);
-        void ShowInfoTiming(string title, string message, int delay, string identifier);
+        void ShowShortInfo(string message);
+        void ShowShortInfo(string title, string message);
+        void ShowShortInfo(string title, string message, int delay);
+        void ShowShortInfo(string title, string message, int delay, string identifier);
+
+        void ShowShortSuccess(string message);
+        void ShowShortSuccess(string title, string message);
+        void ShowShortSuccess(string title, string message, int delay);
+        void ShowShortSuccess(string title, string message, int delay, string identifier);
+
+        void ShowShortWarning(string message);
+        void ShowShortWarning(string title, string message);
+        void ShowShortWarning(string title, string message, int delay);
+        void ShowShortWarning(string title, string message, int delay, string identifier);
+
+        void ShowShortError(string message);
+        void ShowShortError(string title, string message);
+        void ShowShortError(string title, string message, int delay);
+        void ShowShortError(string title, string message, int delay, string identifier);
+
+        void ShowShort(string message);
+        void ShowShort(string title, string message);
+        void ShowShort(string title, string message, int delay);
+        void ShowShort(string title, string message, int delay, string identifier);
+        void ShowShort(string title, string message, int delay, DialogThemeType theme, string identifier);
 
         void ShowDialog(UserControl content);
         void ShowDialog(UserControl content, string title);
         void ShowDialog(UserControl content, string title, string identifier);
-        void ShowDialog(string title, string message, PackIconKind icon, SolidColorBrush theme);
-        void ShowDialog(string title, string message, PackIconKind icon, SolidColorBrush theme, string identifier);
+        void ShowDialog(string title, string message, PackIconKind icon, DialogThemeType theme);
+        void ShowDialog(string title, string message, PackIconKind icon, DialogThemeType theme, string identifier);
         
         // Open file dialog
         

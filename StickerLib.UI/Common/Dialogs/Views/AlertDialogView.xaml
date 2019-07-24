@@ -8,8 +8,8 @@
              mc:Ignorable="d"
              xmlns:converters="clr-namespace:StickerLib.UI.Common.Converters"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-             Background="{Binding ColorTheme}"
+             TextElement.Foreground="{Binding ThemeForeground}"
+             Background="{Binding ThemeBackground}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="14"
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
@@ -22,7 +22,7 @@
             <Setter Property="Height" Value="50"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Foreground" Value="{Binding ColorTheme}"/>
+                    <Setter Property="Foreground" Value="{Binding ThemeBackground}"/>
                 </Trigger>
                 <Trigger Property="IsMouseOver" Value="False">
                     <Setter Property="Foreground" Value="{StaticResource WhiteTextColor}"/>

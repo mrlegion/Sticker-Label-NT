@@ -11,6 +11,7 @@ using GalaSoft.MvvmLight.Threading;
 using MaterialDesignThemes.Wpf;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using StickerLib.UI.Common.Dialogs.Components;
+using StickerLib.UI.Common.Dialogs.Themes;
 using StickerLib.UI.Common.Dialogs.Views;
 
 namespace StickerLib.UI.Common.Services
@@ -20,6 +21,8 @@ namespace StickerLib.UI.Common.Services
         public string AlertDialogHost { get; set; } = "AlertDialogHost";
         public string LoadingDialogHost { get; set; } = "LoadingDialogHost";
         public string CustomDialogHost { get; set; } = "CustomDialogHost";
+
+        public int DelayShortValue { get; set; } = 1500;
 
         /// <summary>
         /// Show information dialog box
@@ -33,8 +36,7 @@ namespace StickerLib.UI.Common.Services
 
         public void ShowInfo(string title, string message, string identifier)
         {
-            ShowDialog(title, message, PackIconKind.InformationOutline,
-                (SolidColorBrush) Application.Current.Resources["InfoColor"], identifier);
+            ShowDialog(title, message, PackIconKind.InformationOutline, DialogThemeType.Info, identifier);
         }
 
         /// <summary>
@@ -49,8 +51,7 @@ namespace StickerLib.UI.Common.Services
 
         public void ShowSuccess(string title, string message, string identifier)
         {
-            ShowDialog(title, message, PackIconKind.CheckCircleOutline,
-                (SolidColorBrush) Application.Current.Resources["SuccessColor"], identifier);
+            ShowDialog(title, message, PackIconKind.CheckCircleOutline, DialogThemeType.Success, identifier);
         }
 
         /// <summary>
@@ -65,8 +66,7 @@ namespace StickerLib.UI.Common.Services
 
         public void ShowError(string title, string message, string identifier)
         {
-            ShowDialog(title, message, PackIconKind.ErrorOutline,
-                (SolidColorBrush) Application.Current.Resources["ErrorColor"], identifier);
+            ShowDialog(title, message, PackIconKind.ErrorOutline, DialogThemeType.Error, identifier);
         }
 
         /// <summary>
@@ -81,8 +81,7 @@ namespace StickerLib.UI.Common.Services
 
         public void ShowWarning(string title, string message, string identifier)
         {
-            ShowDialog(title, message, PackIconKind.WarningOutline,
-                (SolidColorBrush) Application.Current.Resources["WarningColor"], identifier);
+            ShowDialog(title, message, PackIconKind.WarningOutline, DialogThemeType.Warning, identifier);
         }
 
         /// <summary>
@@ -112,36 +111,141 @@ namespace StickerLib.UI.Common.Services
             });
         }
 
-        public void ShowInfoTiming(string message)
+        public void ShowShortInfo(string message)
         {
-            ShowInfoTiming("Information", message, 1500, AlertDialogHost);
+            ShowShortInfo("Information", message);
         }
-        
-        public void ShowInfoTiming(string title, string message)
+
+        public void ShowShortInfo(string title, string message)
         {
-            ShowInfoTiming(title, message, 1000, AlertDialogHost);
+            ShowShortInfo(title, message, DelayShortValue);
         }
-        
-        public void ShowInfoTiming(string title, string message, int delay)
+
+        public void ShowShortInfo(string title, string message, int delay)
         {
-            ShowInfoTiming(title, message, delay, AlertDialogHost);
+            ShowShortInfo(title, message, delay, AlertDialogHost);
         }
-        
-        public async void ShowInfoTiming(string title, string message, int delay, string identifier)
+
+        public void ShowShortInfo(string title, string message, int delay, string identifier)
+        {
+            ShowShort(title, message, delay, DialogThemeType.Info, identifier);
+        }
+
+        public void ShowShortSuccess(string message)
+        {
+            ShowShortSuccess("Success", message);
+        }
+
+        public void ShowShortSuccess(string title, string message)
+        {
+            ShowShortSuccess(title, message, DelayShortValue);
+        }
+
+        public void ShowShortSuccess(string title, string message, int delay)
+        {
+            ShowShortSuccess(title, message, delay, AlertDialogHost);
+        }
+
+        public void ShowShortSuccess(string title, string message, int delay, string identifier)
+        {
+            ShowShort(title, message, delay, DialogThemeType.Success, identifier);
+        }
+
+        public void ShowShortWarning(string message)
+        {
+            ShowShortWarning("Warning", message);
+        }
+
+        public void ShowShortWarning(string title, string message)
+        {
+            ShowShortWarning(title, message, DelayShortValue);
+        }
+
+        public void ShowShortWarning(string title, string message, int delay)
+        {
+            ShowShortWarning(title, message, delay, AlertDialogHost);
+        }
+
+        public void ShowShortWarning(string title, string message, int delay, string identifier)
+        {
+            ShowShort(title, message, delay, DialogThemeType.Warning, identifier);
+        }
+
+        public void ShowShortError(string message)
+        {
+            ShowShortError("Error", message);
+        }
+
+        public void ShowShortError(string title, string message)
+        {
+            ShowShortError(title, message, DelayShortValue);
+        }
+
+        public void ShowShortError(string title, string message, int delay)
+        {
+            ShowShortError(title, message, delay, AlertDialogHost);
+        }
+
+        public void ShowShortError(string title, string message, int delay, string identifier)
+        {
+            ShowShort(title, message, delay, DialogThemeType.Error, identifier);
+        }
+
+        public void ShowShort(string message)
+        {
+            ShowShort("Information", message);
+        }
+
+        public void ShowShort(string title, string message)
+        {
+            ShowShort(title, message, DelayShortValue);
+        }
+
+        public void ShowShort(string title, string message, PackIconKind icon)
+        {
+            ShowShort(title, message, DelayShortValue, icon);
+        }
+
+        public void ShowShort(string title, string message, int delay)
+        {
+            ShowShort(title, message, delay, AlertDialogHost);
+        }
+
+        public void ShowShort(string title, string message, int delay, string identifier)
+        {
+            ShowShort(title, message, delay, DialogThemeType.Default, default(PackIconKind), identifier);
+        }
+
+        public void ShowShort(string title, string message, int delay, DialogThemeType theme, PackIconKind icon)
+        {
+            ShowShort(title, message, delay, theme, icon, AlertDialogHost);
+        }
+
+        public async void ShowShort(string title, string message, int delay, DialogThemeType theme, PackIconKind icon, string identifier)
         {
             var content = ServiceLocator.Current.GetInstance<InfoContentView>();
-            content.Message = message;
             var dialogContent = ServiceLocator.Current.GetInstance<ContentDialogView>();
+            content.Message = message;
             dialogContent.DialogContent = content;
             dialogContent.Title = title;
+            content.Icon = icon;
+
+            if (theme != DialogThemeType.None)
+            {
+                IDialogTheme dialogTheme = DialogThemeFactory.CreateTheme(theme);
+                content.ThemeForeground = dialogTheme.GetForegroundBrush();
+                dialogContent.ThemeBackground = dialogTheme.GetBackgroundBrush();
+                dialogContent.ThemeForeground = dialogTheme.GetForegroundBrush();
+            }
+            
             await DialogHost.Show(dialogContent, identifier, delegate(object sender, DialogOpenedEventArgs args)
+            {
+                ThreadPool.QueueUserWorkItem(state =>
                 {
-                    ThreadPool.QueueUserWorkItem(state =>
-                    {
-                        Thread.Sleep(delay);
-                        DispatcherHelper.CheckBeginInvokeOnUI(() => args.Session.Close(true));
-                    });
+                    Thread.Sleep(delay);
+                    DispatcherHelper.CheckBeginInvokeOnUI(() => args.Session.Close(true));
                 });
+            });
         }
 
         public void ShowDialog(UserControl content)
@@ -162,16 +266,21 @@ namespace StickerLib.UI.Common.Services
             await DialogHost.Show(dialogContent, identifier);
         }
 
-        public void ShowDialog(string title, string message, PackIconKind icon, SolidColorBrush theme)
+        public void ShowDialog(string title, string message, PackIconKind icon, DialogThemeType theme)
         {
             ShowDialog(title, message, icon, theme, AlertDialogHost);
         }
 
-        public async void ShowDialog(string title, string message, PackIconKind icon, SolidColorBrush theme,
+        public async void ShowDialog(string title, string message, PackIconKind icon, DialogThemeType theme,
             string identifier)
         {
             var content = ServiceLocator.Current.GetInstance<AlertDialogView>();
-            content.ColorTheme = theme;
+            if (theme != DialogThemeType.None)
+            {
+                IDialogTheme dialogTheme = DialogThemeFactory.CreateTheme(theme);
+                content.ThemeBackground = dialogTheme.GetBackgroundBrush();
+                content.ThemeForeground = dialogTheme.GetForegroundBrush();
+            }
             content.Title = title;
             content.Message = message;
             content.Icon = icon;
@@ -184,7 +293,7 @@ namespace StickerLib.UI.Common.Services
         }
 
         public async Task<bool> ShowRequest(string title, string message, string identifier)
-        { 
+        {
             return await ShowRequest(title, message, "ACCEPT", "CANCEL", identifier);
         }
 
@@ -232,7 +341,7 @@ namespace StickerLib.UI.Common.Services
                 ? dialog.FileNames
                 : null;
         }
-        
+
         public string OpenFileDialog(string title, IEnumerable<CommonFileDialogFilter> filters)
         {
             var response = OpenDialog(title, filters);
