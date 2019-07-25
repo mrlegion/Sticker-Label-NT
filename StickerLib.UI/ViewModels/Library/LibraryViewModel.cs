@@ -1,14 +1,15 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
-using CommonServiceLocator;
+﻿using CommonServiceLocator;
+
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
+
 using StickerLib.Domain.Services;
 using StickerLib.Infrastructure.Entities;
-using StickerLib.UI.Common.Helpers;
 using StickerLib.UI.Common.Services;
 using StickerLib.UI.Views;
+
+using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace StickerLib.UI.ViewModels.Library
 {
