@@ -131,22 +131,21 @@ namespace StickerLib.UI.Common.Services
         /// <param name="identifier">Идентификатор для <see cref="DialogHost"/></param>
         void ShowLoading(string message, Action callback, string identifier);
 
-        void ShowShortInfo(string title, string message, int delay = 1500, DialogThemeType theme = DialogThemeType.Info,
-            PackIconKind icon = PackIconKind.InfoCircleOutline, string identifier = null);
+        void ShowShortInfo(string message);
+        void ShowShortInfo(string title, string message);
+        void ShowShortInfo(string title, string message, string identifier);
 
-        void ShowShortSuccess(string title, string message, int delay = 1500,
-            DialogThemeType theme = DialogThemeType.Success,
-            PackIconKind icon = PackIconKind.CheckCircleOutline, string identifier = null);
+        void ShowShortSuccess(string message);
+        void ShowShortSuccess(string title, string message);
+        void ShowShortSuccess(string title, string message, string identifier);
 
-        void ShowShortWarning(string title, string message, int delay = 1500,
-            DialogThemeType theme = DialogThemeType.Warning,
-            PackIconKind icon = PackIconKind.Warning, string identifier = null);
+        void ShowShortWarning(string message);
+        void ShowShortWarning(string title, string message);
+        void ShowShortWarning(string title, string message, string identifier);
 
+        void ShowShortError(string message);
         void ShowShortError(string title, string message);
         void ShowShortError(string title, string message, string identifier);
-        void ShowShortError(string title, string message, int delay,
-            DialogThemeType theme = DialogThemeType.Error,
-            PackIconKind icon = PackIconKind.ErrorOutline, string identifier = null);
 
         void ShowShort(string title, string message, int delay = 1500, DialogThemeType theme = DialogThemeType.Default,
             PackIconKind icon = default, string identifier = null);

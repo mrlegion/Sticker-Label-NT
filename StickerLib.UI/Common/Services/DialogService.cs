@@ -139,38 +139,68 @@ namespace StickerLib.UI.Common.Services
 
         #region Short Info Dialog
 
-        public void ShowShortInfo(string title, string message, int delay = 1500, DialogThemeType theme = DialogThemeType.Info,
-            PackIconKind icon = PackIconKind.InfoCircleOutline, string identifier = null)
+        public void ShowShortInfo(string message)
         {
-
+            ShowShortInfo("Information", message, AlertDialogHost);
         }
-
+        
+        public void ShowShortInfo(string title, string message)
+        {
+            ShowShortInfo(title, message, AlertDialogHost);
+        }
+        
+        public void ShowShortInfo(string title, string message, string identifier)
+        {
+            ShowShort(title, message, DelayShortValue, DialogThemeType.Info, PackIconKind.InformationOutline, identifier);
+        }
+        
         #endregion
 
         #region Short Success Dialog
-
-        public void ShowShortSuccess(string title, string message, int delay = 1500,
-            DialogThemeType theme = DialogThemeType.Success,
-            PackIconKind icon = PackIconKind.CheckCircleOutline, string identifier = null)
+        
+        public void ShowShortSuccess(string message)
         {
-
+            ShowShortSuccess("Success", message, AlertDialogHost);
+        }
+        
+        public void ShowShortSuccess(string title, string message)
+        {
+            ShowShortSuccess(title, message, AlertDialogHost);
+        }
+        
+        public void ShowShortSuccess(string title, string message, string identifier)
+        {
+            ShowShort(title, message, DelayShortValue, DialogThemeType.Success, PackIconKind.CheckCircleOutline, identifier);
         }
 
         #endregion
 
         #region Short Warning Dialog
 
-        public void ShowShortWarning(string title, string message, int delay = 1500,
-            DialogThemeType theme = DialogThemeType.Warning,
-            PackIconKind icon = PackIconKind.Warning, string identifier = null)
+        public void ShowShortWarning(string message)
         {
-
+            ShowShortWarning("Warning", message, AlertDialogHost);
+        }
+        
+        public void ShowShortWarning(string title, string message)
+        {
+            ShowShortWarning(title, message, AlertDialogHost);
+        }
+        
+        public void ShowShortWarning(string title, string message, string identifier)
+        {
+            ShowShort(title, message, DelayShortValue, DialogThemeType.Warning, PackIconKind.Warning, identifier);
         }
 
         #endregion
 
         #region Short Error Dialog
 
+        public void ShowShortError(string message)
+        {
+            ShowShortError("Error", message, AlertDialogHost);
+        }
+        
         public void ShowShortError(string title, string message)
         {
             ShowShortError(title, message, AlertDialogHost);
