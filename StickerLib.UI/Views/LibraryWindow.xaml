@@ -20,8 +20,11 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <ml:EventToCommand Command="{Binding NavigateToCommand}"
+            <ml:EventToCommand Command="{Binding NavigateToCommand, Mode=OneWay}"
                                CommandParameter="library"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <ml:EventToCommand Command="{Binding CloseEventCommand, Mode=OneWay}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Window.Resources>

@@ -49,10 +49,7 @@ namespace StickerLib.UI.ViewModels.Library
                     if (main != null)
                         foreach (Window owned in main.OwnedWindows)
                             if (owned.GetType() == typeof(LibraryWindow))
-                            {
                                 owned.Close();
-                                Messenger.Default.Send(new NotificationMessage<CloseEventType>(CloseEventType.Update, "Update sticker list"));
-                            }
                 }));
             }
         }
@@ -81,7 +78,7 @@ namespace StickerLib.UI.ViewModels.Library
                             {
                                 Stickers = new ObservableCollection<Sticker>(service.GetAll());
                                 DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                                    Dialog.ShowSuccess("Deleted success", "Sticker is success deleted!"));
+                                    Dialog.ShowShortSuccess("Deleted success", "Selected Sticker is success deleted!"));
                             }
                         });
                     }
