@@ -1,9 +1,10 @@
-﻿using System;
+﻿using StickerLib.Domain.Build.Interfaces;
+using StickerLib.Domain.Common;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using StickerLib.Domain.Build.Interfaces;
-using StickerLib.Domain.Common;
 
 namespace StickerLib.Domain.Build.Implimentations
 {
@@ -11,19 +12,21 @@ namespace StickerLib.Domain.Build.Implimentations
     {
         public Queue<Page> Nup(int[] source)
         {
+            var propertiies = Infrastructure.Common.Properties.GetInstance();
+
             // calculated page count
-            var pageRemainder = source.Length % Infrastructure.Common.Properties.GetInstance().Groups;
+            var pageRemainder = source.Length % propertiies.Groups;
             var pageCount = pageRemainder > 0
-                ? source.Length / Infrastructure.Common.Properties.GetInstance().Groups + 1
-                : source.Length / Infrastructure.Common.Properties.GetInstance().Groups;
+                ? source.Length / propertiies.Groups + 1
+                : source.Length / propertiies.Groups;
 
             var queue = new Queue<Page>();
             int count = -1;
             for (int page = 0; page < pageCount; page++)
             {
-                int[,] pages = new int[Infrastructure.Common.Properties.GetInstance().Row, Infrastructure.Common.Properties.GetInstance().Column];
-                for (int row = 0; row < Infrastructure.Common.Properties.GetInstance().Row; row++)
-                    for (int cols = 0; cols < Infrastructure.Common.Properties.GetInstance().Column; cols++)
+                int[,] pages = new int[propertiies.Row, propertiies.Column];
+                for (int row = 0; row < propertiies.Row; row++)
+                    for (int cols = 0; cols < propertiies.Column; cols++)
                         pages[row, cols] = source[++count];
                 queue.Enqueue(new Page(page, pages));
             }

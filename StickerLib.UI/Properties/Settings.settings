@@ -47,5 +47,8 @@
     <Setting Name="TitleForApplication" Type="System.String" Scope="User">
       <Value Profile="(Default)">Sticker Library</Value>
     </Setting>
+    <Setting Name="ShortDialogDelay" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1000</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

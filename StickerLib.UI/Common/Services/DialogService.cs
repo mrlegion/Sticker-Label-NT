@@ -11,15 +11,35 @@ using GalaSoft.MvvmLight.Threading;
 using MaterialDesignThemes.Wpf;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using StickerLib.UI.Common.Dialogs.Components;
+using StickerLib.UI.Common.Dialogs.Themes;
 using StickerLib.UI.Common.Dialogs.Views;
 
 namespace StickerLib.UI.Common.Services
 {
     public class DialogService : IDialog
     {
+        #region Properties
+
         public string AlertDialogHost { get; set; } = "AlertDialogHost";
         public string LoadingDialogHost { get; set; } = "LoadingDialogHost";
         public string CustomDialogHost { get; set; } = "CustomDialogHost";
+
+        public int DelayShortValue { get; set; }
+
+        #endregion
+
+        #region CTOR
+
+        public DialogService()
+        {
+            DelayShortValue = Properties.Settings.Default.ShortDialogDelay;
+        }
+
+        #endregion
+
+        #region Dialogs
+
+        #region Info dialog
 
         /// <summary>
         /// Show information dialog box
@@ -33,9 +53,12 @@ namespace StickerLib.UI.Common.Services
 
         public void ShowInfo(string title, string message, string identifier)
         {
-            ShowDialog(title, message, PackIconKind.InformationOutline,
-                (SolidColorBrush) Application.Current.Resources["InfoColor"], identifier);
+            ShowDialog(title, message, PackIconKind.InformationOutline, DialogThemeType.Info, identifier);
         }
+
+        #endregion
+
+        #region Success dialog
 
         /// <summary>
         /// Show success dialog box
@@ -49,9 +72,12 @@ namespace StickerLib.UI.Common.Services
 
         public void ShowSuccess(string title, string message, string identifier)
         {
-            ShowDialog(title, message, PackIconKind.CheckCircleOutline,
-                (SolidColorBrush) Application.Current.Resources["SuccessColor"], identifier);
+            ShowDialog(title, message, PackIconKind.CheckCircleOutline, DialogThemeType.Success, identifier);
         }
+
+        #endregion
+
+        #region Error dialog
 
         /// <summary>
         /// Show error dialog box
@@ -65,9 +91,12 @@ namespace StickerLib.UI.Common.Services
 
         public void ShowError(string title, string message, string identifier)
         {
-            ShowDialog(title, message, PackIconKind.ErrorOutline,
-                (SolidColorBrush) Application.Current.Resources["ErrorColor"], identifier);
+            ShowDialog(title, message, PackIconKind.ErrorOutline, DialogThemeType.Error, identifier);
         }
+
+        #endregion
+
+        #region Warning dialog
 
         /// <summary>
         /// Show warning dialog box
@@ -81,9 +110,12 @@ namespace StickerLib.UI.Common.Services
 
         public void ShowWarning(string title, string message, string identifier)
         {
-            ShowDialog(title, message, PackIconKind.WarningOutline,
-                (SolidColorBrush) Application.Current.Resources["WarningColor"], identifier);
+            ShowDialog(title, message, PackIconKind.WarningOutline, DialogThemeType.Warning, identifier);
         }
+
+        #endregion
+
+        #region Loading dialog
 
         /// <summary>
         /// Show loading dialog box when data or your operation work in other thread
@@ -112,6 +144,117 @@ namespace StickerLib.UI.Common.Services
             });
         }
 
+        #endregion
+
+        #region Short Info Dialog
+
+        public void ShowShortInfo(string message)
+        {
+            ShowShortInfo("Information", message, AlertDialogHost);
+        }
+        
+        public void ShowShortInfo(string title, string message)
+        {
+            ShowShortInfo(title, message, AlertDialogHost);
+        }
+        
+        public void ShowShortInfo(string title, string message, string identifier)
+        {
+            ShowShort(title, message, DelayShortValue, DialogThemeType.Info, PackIconKind.InformationOutline, identifier);
+        }
+        
+        #endregion
+
+        #region Short Success Dialog
+        
+        public void ShowShortSuccess(string message)
+        {
+            ShowShortSuccess("Success", message, AlertDialogHost);
+        }
+        
+        public void ShowShortSuccess(string title, string message)
+        {
+            ShowShortSuccess(title, message, AlertDialogHost);
+        }
+        
+        public void ShowShortSuccess(string title, string message, string identifier)
+        {
+            ShowShort(title, message, DelayShortValue, DialogThemeType.Success, PackIconKind.CheckCircleOutline, identifier);
+        }
+
+        #endregion
+
+        #region Short Warning Dialog
+
+        public void ShowShortWarning(string message)
+        {
+            ShowShortWarning("Warning", message, AlertDialogHost);
+        }
+        
+        public void ShowShortWarning(string title, string message)
+        {
+            ShowShortWarning(title, message, AlertDialogHost);
+        }
+        
+        public void ShowShortWarning(string title, string message, string identifier)
+        {
+            ShowShort(title, message, DelayShortValue, DialogThemeType.Warning, PackIconKind.Warning, identifier);
+        }
+
+        #endregion
+
+        #region Short Error Dialog
+
+        public void ShowShortError(string message)
+        {
+            ShowShortError("Error", message, AlertDialogHost);
+        }
+        
+        public void ShowShortError(string title, string message)
+        {
+            ShowShortError(title, message, AlertDialogHost);
+        }
+
+        public void ShowShortError(string title, string message, string identifier)
+        {
+            ShowShort(title, message, DelayShortValue, DialogThemeType.Error, PackIconKind.ErrorOutline, identifier);
+        }
+
+        #endregion
+
+        #region Short Dialog
+
+        public async void ShowShort(string title, string message, int delay = 1500, DialogThemeType theme = DialogThemeType.Default, PackIconKind icon = default, string identifier = null)
+        {
+            var content = ServiceLocator.Current.GetInstance<InfoContentView>();
+            var dialogContent = ServiceLocator.Current.GetInstance<ContentDialogView>();
+            content.Message = message;
+            dialogContent.DialogContent = content;
+            dialogContent.Title = title;
+            content.Icon = icon;
+
+            if (theme != DialogThemeType.None)
+            {
+                IDialogTheme dialogTheme = DialogThemeFactory.CreateTheme(theme);
+                content.ThemeForeground = dialogTheme.GetForegroundBrush();
+                dialogContent.ThemeBackground = dialogTheme.GetBackgroundBrush();
+                dialogContent.ThemeForeground = dialogTheme.GetForegroundBrush();
+            }
+            
+            await DialogHost.Show(dialogContent, identifier ?? AlertDialogHost, delegate(object sender, DialogOpenedEventArgs args)
+            {
+                ThreadPool.QueueUserWorkItem(state =>
+                {
+                    Thread.Sleep(delay);
+                    DispatcherHelper.CheckBeginInvokeOnUI(() => args.Session.Close(true));
+                });
+            });
+        }
+
+        #endregion
+
+        #region Show Dialog
+
         public void ShowDialog(UserControl content)
         {
             ShowDialog(content, CustomDialogHost);
@@ -130,21 +273,30 @@ namespace StickerLib.UI.Common.Services
             await DialogHost.Show(dialogContent, identifier);
         }
 
-        public void ShowDialog(string title, string message, PackIconKind icon, SolidColorBrush theme)
+        public void ShowDialog(string title, string message, PackIconKind icon, DialogThemeType theme)
         {
             ShowDialog(title, message, icon, theme, AlertDialogHost);
         }
 
-        public async void ShowDialog(string title, string message, PackIconKind icon, SolidColorBrush theme,
+        public async void ShowDialog(string title, string message, PackIconKind icon, DialogThemeType theme,
             string identifier)
         {
             var content = ServiceLocator.Current.GetInstance<AlertDialogView>();
-            content.ColorTheme = theme;
+            if (theme != DialogThemeType.None)
+            {
+                IDialogTheme dialogTheme = DialogThemeFactory.CreateTheme(theme);
+                content.ThemeBackground = dialogTheme.GetBackgroundBrush();
+                content.ThemeForeground = dialogTheme.GetForegroundBrush();
+            }
             content.Title = title;
             content.Message = message;
             content.Icon = icon;
             await DialogHost.Show(content, identifier);
         }
+
+        #endregion
+
+        #region Show Request Dialog
 
         public async Task<bool> ShowRequest(string title, string message)
         {
@@ -152,7 +304,7 @@ namespace StickerLib.UI.Common.Services
         }
 
         public async Task<bool> ShowRequest(string title, string message, string identifier)
-        { 
+        {
             return await ShowRequest(title, message, "ACCEPT", "CANCEL", identifier);
         }
 
@@ -175,6 +327,10 @@ namespace StickerLib.UI.Common.Services
                 return result;
             return false;
         }
+
+        #endregion
+
+        #region Show File or Folder Dialog
 
         public IEnumerable<string> OpenDialog(string title, IEnumerable<CommonFileDialogFilter> filters,
             bool multiselect = false, bool isFolderPicker = false)
@@ -200,11 +356,11 @@ namespace StickerLib.UI.Common.Services
                 ? dialog.FileNames
                 : null;
         }
-        
+
         public string OpenFileDialog(string title, IEnumerable<CommonFileDialogFilter> filters)
         {
             var response = OpenDialog(title, filters);
-            return response.FirstOrDefault();
+            return response?.FirstOrDefault();
         }
 
         public IEnumerable<string> OpenMultiselectFileDialog(string title, IEnumerable<CommonFileDialogFilter> filters)
@@ -215,12 +371,16 @@ namespace StickerLib.UI.Common.Services
         public string OpenFolderDialog(string title)
         {
             var response = OpenDialog(title, null, false, true);
-            return response.FirstOrDefault();
+            return response?.FirstOrDefault();
         }
 
         public IEnumerable<string> OpenMultiselectFolderDilaog(string title)
         {
             return OpenDialog(title, null, true, true);
         }
+
+        #endregion
+
+        #endregion
     }
 }

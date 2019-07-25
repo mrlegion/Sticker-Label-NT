@@ -11,12 +11,13 @@ namespace StickerLib.UI.Common.Dialogs.Components
         }
 
         public static readonly DependencyProperty MessageProperty =
-            DependencyProperty.Register(nameof(Message), typeof(string), typeof(LoadingContentVIew), new PropertyMetadata("Please wait..."));
+            DependencyProperty.Register(nameof(Message), typeof(string), typeof(LoadingContentVIew),
+                new PropertyMetadata("Please wait..."));
 
         public string Message
         {
-            get { return (string) GetValue(MessageProperty); }
-            set { SetValue(MessageProperty, value); }
+            get => (string) GetValue(MessageProperty);
+            set => SetValue(MessageProperty, value);
         }
     }
 }

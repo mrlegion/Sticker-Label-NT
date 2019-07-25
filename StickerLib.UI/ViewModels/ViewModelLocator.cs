@@ -60,6 +60,7 @@ namespace StickerLib.UI.ViewModels
             builder.RegisterType<AlertDialogView>();
             builder.RegisterType<QuestionDialogView>();
             builder.RegisterType<LoadingContentVIew>();
+            builder.RegisterType<InfoContentView>();
             builder.RegisterType<ContentDialogView>();
             builder.RegisterType<PreviewContentView>();
 

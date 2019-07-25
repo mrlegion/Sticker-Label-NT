@@ -162,8 +162,8 @@ namespace StickerLib.UI.ViewModels.Library
 
                         DispatcherHelper.CheckBeginInvokeOnUI(() =>
                         {
-                            Dialog.ShowSuccess("Save changes", "Success saving sticker changes into database");
-                            NavigationService.GoBack();
+                            Dialog.ShowShortSuccess("Success Save Changes", "Success saving sticker changes into database");
+                            NavigationService.NavigateTo("library");
                         });
                     });
                 }));
