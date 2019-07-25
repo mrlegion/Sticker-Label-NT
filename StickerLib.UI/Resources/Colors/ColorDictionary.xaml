@@ -1,9 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <SolidColorBrush Color="#3D5AFE" x:Key="InfoColor"/>
-    <SolidColorBrush Color="#F44336" x:Key="ErrorColor"/>
-    <SolidColorBrush Color="#FF8F00" x:Key="WarningColor"/>
-    <SolidColorBrush Color="#4CAF50" x:Key="SuccessColor"/>
 
     <SolidColorBrush Color="#757575" x:Key="GrayTextColor"/>
     <SolidColorBrush Color="#CFD8DC" x:Key="MidGrayTextColor"/>
@@ -11,6 +7,33 @@
     <SolidColorBrush Color="#EEEEEE" x:Key="LightGrayColor"/>
     <SolidColorBrush Color="#263238" x:Key="DarkColorBg"/>
     <SolidColorBrush Color="#455A64" x:Key="LightDarkColorBg"/>
+
+
+    <Color x:Key="SuccessColor">#2ecc71</Color>
+    <Color x:Key="InfoColor">#3498db</Color>
+    <Color x:Key="WarningColor">#f39c12</Color>
+    <Color x:Key="ErrorColor">#e74c3c</Color>
+    <Color x:Key="LightColor">#FAFAFA</Color>
+    <Color x:Key="DarkColor">#263238</Color>
+    <Color x:Key="PrimaryColor">#03a9f4</Color>
+
+    <SolidColorBrush x:Key="DarkThemeBackground" Color="{StaticResource DarkColor}"/>
+    <SolidColorBrush x:Key="DarkThemeForeground" Color="{StaticResource LightColor}"/>
+
+    <SolidColorBrush x:Key="LightThemeBackground" Color="{StaticResource LightColor}"/>
+    <SolidColorBrush x:Key="LightThemeForeground" Color="{StaticResource DarkColor}"/>
+
+    <SolidColorBrush x:Key="InfoThemeBackground" Color="{StaticResource InfoColor}"/>
+    <SolidColorBrush x:Key="InfoThemeForeground" Color="{StaticResource LightColor}"/>
+
+    <SolidColorBrush x:Key="SuccessThemeBackground" Color="{StaticResource SuccessColor}"/>
+    <SolidColorBrush x:Key="SuccessThemeForeground" Color="{StaticResource LightColor}"/>
+
+    <SolidColorBrush x:Key="WarningThemeBackground" Color="{StaticResource WarningColor}"/>
+    <SolidColorBrush x:Key="WarningThemeForeground" Color="{StaticResource LightColor}"/>
+
+    <SolidColorBrush x:Key="ErrorThemeBackground" Color="{StaticResource ErrorColor}"/>
+    <SolidColorBrush x:Key="ErrorThemeForeground" Color="{StaticResource LightColor}"/>
 
     <SolidColorBrush Color="{Binding Source={StaticResource MaterialDesignPaper}, Path=Color}" x:Key="MdPaperCustom"/>
 </ResourceDictionary>
