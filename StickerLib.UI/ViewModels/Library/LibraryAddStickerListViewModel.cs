@@ -1,30 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CommonServiceLocator;
+
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Threading;
+
+using Microsoft.WindowsAPICodePack.Dialogs;
+
+using StickerLib.Domain.Helpers;
+using StickerLib.Domain.Services;
+using StickerLib.Infrastructure.Common;
+using StickerLib.UI.Common.Services;
+
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Text;
-using System.Threading;
-using GalaSoft.MvvmLight.Command;
-using Microsoft.WindowsAPICodePack.Dialogs;
-using StickerLib.Domain.Common;
-using StickerLib.Domain.Helpers;
-using StickerLib.UI.Common.Services;
 
 namespace StickerLib.UI.ViewModels.Library
 {
     public class LibraryAddStickerListViewModel : ViewModelLibrary
     {
+        #region Fields
+
         private string _titlesFile;
         private string _stickersFile;
+        private string _titleButtonText;
+        private string _stickerButtonText;
+        private RelayCommand _selectTitleFileCommand;
+        private RelayCommand _selectStickerFileCommand;
+        private RelayCommand _loadCommand;
+        private RelayCommand<Title> _deleteCommand;
+        private ObservableCollection<int> _pages;
+        private ObservableCollection<Title> _titles;
+        private string _loadButtonTooltip;
+        private string _acceptButtonTooltip;
+        private RelayCommand _acceptCommand;
+
+        #endregion
+
+        #region Ctor
 
         public LibraryAddStickerListViewModel(IDialog dialog) : base(dialog)
         {
             TitleButtonText = "Select File With Titles";
             StickerButtonText = "Select File With Stickers";
+            LoadButtonTooltip = "For Activate: First you need select files for \"Titles\" and \"Stickers\"";
+            AcceptButtonTooltip = "For Activate: You need loading data from files using button \"Load\"";
             Pages = new ObservableCollection<int>();
         }
 
-        private string _titleButtonText;
+        #endregion
+
+        #region Properties
 
         public string TitleButtonText
         {
@@ -32,15 +57,11 @@ namespace StickerLib.UI.ViewModels.Library
             set { Set(nameof(TitleButtonText), ref _titleButtonText, value); }
         }
 
-        private string _stickerButtonText;
-
         public string StickerButtonText
         {
             get { return _stickerButtonText; }
             set { Set(nameof(StickerButtonText), ref _stickerButtonText, value); }
         }
-
-        private RelayCommand _selectTitleFileCommand;
 
         public RelayCommand SelectTitleFileCommand
         {
@@ -62,8 +83,6 @@ namespace StickerLib.UI.ViewModels.Library
             }
         }
 
-        private RelayCommand _selectStickerFileCommand;
-
         public RelayCommand SelectStickerFileCommand
         {
             get
@@ -80,14 +99,14 @@ namespace StickerLib.UI.ViewModels.Library
                     _stickersFile = file;
                     StickerButtonText = "File Is Selected";
                     LoadCommand.RaiseCanExecuteChanged();
-                    
+
                     // Fill pages collection
                     try
                     {
                         Dialog.ShowLoading("Inizialize..", () =>
                         {
                             int count = PdfReadHelper.CountPageInDocument(file);
-                            for (int i = 1; i <= count; i++) 
+                            for (int i = 1; i <= count; i++)
                                 Pages.Add(i);
                         });
                     }
@@ -100,8 +119,6 @@ namespace StickerLib.UI.ViewModels.Library
             }
         }
 
-        private RelayCommand _loadCommand;
-
         public RelayCommand LoadCommand
         {
             get
@@ -112,6 +129,7 @@ namespace StickerLib.UI.ViewModels.Library
                     {
                         var t = FileReaderHelper.ReadTitlesFile(_titlesFile);
                         Titles = new ObservableCollection<Title>(t);
+                        AcceptCommand.RaiseCanExecuteChanged();
                     }
                     catch (Exception e)
                     {
@@ -121,8 +139,6 @@ namespace StickerLib.UI.ViewModels.Library
                 }, () => !IsEmpty(_titlesFile) && !IsEmpty(_stickersFile)));
             }
         }
-
-        private RelayCommand<Title> _deleteCommand;
 
         public RelayCommand<Title> DeleteCommand
         {
@@ -138,23 +154,18 @@ namespace StickerLib.UI.ViewModels.Library
 
                         if (response)
                             Titles.Remove(title);
-                        
+
                         Dialog.ShowShortSuccess("Deleted success!", "Deleted select item is success!");
                     }
-                        
                 }));
             }
         }
-
-        private ObservableCollection<int> _pages;
 
         public ObservableCollection<int> Pages
         {
             get { return _pages; }
             set { Set(nameof(Pages), ref _pages, value); }
         }
-        
-        private ObservableCollection<Title> _titles;
 
         public ObservableCollection<Title> Titles
         {
@@ -162,21 +173,69 @@ namespace StickerLib.UI.ViewModels.Library
             set { Set(nameof(Titles), ref _titles, value); }
         }
 
+        public string LoadButtonTooltip
+        {
+            get { return _loadButtonTooltip; }
+            set { Set(nameof(LoadButtonTooltip), ref _loadButtonTooltip, value); }
+        }
+
+        public string AcceptButtonTooltip
+        {
+            get { return _acceptButtonTooltip; }
+            set { Set(nameof(AcceptButtonTooltip), ref _acceptButtonTooltip, value); }
+        }
+
+        public RelayCommand AcceptCommand
+        {
+            get { return _acceptCommand ?? (_acceptCommand = new RelayCommand(() =>
+            {
+                if (!File.Exists(_stickersFile))
+                {
+                    Dialog.ShowError("Marge Operation Error", "File with stickers not exist!\r\nPlease check your select file exist on hard drive?");
+                    return;
+                }
+
+                if (Titles.Count == 0)
+                {
+                    Dialog.ShowWarning("Marge Operation Warning", "Marging items cannot be empty. \r\nIn magring list not found items");
+                    return;
+                }
+
+                Dialog.ShowLoading("Adding stickers to Database", () =>
+                {
+                    try
+                    {
+                        var factory = ServiceLocator.Current.GetInstance<StickerFactory>();
+                        var stickers = factory.Create(Titles, _stickersFile);
+                        var service = ServiceLocator.Current.GetInstance<IStickerService>();
+                        service.AddRange(stickers);
+
+                        DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                        {
+                            Dialog.ShowShortSuccess("Saving success", "Success adding new Stickers to Database");
+                            NavigationService.NavigateTo("library");
+                        });
+                    }
+                    catch (Exception e)
+                    {
+                        DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                        {
+                            Dialog.ShowError("Error Saving Stickers", e.Message);
+                        });
+                    }
+                });
+            }, () => !IsEmpty(_stickersFile) && Titles != null)); }
+        }
+
+        #endregion
+
+        #region Private methods
+
         private bool IsEmpty(string value)
         {
             return string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value);
         }
 
-        private RelayCommand _acceptCommand;
-
-        public RelayCommand AcceptCommand
-        {
-            get
-            {
-                return _acceptCommand ?? (_acceptCommand = new RelayCommand(() =>
-                {
-                }));
-            }
-        }
+        #endregion
     }
 }

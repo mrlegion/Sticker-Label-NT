@@ -1,4 +1,4 @@
-namespace StickerLib.Domain.Common
+namespace StickerLib.Infrastructure.Common
 {
     public class Title
     {

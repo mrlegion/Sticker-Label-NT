@@ -61,6 +61,8 @@
                     <Button VerticalAlignment="Top"
                             Grid.Column="2"
                             Command="{Binding LoadCommand, Mode=OneWay}"
+                            ToolTipService.ShowOnDisabled="True"
+                            ToolTip="{Binding LoadButtonTooltip, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                             Margin="10 0 10 20">
                         <StackPanel Orientation="Horizontal">
                             <md:PackIcon Kind="Upload" />
@@ -110,6 +112,8 @@
                         VerticalAlignment="Bottom"
                         HorizontalAlignment="Right">
                 <Button Margin="20 0"
+                        ToolTipService.ShowOnDisabled="True"
+                        ToolTip="{Binding AcceptButtonTooltip, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                         Command="{Binding AcceptCommand, Mode=OneWay}">
                     <StackPanel Orientation="Horizontal">
                         <md:PackIcon Kind="ContentSave" />

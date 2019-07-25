@@ -23,6 +23,7 @@ namespace StickerLib.Domain
             builder.RegisterType<StickerBuilder>().As<IStickerBuilder>();
 
             builder.RegisterType<Creator>();
+            builder.RegisterType<StickerFactory>();
             
             base.Load(builder);
         }

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Common\FileExistRuleType.cs" />
     <Compile Include="Common\Properties.cs" />
+    <Compile Include="Common\Title.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="Helpers\AnchorType.cs" />
     <Compile Include="Helpers\OrientationType.cs" />

@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using Serilog;
 using StickerLib.Domain.Common;
+using StickerLib.Infrastructure.Common;
 
 namespace StickerLib.Domain.Helpers
 {
