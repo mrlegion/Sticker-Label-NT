@@ -24,7 +24,16 @@ namespace StickerLib.UI.Common.Services
         public string LoadingDialogHost { get; set; } = "LoadingDialogHost";
         public string CustomDialogHost { get; set; } = "CustomDialogHost";
 
-        public int DelayShortValue { get; set; } = 1500;
+        public int DelayShortValue { get; set; }
+
+        #endregion
+
+        #region CTOR
+
+        public DialogService()
+        {
+            DelayShortValue = Properties.Settings.Default.ShortDialogDelay;
+        }
 
         #endregion
 

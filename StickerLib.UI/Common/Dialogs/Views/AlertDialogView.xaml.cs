@@ -16,7 +16,8 @@ namespace StickerLib.UI.Common.Dialogs.Views
         }
 
         public static readonly DependencyProperty IconProperty =
-            DependencyProperty.Register(nameof(Icon), typeof(PackIconKind), typeof(AlertDialogView), new PropertyMetadata(default(PackIconKind)));
+            DependencyProperty.Register(nameof(Icon), typeof(PackIconKind), typeof(AlertDialogView),
+                new PropertyMetadata(default(PackIconKind)));
 
         public PackIconKind Icon
         {
@@ -25,34 +26,37 @@ namespace StickerLib.UI.Common.Dialogs.Views
         }
 
         public static readonly DependencyProperty MessageProperty =
-            DependencyProperty.Register(nameof(Message), typeof(string), typeof(AlertDialogView), new PropertyMetadata(default(string)));
+            DependencyProperty.Register(nameof(Message), typeof(string), typeof(AlertDialogView),
+                new PropertyMetadata(default(string)));
 
         public string Message
         {
-            get { return (string)GetValue(MessageProperty); }
+            get { return (string) GetValue(MessageProperty); }
             set { SetValue(MessageProperty, value); }
         }
 
-        public static readonly DependencyProperty ThemeBackgroundProperty = 
-            DependencyProperty.Register(nameof(ThemeBackground), typeof(SolidColorBrush), typeof(AlertDialogView), new PropertyMetadata(Application.Current.Resources["InfoColor"]));
+        public static readonly DependencyProperty ThemeBackgroundProperty =
+            DependencyProperty.Register(nameof(ThemeBackground), typeof(SolidColorBrush), typeof(AlertDialogView),
+                new PropertyMetadata((SolidColorBrush) Application.Current.Resources["MaterialDesignPaper"]));
 
         public SolidColorBrush ThemeBackground
         {
-            get { return (SolidColorBrush)GetValue(ThemeBackgroundProperty); }
+            get { return (SolidColorBrush) GetValue(ThemeBackgroundProperty); }
             set { SetValue(ThemeBackgroundProperty, value); }
         }
 
         public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register(nameof(Title), typeof(string), typeof(AlertDialogView), new PropertyMetadata(default(string)));
+            DependencyProperty.Register(nameof(Title), typeof(string), typeof(AlertDialogView),
+                new PropertyMetadata(default(string)));
 
         public string Title
         {
-            get { return (string)GetValue(TitleProperty); }
+            get { return (string) GetValue(TitleProperty); }
             set { SetValue(TitleProperty, value); }
         }
 
         public static readonly DependencyProperty ThemeForegroundProperty = DependencyProperty.Register(
-            "ThemeForeground", typeof(SolidColorBrush), typeof(AlertDialogView), 
+            nameof(ThemeForeground), typeof(SolidColorBrush), typeof(AlertDialogView),
             new PropertyMetadata((SolidColorBrush) Application.Current.Resources["MaterialDesignBody"]));
 
         public SolidColorBrush ThemeForeground

@@ -7,8 +7,8 @@ namespace StickerLib.UI.Common.Dialogs.Themes
     {
         public WarningTheme()
         {
-            Background = (SolidColorBrush) Application.Current.Resources["WarningColor"];
-            Foreground = (SolidColorBrush) Application.Current.Resources["MaterialDesignPaper"];
+            Background = (SolidColorBrush) Application.Current.Resources["WarningThemeBackground"];
+            Foreground = (SolidColorBrush) Application.Current.Resources["WarningThemeForeground"];
         }
     }
 }

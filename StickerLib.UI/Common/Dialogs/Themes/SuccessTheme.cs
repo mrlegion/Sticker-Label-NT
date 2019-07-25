@@ -7,8 +7,8 @@ namespace StickerLib.UI.Common.Dialogs.Themes
     {
         public SuccessTheme()
         {
-            Background = (SolidColorBrush) Application.Current.Resources["SuccessColor"];
-            Foreground = (SolidColorBrush) Application.Current.Resources["MaterialDesignPaper"];
+            Background = (SolidColorBrush) Application.Current.Resources["SuccessThemeBackground"];
+            Foreground = (SolidColorBrush) Application.Current.Resources["SuccessThemeForeground"];
         }
     }
 }

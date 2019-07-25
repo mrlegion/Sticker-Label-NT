@@ -7,8 +7,8 @@ namespace StickerLib.UI.Common.Dialogs.Themes
     {
         public InfoTheme()
         {
-            Background = (SolidColorBrush) Application.Current.Resources["InfoColor"];
-            Foreground = (SolidColorBrush) Application.Current.Resources["MaterialDesignPaper"];
+            Background = (SolidColorBrush) Application.Current.Resources["InfoThemeBackground"];
+            Foreground = (SolidColorBrush) Application.Current.Resources["InfoThemeForeground"];
         }
     }
 }

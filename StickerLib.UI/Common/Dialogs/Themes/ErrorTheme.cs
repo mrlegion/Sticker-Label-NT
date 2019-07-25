@@ -7,8 +7,8 @@ namespace StickerLib.UI.Common.Dialogs.Themes
     {
         public ErrorTheme()
         {
-            Background = (SolidColorBrush) Application.Current.Resources["ErrorColor"];
-            Foreground = (SolidColorBrush) Application.Current.Resources["MaterialDesignPaper"];
+            Background = (SolidColorBrush) Application.Current.Resources["ErrorThemeBackground"];
+            Foreground = (SolidColorBrush) Application.Current.Resources["ErrorThemeForeground"];
         }
     }
 }
