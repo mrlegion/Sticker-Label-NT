@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Delimiter.cs" />
     <Compile Include="Common\FileExistRuleType.cs" />
     <Compile Include="Common\Properties.cs" />
     <Compile Include="Common\Title.cs" />

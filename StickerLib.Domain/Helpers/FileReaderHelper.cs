@@ -36,7 +36,7 @@ namespace StickerLib.Domain.Helpers
             }
         }
 
-        public static IEnumerable<Title> ReadTitlesFile(string file, bool useHeaders = false)
+        public static IEnumerable<Title> ReadTitlesFile(string file, Delimiter delimiter = Delimiter.Colon, bool useHeaders = false)
         {
             if (!File.Exists(file)) throw new FileNotFoundException("Not found file with titles", nameof(file));
             List<Title> list = null;
@@ -45,9 +45,10 @@ namespace StickerLib.Domain.Helpers
                 using (StreamReader sr = new StreamReader(file, Encoding.Default))
                 {
                     list = new List<Title>();
+                    char delimiterChar = CreateDelimiter(delimiter);
                     while (!sr.EndOfStream)
                     {
-                        string[] row = sr.ReadLine()?.Split(';');
+                        string[] row = sr.ReadLine()?.Split(delimiterChar);
                         if (row != null) list.Add(new Title() { Name = row[0], PageInFile = Int32.Parse(row[1]), });
                     }
                 }
@@ -58,6 +59,28 @@ namespace StickerLib.Domain.Helpers
             }
 
             return list;
+        }
+
+        private static char CreateDelimiter(Delimiter delimiter)
+        {
+            char result = '';
+            switch (delimiter)
+            {
+                case Delimiter.None:
+                    break;
+                case Delimiter.Comma:
+                    result = ',';
+                    break;
+                case Delimiter.Colon:
+                    result = ';';
+                    break;
+                case Delimiter.Tab:
+                    result = '\t';
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(delimiter), delimiter, "Delimiter is not defined");
+            }
+            return result;
         }
 
         // maybe create string template for file

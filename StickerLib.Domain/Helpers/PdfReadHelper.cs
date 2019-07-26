@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using iText.Kernel.Pdf;
@@ -16,22 +17,29 @@ namespace StickerLib.Domain.Helpers
         public static byte[] ReadToStreamByte(string file, int page)
         {
             Log.Debug("Starting read pdf file: FILE[ {@file} ]", file);
-            using (var sourceDocument = new PdfDocument(new PdfReader(file)))
+            try
             {
-                if (sourceDocument.GetNumberOfPages() == 0)
+                using (var sourceDocument = new PdfDocument(new PdfReader(file)))
                 {
-                    Log.Error("Read document is empty! FILE[ {@file} ]", file);
-                    return new byte[0];
-                }
+                    if (sourceDocument.GetNumberOfPages() == 0)
+                    {
+                        Log.Error("Read document is empty! FILE[ {@file} ]", file);
+                        return new byte[0];
+                    }
 
-                using (var ms = new MemoryStream())
-                {
-                    var tempDocument = new PdfDocument(new PdfWriter(ms));
-                    sourceDocument.CopyPagesTo(page, page, tempDocument);
-                    tempDocument.Close();
-                    Log.Debug("Ending read file and returned byte stream");
-                    return ms.ToArray();
+                    using (var ms = new MemoryStream())
+                    {
+                        var tempDocument = new PdfDocument(new PdfWriter(ms));
+                        sourceDocument.CopyPagesTo(page, page, tempDocument);
+                        tempDocument.Close();
+                        Log.Debug("Ending read file and returned byte stream");
+                        return ms.ToArray();
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
 

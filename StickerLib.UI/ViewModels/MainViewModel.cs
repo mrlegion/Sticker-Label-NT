@@ -1,24 +1,27 @@
-﻿using System;
+﻿using CommonServiceLocator;
+
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
+using GalaSoft.MvvmLight.Threading;
+
+using StickerLib.Domain.Build;
+using StickerLib.Domain.Services;
+using StickerLib.Infrastructure.Entities;
+using StickerLib.UI.Common.Helpers;
+using StickerLib.UI.Common.Services;
+using StickerLib.UI.Views;
+using StickerLib.UI.Views.Pages.Group;
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using CommonServiceLocator;
-using GalaSoft.MvvmLight;
-using StickerLib.UI.Common.Services;
 using System.Collections.ObjectModel;
-using StickerLib.Infrastructure.Entities;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
-using GalaSoft.MvvmLight.Threading;
-using StickerLib.Domain.Build;
-using StickerLib.Domain.Services;
-using StickerLib.UI.Common.Helpers;
-using StickerLib.UI.Views;
-using StickerLib.UI.Views.Pages.Group;
 
 namespace StickerLib.UI.ViewModels
 {

@@ -36,16 +36,31 @@
                         <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
 
-                    <Button VerticalAlignment="Top"
-                            Grid.Column="0"
-                            Command="{Binding SelectTitleFileCommand, Mode=OneWay}"
-                            Margin="0 0 10 20">
-                        <StackPanel Orientation="Horizontal">
-                            <md:PackIcon Kind="FileCsv" />
-                            <TextBlock Text="{Binding TitleButtonText, UpdateSourceTrigger=PropertyChanged}"
-                                       Margin="10 0 0 0" />
-                        </StackPanel>
-                    </Button>
+                    <Grid Grid.Column="0"
+                          HorizontalAlignment="Stretch"
+                          Margin="0 0 20 20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <Button VerticalAlignment="Top"
+                                Grid.Column="0"
+                                Command="{Binding SelectTitleFileCommand, Mode=OneWay}">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="FileCsv" />
+                                <TextBlock Text="{Binding TitleButtonText, UpdateSourceTrigger=PropertyChanged}"
+                                           Margin="10 0 0 0" />
+                            </StackPanel>
+                        </Button>
+                        <ComboBox Grid.Column="1"
+                                  Margin="20 0 0 0"
+                                  md:HintAssist.Hint="Delimiter">
+                            <ComboBoxItem>Comma</ComboBoxItem>
+                            <ComboBoxItem>Colon</ComboBoxItem>
+                            <ComboBoxItem>Tab</ComboBoxItem>
+                        </ComboBox>
+                    </Grid>
 
                     <Button VerticalAlignment="Top"
                             Grid.Column="1"
@@ -84,7 +99,7 @@
                                                        Width="3*" />
                         <md:MaterialDataGridComboBoxColumn Header="Page"
                                                            SelectedValueBinding="{Binding PageInFile}"
-                                                           ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.Pages}"/>
+                                                           ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=DataContext.Pages}" />
                         <DataGridTemplateColumn Header="Control">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
