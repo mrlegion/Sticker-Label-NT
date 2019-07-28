@@ -121,7 +121,7 @@
                                    TextAlignment="Center"
                                    TextWrapping="Wrap"
                                    Style="{StaticResource MaterialDesignCaptionTextBlock}"
-                                   Text="BackUp database" />
+                                   Text="Backup and Restore" />
                     </Grid>
                 </Button>
                 <Rectangle Width="1"

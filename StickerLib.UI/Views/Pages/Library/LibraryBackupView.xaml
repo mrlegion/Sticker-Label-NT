@@ -16,6 +16,44 @@
       Title="LibraryBackupView">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
         
+        <TextBlock Grid.Row="0" Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Margin="20">
+            Here someome description for backup and recovery functions
+        </TextBlock>
+
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="20"
+                    HorizontalAlignment="Right">
+            <Button Margin="20 0"
+                    Command="{Binding AcceptCommand, Mode=OneWay}">
+                <StackPanel Orientation="Horizontal">
+                    <md:PackIcon Kind="ContentSave"/>
+                    <TextBlock Text="Save" Margin="10 0 0 0"/>
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Command="{Binding NavigateToCommand, Mode=OneWay}"
+                    CommandParameter="library">
+                <StackPanel Orientation="Horizontal">
+                    <md:PackIcon Kind="Cancel"/>
+                    <TextBlock Text="Cancel" Margin="10 0 0 0"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
     </Grid>
 </Page>
