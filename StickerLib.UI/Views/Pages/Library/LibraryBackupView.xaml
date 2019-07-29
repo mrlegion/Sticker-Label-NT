@@ -1,8 +1,8 @@
 ﻿<Page x:Class="StickerLib.UI.Views.Pages.Library.LibraryBackupView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:StickerLib.UI.Views.Pages"
       DataContext="{Binding LibraryBackup, Source={StaticResource Locator}}"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -11,7 +11,7 @@
       TextElement.FontWeight="Regular"
       TextElement.FontSize="14"
       FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LibraryBackupView">
 
@@ -26,31 +26,53 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+
+        <!--Help information block-->
+        <StackPanel Orientation="Vertical"
+                    Grid.Row="0" 
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="20">
+            <TextBlock Text="BackUp and Restore"
+                       Style="{DynamicResource MaterialDesignTitleTextBlock}"/>
+            <TextBlock>
+                Here someome description for backup and recovery functions
+            </TextBlock>
+        </StackPanel>
         
-        <TextBlock Grid.Row="0" Grid.Column="0"
-                   Grid.ColumnSpan="2"
-                   Margin="20">
-            Here someome description for backup and recovery functions
-        </TextBlock>
+
+        <!--backup section function-->
+        <GroupBox Grid.Row="1"
+                  Grid.Column="0"
+                  Margin="20 0 10 0"
+                  x:Name="BackUpSection"
+                  Header="BackUp section" />
+
+        <!--recovery section function-->
+        <GroupBox Header="Recover section"
+                  Grid.Row="1"
+                  Grid.Column="1"
+                  Margin="10 0 20 0"
+                  x:Name="RecoverySection" />
 
         <StackPanel Orientation="Horizontal"
                     Grid.Row="2"
                     Grid.Column="1"
-                    Margin="20"
+                    Margin="20 20 20 0"
                     HorizontalAlignment="Right">
-            <Button Margin="20 0"
+            <!--<Button Margin="20 0"
                     Command="{Binding AcceptCommand, Mode=OneWay}">
                 <StackPanel Orientation="Horizontal">
-                    <md:PackIcon Kind="ContentSave"/>
-                    <TextBlock Text="Save" Margin="10 0 0 0"/>
+                    <md:PackIcon Kind="ContentSave" />
+                    <TextBlock Text="Save" Margin="10 0 0 0" />
                 </StackPanel>
-            </Button>
+            </Button>-->
             <Button Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Command="{Binding NavigateToCommand, Mode=OneWay}"
                     CommandParameter="library">
                 <StackPanel Orientation="Horizontal">
-                    <md:PackIcon Kind="Cancel"/>
-                    <TextBlock Text="Cancel" Margin="10 0 0 0"/>
+                    <md:PackIcon Kind="Cancel" />
+                    <TextBlock Text="Cancel" Margin="10 0 0 0" />
                 </StackPanel>
             </Button>
         </StackPanel>

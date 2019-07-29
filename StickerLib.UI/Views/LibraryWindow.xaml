@@ -6,18 +6,22 @@
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ml="http://www.galasoft.ch/mvvmlight"
+        xmlns:behaviors="clr-namespace:StickerLib.UI.Common.Behaviors"
         mc:Ignorable="d"
         DataContext="{Binding LibraryWindow, Source={StaticResource Locator}}"
         Title="Library Db control"
-        Height="600"
-        Width="1024"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Height="650"
+        Width="1100"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
-        Background="{DynamicResource MaterialDesignPaper}"
+        Background="Transparent"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto">
+    
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <ml:EventToCommand Command="{Binding NavigateToCommand, Mode=OneWay}"
@@ -27,6 +31,7 @@
             <ml:EventToCommand Command="{Binding CloseEventCommand, Mode=OneWay}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    
     <Window.Resources>
         <Style BasedOn="{StaticResource MaterialDesignFlatButton}"
                TargetType="Button"
@@ -36,135 +41,153 @@
             <Setter Property="Height" Value="Auto"/>
         </Style>
     </Window.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    
+    <Border CornerRadius="10" 
+            Background="{DynamicResource MaterialDesignPaper}"
+            Margin="35">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="30"
+                              Opacity=".4"
+                              Direction="0"
+                              ShadowDepth="0"/>
+        </Border.Effect>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <!--library main frame-->
-        <Frame Grid.Row="1"
+            <!--library main frame-->
+            <Frame Grid.Row="2"
                Grid.Column="0"
                x:Name="LibraryFrame" 
-               NavigationUIVisibility="Hidden" />
+               NavigationUIVisibility="Hidden"
+               Margin="0 0 0 10"/>
 
-        <!--library control toolbar-->
-        <md:ColorZone Grid.Row="0" Mode="Light">
-            <StackPanel Orientation="Horizontal">
-                <Button Style="{StaticResource ToolBarButton}"
+            <!--library control toolbar-->
+            <md:ColorZone Grid.Row="1" 
+                          Mode="Light" 
+                          Background="{StaticResource MaterialDesignPaper}"
+                          HorizontalAlignment="Stretch"
+                          CornerRadius="10 10 0 0">
+                <i:Interaction.Behaviors>
+                    <behaviors:DragWindowBehavior/>
+                </i:Interaction.Behaviors>
+                <StackPanel Orientation="Horizontal">
+                    <Button Style="{StaticResource ToolBarButton}"
                         Command="{Binding NavigateToCommand, Mode=OneWay}"
                         CommandParameter="add">
-                    <Grid Width="Auto">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <md:PackIcon Grid.Row="0"
+                        <Grid Width="Auto">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <md:PackIcon Grid.Row="0"
                                      Kind="AddCircleOutline"
                                      Width="40"
                                      Height="40"
                                      HorizontalAlignment="Center" />
-                        <TextBlock Grid.Row="1"
+                            <TextBlock Grid.Row="1"
                                    Margin="0 5 0 0"
                                    TextAlignment="Center"
                                    TextWrapping="Wrap"
                                    Style="{StaticResource MaterialDesignCaptionTextBlock}"
                                    Text="Add new sticker" />
-                    </Grid>
-                </Button>
-                <Rectangle Width="1"
+                        </Grid>
+                    </Button>
+                    <Rectangle Width="1"
                            Height="50"
                            Fill="{DynamicResource MidGrayTextColor}" />
-                <Button Style="{StaticResource ToolBarButton}"
+                    <Button Style="{StaticResource ToolBarButton}"
                         Command="{Binding NavigateToCommand, Mode=OneWay}"
                         CommandParameter="addList">
-                    <Grid Width="Auto">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <md:PackIcon Grid.Row="0"
+                        <Grid Width="Auto">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <md:PackIcon Grid.Row="0"
                                      Kind="DatabaseImport"
                                      Width="40"
                                      Height="40"
                                      HorizontalAlignment="Center" />
-                        <TextBlock Grid.Row="1"
+                            <TextBlock Grid.Row="1"
                                    Margin="0 5 0 0"
                                    TextAlignment="Center"
                                    TextWrapping="Wrap"
                                    Style="{StaticResource MaterialDesignCaptionTextBlock}"
                                    Text="Add new list stickers" />
-                    </Grid>
-                </Button>
-                <Rectangle Width="1"
+                        </Grid>
+                    </Button>
+                    <Rectangle Width="1"
                            Height="50"
                            Fill="{DynamicResource MidGrayTextColor}" />
 
-                <Button Style="{StaticResource ToolBarButton}"
+                    <Button Style="{StaticResource ToolBarButton}"
                         Command="{Binding NavigateToCommand, Mode=OneWay}"
                         CommandParameter="backup">
-                    <Grid Width="Auto">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <md:PackIcon Grid.Row="0"
+                        <Grid Width="Auto">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <md:PackIcon Grid.Row="0"
                                      Kind="BackupOutline"
                                      Width="40"
                                      Height="40"
                                      HorizontalAlignment="Center" />
-                        <TextBlock Grid.Row="1"
+                            <TextBlock Grid.Row="1"
                                    Margin="0 5 0 0"
                                    TextAlignment="Center"
                                    TextWrapping="Wrap"
                                    Style="{StaticResource MaterialDesignCaptionTextBlock}"
                                    Text="Backup and Restore" />
-                    </Grid>
-                </Button>
-                <Rectangle Width="1"
+                        </Grid>
+                    </Button>
+                    <Rectangle Width="1"
                            Height="50"
                            Fill="{DynamicResource MidGrayTextColor}" />
 
-                <Button Style="{StaticResource ToolBarButton}"
+                    <Button Style="{StaticResource ToolBarButton}"
                         Foreground="{StaticResource ErrorThemeBackground}"
                         Command="{Binding NavigateToCommand, Mode=OneWay}"
                         CommandParameter="backup">
-                    <Grid Width="Auto">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <md:PackIcon Grid.Row="0"
+                        <Grid Width="Auto">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <md:PackIcon Grid.Row="0"
                                      Kind="Clear"
                                      Width="40"
                                      Height="40"
                                      HorizontalAlignment="Center" />
-                        <TextBlock Grid.Row="1"
+                            <TextBlock Grid.Row="1"
                                    Margin="0 5 0 0"
                                    TextAlignment="Center"
                                    TextWrapping="Wrap"
                                    Style="{StaticResource MaterialDesignCaptionTextBlock}"
                                    Text="Clear current database" />
-                    </Grid>
-                </Button>
-            </StackPanel>
-        </md:ColorZone>
-        
-        <!--DialogHost Library-->
-        <md:DialogHost Grid.Row="0"
-                       Grid.RowSpan="2"
+                        </Grid>
+                    </Button>
+                </StackPanel>
+            </md:ColorZone>
+
+            <!--DialogHost Library-->
+            <md:DialogHost Grid.Row="0"
+                       Grid.RowSpan="3"
                        BorderBrush="Transparent"
                        BorderThickness="0"
                        Background="Transparent"
                        Identifier="AlertLibraryDialogHost" />
-        <md:DialogHost Grid.Row="0"
-                       Grid.RowSpan="2"
+            <md:DialogHost Grid.Row="0"
+                       Grid.RowSpan="3"
                        BorderBrush="Transparent"
                        BorderThickness="0"
                        Background="Transparent"
                        Identifier="LoadingLibraryDialogHost" />
-    </Grid>
+        </Grid>
+    </Border>
+    
 </Window>

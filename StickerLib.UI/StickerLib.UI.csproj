@@ -123,6 +123,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Common\Behaviors\DragWindowBehavior.cs" />
     <Compile Include="Common\Converters\InverseBoolConverter.cs" />
     <Compile Include="Common\Converters\StringToVisibilityConverter.cs" />
     <Compile Include="Common\Dialogs\Components\InfoContentView.xaml.cs">
