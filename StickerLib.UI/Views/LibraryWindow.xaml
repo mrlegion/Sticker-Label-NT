@@ -21,35 +21,35 @@
         TextElement.FontWeight="Regular"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto">
-    
+
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <ml:EventToCommand Command="{Binding NavigateToCommand, Mode=OneWay}"
-                               CommandParameter="library"/>
+                               CommandParameter="library" />
         </i:EventTrigger>
         <i:EventTrigger EventName="Closing">
-            <ml:EventToCommand Command="{Binding CloseEventCommand, Mode=OneWay}"/>
+            <ml:EventToCommand Command="{Binding CloseEventCommand, Mode=OneWay}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    
+
     <Window.Resources>
         <Style BasedOn="{StaticResource MaterialDesignFlatButton}"
                TargetType="Button"
                x:Key="ToolBarButton">
-            <Setter Property="Padding" Value="20"/>
-            <Setter Property="Width" Value="120"/>
-            <Setter Property="Height" Value="Auto"/>
+            <Setter Property="Padding" Value="20" />
+            <Setter Property="Width" Value="120" />
+            <Setter Property="Height" Value="Auto" />
         </Style>
     </Window.Resources>
-    
-    <Border CornerRadius="10" 
+
+    <Border CornerRadius="10"
             Background="{DynamicResource MaterialDesignPaper}"
             Margin="35">
         <Border.Effect>
             <DropShadowEffect BlurRadius="30"
                               Opacity=".4"
                               Direction="0"
-                              ShadowDepth="0"/>
+                              ShadowDepth="0" />
         </Border.Effect>
         <Grid>
             <Grid.RowDefinitions>
@@ -60,115 +60,114 @@
 
             <!--library main frame-->
             <Frame Grid.Row="2"
-               Grid.Column="0"
-               x:Name="LibraryFrame" 
-               NavigationUIVisibility="Hidden"
-               Margin="0 0 0 10"/>
+                   Grid.Column="0"
+                   x:Name="LibraryFrame"
+                   NavigationUIVisibility="Hidden"
+                   Margin="0 0 0 10" />
 
             <!--library control toolbar-->
-            <md:ColorZone Grid.Row="1" 
-                          Mode="Light" 
-                          Background="{StaticResource MaterialDesignPaper}"
+            <md:ColorZone Grid.Row="1"
+                          Mode="Standard"
                           HorizontalAlignment="Stretch"
                           CornerRadius="10 10 0 0">
                 <i:Interaction.Behaviors>
-                    <behaviors:DragWindowBehavior/>
+                    <behaviors:DragWindowBehavior />
                 </i:Interaction.Behaviors>
                 <StackPanel Orientation="Horizontal">
                     <Button Style="{StaticResource ToolBarButton}"
-                        Command="{Binding NavigateToCommand, Mode=OneWay}"
-                        CommandParameter="add">
+                            Command="{Binding NavigateToCommand, Mode=OneWay}"
+                            CommandParameter="add">
                         <Grid Width="Auto">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="40" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <md:PackIcon Grid.Row="0"
-                                     Kind="AddCircleOutline"
-                                     Width="40"
-                                     Height="40"
-                                     HorizontalAlignment="Center" />
+                                         Kind="AddCircleOutline"
+                                         Width="40"
+                                         Height="40"
+                                         HorizontalAlignment="Center" />
                             <TextBlock Grid.Row="1"
-                                   Margin="0 5 0 0"
-                                   TextAlignment="Center"
-                                   TextWrapping="Wrap"
-                                   Style="{StaticResource MaterialDesignCaptionTextBlock}"
-                                   Text="Add new sticker" />
+                                       Margin="0 5 0 0"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                       Text="Add new sticker" />
                         </Grid>
                     </Button>
                     <Rectangle Width="1"
-                           Height="50"
-                           Fill="{DynamicResource MidGrayTextColor}" />
+                               Height="50"
+                               Fill="{DynamicResource MidGrayTextColor}" />
                     <Button Style="{StaticResource ToolBarButton}"
-                        Command="{Binding NavigateToCommand, Mode=OneWay}"
-                        CommandParameter="addList">
+                            Command="{Binding NavigateToCommand, Mode=OneWay}"
+                            CommandParameter="addList">
                         <Grid Width="Auto">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="40" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <md:PackIcon Grid.Row="0"
-                                     Kind="DatabaseImport"
-                                     Width="40"
-                                     Height="40"
-                                     HorizontalAlignment="Center" />
+                                         Kind="DatabaseImport"
+                                         Width="40"
+                                         Height="40"
+                                         HorizontalAlignment="Center" />
                             <TextBlock Grid.Row="1"
-                                   Margin="0 5 0 0"
-                                   TextAlignment="Center"
-                                   TextWrapping="Wrap"
-                                   Style="{StaticResource MaterialDesignCaptionTextBlock}"
-                                   Text="Add new list stickers" />
+                                       Margin="0 5 0 0"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                       Text="Add new list stickers" />
                         </Grid>
                     </Button>
                     <Rectangle Width="1"
-                           Height="50"
-                           Fill="{DynamicResource MidGrayTextColor}" />
+                               Height="50"
+                               Fill="{DynamicResource MidGrayTextColor}" />
 
                     <Button Style="{StaticResource ToolBarButton}"
-                        Command="{Binding NavigateToCommand, Mode=OneWay}"
-                        CommandParameter="backup">
+                            Command="{Binding NavigateToCommand, Mode=OneWay}"
+                            CommandParameter="backup">
                         <Grid Width="Auto">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="40" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <md:PackIcon Grid.Row="0"
-                                     Kind="BackupOutline"
-                                     Width="40"
-                                     Height="40"
-                                     HorizontalAlignment="Center" />
+                                         Kind="BackupOutline"
+                                         Width="40"
+                                         Height="40"
+                                         HorizontalAlignment="Center" />
                             <TextBlock Grid.Row="1"
-                                   Margin="0 5 0 0"
-                                   TextAlignment="Center"
-                                   TextWrapping="Wrap"
-                                   Style="{StaticResource MaterialDesignCaptionTextBlock}"
-                                   Text="Backup and Restore" />
+                                       Margin="0 5 0 0"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                       Text="Backup and Restore" />
                         </Grid>
                     </Button>
                     <Rectangle Width="1"
-                           Height="50"
-                           Fill="{DynamicResource MidGrayTextColor}" />
+                               Height="50"
+                               Fill="{DynamicResource MidGrayTextColor}" />
 
                     <Button Style="{StaticResource ToolBarButton}"
-                        Foreground="{StaticResource ErrorThemeBackground}"
-                        Command="{Binding NavigateToCommand, Mode=OneWay}"
-                        CommandParameter="backup">
+                            Foreground="{StaticResource ErrorThemeBackground}"
+                            Command="{Binding NavigateToCommand, Mode=OneWay}"
+                            CommandParameter="backup">
                         <Grid Width="Auto">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="40" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <md:PackIcon Grid.Row="0"
-                                     Kind="Clear"
-                                     Width="40"
-                                     Height="40"
-                                     HorizontalAlignment="Center" />
+                                         Kind="Clear"
+                                         Width="40"
+                                         Height="40"
+                                         HorizontalAlignment="Center" />
                             <TextBlock Grid.Row="1"
-                                   Margin="0 5 0 0"
-                                   TextAlignment="Center"
-                                   TextWrapping="Wrap"
-                                   Style="{StaticResource MaterialDesignCaptionTextBlock}"
-                                   Text="Clear current database" />
+                                       Margin="0 5 0 0"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                       Text="Clear current database" />
                         </Grid>
                     </Button>
                 </StackPanel>
@@ -176,18 +175,18 @@
 
             <!--DialogHost Library-->
             <md:DialogHost Grid.Row="0"
-                       Grid.RowSpan="3"
-                       BorderBrush="Transparent"
-                       BorderThickness="0"
-                       Background="Transparent"
-                       Identifier="AlertLibraryDialogHost" />
+                           Grid.RowSpan="3"
+                           BorderBrush="Transparent"
+                           BorderThickness="0"
+                           Background="Transparent"
+                           Identifier="AlertLibraryDialogHost" />
             <md:DialogHost Grid.Row="0"
-                       Grid.RowSpan="3"
-                       BorderBrush="Transparent"
-                       BorderThickness="0"
-                       Background="Transparent"
-                       Identifier="LoadingLibraryDialogHost" />
+                           Grid.RowSpan="3"
+                           BorderBrush="Transparent"
+                           BorderThickness="0"
+                           Background="Transparent"
+                           Identifier="LoadingLibraryDialogHost" />
         </Grid>
     </Border>
-    
+
 </Window>

@@ -22,16 +22,10 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-
         <!--Help information block-->
         <StackPanel Orientation="Vertical"
                     Grid.Row="0" 
                     Grid.Column="0"
-                    Grid.ColumnSpan="2"
                     Margin="20">
             <TextBlock Text="BackUp and Restore"
                        Style="{DynamicResource MaterialDesignTitleTextBlock}"/>
@@ -39,25 +33,30 @@
                 Here someome description for backup and recovery functions
             </TextBlock>
         </StackPanel>
-        
 
-        <!--backup section function-->
-        <GroupBox Grid.Row="1"
-                  Grid.Column="0"
-                  Margin="20 0 10 0"
-                  x:Name="BackUpSection"
-                  Header="BackUp section" />
+        <StackPanel Orientation="Vertical"
+                    Grid.Row="1"
+                    Margin="20 0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}"
+                           VerticalAlignment="Center"
+                           Grid.Column="0">
+                    BackUp
+                </TextBlock>
 
-        <!--recovery section function-->
-        <GroupBox Header="Recover section"
-                  Grid.Row="1"
-                  Grid.Column="1"
-                  Margin="10 0 20 0"
-                  x:Name="RecoverySection" />
+                <Button Grid.Column="2"
+                        Content="Start BackUp"/>
+            </Grid>
+        </StackPanel>
 
         <StackPanel Orientation="Horizontal"
                     Grid.Row="2"
-                    Grid.Column="1"
                     Margin="20 20 20 0"
                     HorizontalAlignment="Right">
             <!--<Button Margin="20 0"
