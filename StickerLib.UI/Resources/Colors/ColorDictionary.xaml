@@ -16,6 +16,11 @@
     <Color x:Key="LightColor">#FAFAFA</Color>
     <Color x:Key="DarkColor">#263238</Color>
     <Color x:Key="PrimaryColor">#03a9f4</Color>
+    <Color x:Key="BlueGray100">#CFD8DC</Color>
+    <Color x:Key="BlueGray50">#ECEFF1</Color>
+
+    <SolidColorBrush x:Key="BlueGray_100" Color="{StaticResource BlueGray100}"/>
+    <SolidColorBrush x:Key="BlueGray_50" Color="{StaticResource BlueGray50}"/>
 
     <SolidColorBrush x:Key="DarkThemeBackground" Color="{StaticResource DarkColor}"/>
     <SolidColorBrush x:Key="DarkThemeForeground" Color="{StaticResource LightColor}"/>

@@ -37,22 +37,99 @@
         <StackPanel Orientation="Vertical"
                     Grid.Row="1"
                     Margin="20 0">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                
-                <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}"
-                           VerticalAlignment="Center"
-                           Grid.Column="0">
-                    BackUp
-                </TextBlock>
+                <Grid>
+                    <Grid.Effect>
+                        <DropShadowEffect BlurRadius="10"
+                                          ShadowDepth="3"
+                                          Direction="-90"
+                                          Opacity=".7"/>
+                    </Grid.Effect>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="2"
-                        Content="Start BackUp"/>
-            </Grid>
+                    <Border Grid.Column="0"
+                            BorderThickness="0 0 1 0"
+                            BorderBrush="LightGray"
+                            CornerRadius="5 0 0 5"
+                            Background="{StaticResource LightThemeBackground}"
+                            Padding="30">
+                        <Image Source="../../../Images/database.png"></Image>
+                    </Border>
+
+                    <Border Grid.Column="1"
+                            Padding="10"
+                            CornerRadius="0 5 5 0"
+                            TextElement.Foreground="{StaticResource LightThemeForeground}"
+                            Background="{DynamicResource BlueGray_50}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Border BorderThickness="0 0 0 1"
+                                    BorderBrush="LightGray"
+                                    Padding="0 0 0 15">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Orientation="Horizontal"
+                                                VerticalAlignment="Center"
+                                                Grid.Column="0">
+                                        <md:PackIcon Kind="CheckCircle"
+                                                     Foreground="{DynamicResource SecondaryAccentBrush}"
+                                                     Margin="0 0 5 0"
+                                                     Width="24"
+                                                     Height="24"
+                                                     VerticalAlignment="Center"/>
+                                        <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}">
+                                            Daily backup
+                                        </TextBlock>
+                                    </StackPanel>
+
+                                    <Button Style="{DynamicResource MaterialDesignToolButton}"
+                                            Grid.Column="1">
+                                        <md:PackIcon Kind="Menu"
+                                                     VerticalAlignment="Center"
+                                                     Width="30"
+                                                     Height="20"/>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                            <StackPanel Orientation="Vertical"
+                                        Margin="0 10"
+                                        Grid.Row="1">
+                                <UniformGrid Columns="3">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}">
+                                            Last backup:
+                                        </TextBlock>
+                                        <TextBlock Text="Never"
+                                                   Foreground="{DynamicResource ValidationErrorBrush}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}">
+                                            Next backup:
+                                        </TextBlock>
+                                        <TextBlock Text="Not setup"
+                                                   Foreground="{DynamicResource ValidationErrorBrush}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}">
+                                            Total size:
+                                        </TextBlock>
+                                        <TextBlock Text="0 Mb"/>
+                                    </StackPanel>
+                            </UniformGrid>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                </Grid>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal"
