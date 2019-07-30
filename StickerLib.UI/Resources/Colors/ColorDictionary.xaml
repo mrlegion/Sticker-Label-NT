@@ -19,6 +19,8 @@
     <Color x:Key="BlueGray100">#CFD8DC</Color>
     <Color x:Key="BlueGray50">#ECEFF1</Color>
 
+    <SolidColorBrush x:Key="Gray500" Color="#9E9E9E"/>
+    <SolidColorBrush x:Key="Gray600" Color="#757575"/>
     <SolidColorBrush x:Key="BlueGray_100" Color="{StaticResource BlueGray100}"/>
     <SolidColorBrush x:Key="BlueGray_50" Color="{StaticResource BlueGray50}"/>
 

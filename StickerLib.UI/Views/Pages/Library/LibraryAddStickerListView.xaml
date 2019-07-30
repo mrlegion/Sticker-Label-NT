@@ -9,7 +9,6 @@
       Background="{DynamicResource MaterialDesignPaper}"
       TextElement.FontWeight="Regular"
       TextElement.FontSize="14"
-      FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LibraryAddStickerListView">

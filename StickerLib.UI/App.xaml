@@ -7,13 +7,13 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary
-                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/themes/materialdesigntheme.light.xaml" />
                 <ResourceDictionary
-                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/themes/materialdesigntheme.defaults.xaml" />
                 <ResourceDictionary
-                    Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Amber.xaml" />
+                    Source="pack://application:,,,/MaterialDesignColors;component/themes/recommended/primary/materialdesigncolor.teal.xaml" />
                 <ResourceDictionary
-                    Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lightgreen.xaml" />
+                    Source="pack://application:,,,/MaterialDesignColors;component/themes/recommended/accent/materialdesigncolor.orange.xaml" />
                 <ResourceDictionary
                     Source="Resources/Colors/ColorDictionary.xaml" />
                 <ResourceDictionary>

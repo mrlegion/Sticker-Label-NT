@@ -15,8 +15,16 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LibraryBackupView">
 
+    <Page.Resources>
+        <Style BasedOn="{StaticResource MaterialDesignCaptionTextBlock}" TargetType="{x:Type TextBlock}"
+               x:Key="HeadingBackupInfoTextBlock">
+            <Setter Property="Foreground" Value="{StaticResource Gray600}" />
+        </Style>
+    </Page.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
@@ -24,11 +32,10 @@
 
         <!--Help information block-->
         <StackPanel Orientation="Vertical"
-                    Grid.Row="0" 
-                    Grid.Column="0"
+                    Grid.Row="0"
                     Margin="20">
             <TextBlock Text="BackUp and Restore"
-                       Style="{DynamicResource MaterialDesignTitleTextBlock}"/>
+                       Style="{DynamicResource MaterialDesignTitleTextBlock}" />
             <TextBlock>
                 Here someome description for backup and recovery functions
             </TextBlock>
@@ -37,29 +44,147 @@
         <StackPanel Orientation="Vertical"
                     Grid.Row="1"
                     Margin="20 0">
-                <Grid>
-                    <Grid.Effect>
-                        <DropShadowEffect BlurRadius="10"
-                                          ShadowDepth="3"
-                                          Direction="-90"
-                                          Opacity=".7"/>
-                    </Grid.Effect>
+            <Grid>
+                <Grid.Effect>
+                    <DropShadowEffect BlurRadius="7"
+                                      ShadowDepth="3"
+                                      Direction="-70"
+                                      Opacity=".3" />
+                </Grid.Effect>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0"
+                        BorderThickness="0 0 1 0"
+                        BorderBrush="LightGray"
+                        CornerRadius="5 0 0 5"
+                        Background="{StaticResource LightThemeBackground}"
+                        Width="150"
+                        Padding="30">
+                    <Image Source="../../../Images/database.png" />
+                </Border>
+
+                <Border Grid.Column="1"
+                        CornerRadius="0 5 5 0"
+                        TextElement.Foreground="{StaticResource LightThemeForeground}"
+                        Background="{DynamicResource BlueGray_50}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Border BorderThickness="0 0 0 1"
+                                Margin="10 10 10 0"
+                                BorderBrush="LightGray"
+                                Padding="0 0 0 15">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Orientation="Horizontal"
+                                            VerticalAlignment="Center"
+                                            Grid.Column="0">
+                                    <md:PackIcon Kind="CheckCircle"
+                                                 Foreground="{DynamicResource SecondaryAccentBrush}"
+                                                 Margin="0 0 5 0"
+                                                 Width="24"
+                                                 Height="24"
+                                                 VerticalAlignment="Center" />
+                                    <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}">
+                                        Daily backup
+                                    </TextBlock>
+                                </StackPanel>
+
+                                <Button Style="{DynamicResource MaterialDesignToolButton}"
+                                        Grid.Column="1">
+                                    <md:PackIcon Kind="Menu"
+                                                 VerticalAlignment="Center"
+                                                 Width="30"
+                                                 Height="20" />
+                                </Button>
+                            </Grid>
+                        </Border>
+                        <StackPanel Orientation="Vertical"
+                                    Margin="0 0 0 10"
+                                    Grid.Row="1">
+                            <UniformGrid Columns="4" Margin="0 10 0 20">
+                                <UniformGrid.Resources>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="Margin" Value="10 0" />
+                                    </Style>
+                                </UniformGrid.Resources>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Style="{StaticResource HeadingBackupInfoTextBlock}">
+                                        Last backup:
+                                    </TextBlock>
+                                    <TextBlock Text="Never"
+                                               Foreground="{DynamicResource ValidationErrorBrush}" />
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Style="{StaticResource HeadingBackupInfoTextBlock}">
+                                        Next backup:
+                                    </TextBlock>
+                                    <TextBlock Text="Not setup"
+                                               Foreground="{DynamicResource ValidationErrorBrush}" />
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Style="{StaticResource HeadingBackupInfoTextBlock}">
+                                        Stickers count:
+                                    </TextBlock>
+                                    <TextBlock Text="80" />
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Style="{StaticResource HeadingBackupInfoTextBlock}">
+                                        Total size:
+                                    </TextBlock>
+                                    <TextBlock Text="0 Mb" />
+                                </StackPanel>
+                            </UniformGrid>
+                            <UniformGrid Columns="4">
+                                <Button Content="BACKUP NOW" Margin="10 0" />
+                                <Button Margin="10 0" Style="{StaticResource MaterialDesignFlatButton}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <md:PackIcon Kind="Refresh"
+                                                     Margin="0 0 5 0"
+                                                     Width="25"
+                                                     Height="25"
+                                                     VerticalAlignment="Center" />
+                                        <TextBlock Text="RECOVER" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                            </UniformGrid>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+            </Grid>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="2" Margin="0 20 0 0">
+            <StackPanel Orientation="Vertical">
+                <Grid Margin="20 10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <Border Grid.Column="0"
-                            BorderThickness="0 0 1 0"
+                            BorderThickness="1"
                             BorderBrush="LightGray"
                             CornerRadius="5 0 0 5"
                             Background="{StaticResource LightThemeBackground}"
+                            Width="150"
                             Padding="30">
-                        <Image Source="../../../Images/database.png"></Image>
+                        <Image Source="../../../Images/database.png" />
                     </Border>
 
                     <Border Grid.Column="1"
-                            Padding="10"
+                            BorderThickness="0 1 1 1"
+                            BorderBrush="LightGray"
                             CornerRadius="0 5 5 0"
                             TextElement.Foreground="{StaticResource LightThemeForeground}"
                             Background="{DynamicResource BlueGray_50}">
@@ -69,6 +194,7 @@
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <Border BorderThickness="0 0 0 1"
+                                    Margin="10 10 10 0"
                                     BorderBrush="LightGray"
                                     Padding="0 0 0 15">
                                 <Grid>
@@ -85,9 +211,9 @@
                                                      Margin="0 0 5 0"
                                                      Width="24"
                                                      Height="24"
-                                                     VerticalAlignment="Center"/>
+                                                     VerticalAlignment="Center" />
                                         <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}">
-                                            Daily backup
+                                            Last Backup
                                         </TextBlock>
                                     </StackPanel>
 
@@ -96,44 +222,199 @@
                                         <md:PackIcon Kind="Menu"
                                                      VerticalAlignment="Center"
                                                      Width="30"
-                                                     Height="20"/>
+                                                     Height="20" />
                                     </Button>
                                 </Grid>
                             </Border>
                             <StackPanel Orientation="Vertical"
-                                        Margin="0 10"
+                                        Margin="0 0 0 10"
                                         Grid.Row="1">
-                                <UniformGrid Columns="3">
+                                <UniformGrid Columns="4" Margin="0 10 0 20">
+                                    <UniformGrid.Resources>
+                                        <Style TargetType="StackPanel">
+                                            <Setter Property="Margin" Value="10 0" />
+                                        </Style>
+                                    </UniformGrid.Resources>
                                     <StackPanel Orientation="Vertical">
-                                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}">
-                                            Last backup:
+                                        <TextBlock Style="{StaticResource HeadingBackupInfoTextBlock}">
+                                            Time backup:
                                         </TextBlock>
-                                        <TextBlock Text="Never"
-                                                   Foreground="{DynamicResource ValidationErrorBrush}"/>
+                                        <TextBlock Text="19.06.2019 17:06:48" />
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical">
-                                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}">
-                                            Next backup:
+                                        <TextBlock Style="{StaticResource HeadingBackupInfoTextBlock}">
+                                            Type backup:
                                         </TextBlock>
-                                        <TextBlock Text="Not setup"
-                                                   Foreground="{DynamicResource ValidationErrorBrush}"/>
+                                        <TextBlock Text="Automatic" />
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical">
-                                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}">
+                                        <TextBlock Style="{StaticResource HeadingBackupInfoTextBlock}">
+                                            Stickers count:
+                                        </TextBlock>
+                                        <TextBlock Text="70" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Style="{StaticResource HeadingBackupInfoTextBlock}">
                                             Total size:
                                         </TextBlock>
-                                        <TextBlock Text="0 Mb"/>
+                                        <TextBlock Text="5.84 Mb" />
                                     </StackPanel>
-                            </UniformGrid>
+                                </UniformGrid>
+                                <UniformGrid Columns="4">
+                                    <Button Content="SHOW IN EXPLORER" Margin="10 0" />
+                                    <Button Margin="10 0" Style="{StaticResource MaterialDesignFlatButton}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <md:PackIcon Kind="Refresh"
+                                                         Margin="0 0 5 0"
+                                                         Width="25"
+                                                         Height="25"
+                                                         VerticalAlignment="Center" />
+                                            <TextBlock Text="RECOVER" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Margin="10 0" Style="{StaticResource MaterialDesignFlatButton}"
+                                            Foreground="{StaticResource ErrorThemeBackground}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <md:PackIcon Kind="Clear"
+                                                         Margin="0 0 5 0"
+                                                         Width="25"
+                                                         Height="25"
+                                                         VerticalAlignment="Center" />
+                                            <TextBlock Text="DELETE" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </Button>
+                                </UniformGrid>
                             </StackPanel>
                         </Grid>
                     </Border>
-
                 </Grid>
-        </StackPanel>
+                <Grid Margin="20 10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
+                    <Border Grid.Column="0"
+                            BorderThickness="1"
+                            BorderBrush="LightGray"
+                            CornerRadius="5 0 0 5"
+                            Background="{StaticResource LightThemeBackground}"
+                            Width="150"
+                            Padding="30">
+                        <Image Source="../../../Images/database.png" />
+                    </Border>
+
+                    <Border Grid.Column="1"
+                            BorderThickness="0 1 1 1"
+                            BorderBrush="LightGray"
+                            CornerRadius="0 5 5 0"
+                            TextElement.Foreground="{StaticResource LightThemeForeground}"
+                            Background="{DynamicResource BlueGray_50}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Border BorderThickness="0 0 0 1"
+                                    Margin="10 10 10 0"
+                                    BorderBrush="LightGray"
+                                    Padding="0 0 0 15">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Orientation="Horizontal"
+                                                VerticalAlignment="Center"
+                                                Grid.Column="0">
+                                        <md:PackIcon Kind="CheckCircle"
+                                                     Foreground="{DynamicResource SecondaryAccentBrush}"
+                                                     Margin="0 0 5 0"
+                                                     Width="24"
+                                                     Height="24"
+                                                     VerticalAlignment="Center" />
+                                        <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}">
+                                            Last Backup
+                                        </TextBlock>
+                                    </StackPanel>
+
+                                    <Button Style="{DynamicResource MaterialDesignToolButton}"
+                                            Grid.Column="1">
+                                        <md:PackIcon Kind="Menu"
+                                                     VerticalAlignment="Center"
+                                                     Width="30"
+                                                     Height="20" />
+                                    </Button>
+                                </Grid>
+                            </Border>
+                            <StackPanel Orientation="Vertical"
+                                        Margin="0 0 0 10"
+                                        Grid.Row="1">
+                                <UniformGrid Columns="4" Margin="0 10 0 20">
+                                    <UniformGrid.Resources>
+                                        <Style TargetType="StackPanel">
+                                            <Setter Property="Margin" Value="10 0" />
+                                        </Style>
+                                    </UniformGrid.Resources>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Style="{StaticResource HeadingBackupInfoTextBlock}">
+                                            Time backup:
+                                        </TextBlock>
+                                        <TextBlock Text="19.06.2019 17:06:48" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Style="{StaticResource HeadingBackupInfoTextBlock}">
+                                            Type backup:
+                                        </TextBlock>
+                                        <TextBlock Text="Automatic" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Style="{StaticResource HeadingBackupInfoTextBlock}">
+                                            Stickers count:
+                                        </TextBlock>
+                                        <TextBlock Text="70" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Style="{StaticResource HeadingBackupInfoTextBlock}">
+                                            Total size:
+                                        </TextBlock>
+                                        <TextBlock Text="5.84 Mb" />
+                                    </StackPanel>
+                                </UniformGrid>
+                                <UniformGrid Columns="4">
+                                    <Button Content="SHOW IN EXPLORER" Margin="10 0" />
+                                    <Button Margin="10 0" Style="{StaticResource MaterialDesignFlatButton}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <md:PackIcon Kind="Refresh"
+                                                         Margin="0 0 5 0"
+                                                         Width="25"
+                                                         Height="25"
+                                                         VerticalAlignment="Center" />
+                                            <TextBlock Text="RECOVER" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Margin="10 0" Style="{StaticResource MaterialDesignFlatButton}"
+                                            Foreground="{StaticResource ErrorThemeBackground}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <md:PackIcon Kind="Clear"
+                                                         Margin="0 0 5 0"
+                                                         Width="25"
+                                                         Height="25"
+                                                         VerticalAlignment="Center" />
+                                            <TextBlock Text="DELETE" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </Button>
+                                </UniformGrid>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+        
         <StackPanel Orientation="Horizontal"
-                    Grid.Row="2"
+                    Grid.Row="3"
                     Margin="20 20 20 0"
                     HorizontalAlignment="Right">
             <!--<Button Margin="20 0"

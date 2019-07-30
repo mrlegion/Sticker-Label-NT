@@ -12,15 +12,15 @@
         Title="Library Db control"
         WindowStyle="None"
         AllowsTransparency="True"
-        Height="650"
-        Width="1100"
+        SnapsToDevicePixels="True"
+        Height="750"
+        Width="1200"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
         Background="Transparent"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
-        TextElement.FontSize="14"
-        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto">
+        TextElement.FontSize="14">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -43,6 +43,7 @@
     </Window.Resources>
 
     <Border CornerRadius="10"
+            SnapsToDevicePixels="True"
             Background="{DynamicResource MaterialDesignPaper}"
             Margin="35">
         <Border.Effect>
@@ -51,7 +52,7 @@
                               Direction="0"
                               ShadowDepth="0" />
         </Border.Effect>
-        <Grid>
+        <Grid SnapsToDevicePixels="True">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -89,6 +90,7 @@
                                          HorizontalAlignment="Center" />
                             <TextBlock Grid.Row="1"
                                        Margin="0 5 0 0"
+                                       TextOptions.TextRenderingMode="ClearType"
                                        TextAlignment="Center"
                                        TextWrapping="Wrap"
                                        Style="{StaticResource MaterialDesignCaptionTextBlock}"
@@ -113,6 +115,7 @@
                                          HorizontalAlignment="Center" />
                             <TextBlock Grid.Row="1"
                                        Margin="0 5 0 0"
+                                       TextOptions.TextRenderingMode="ClearType"
                                        TextAlignment="Center"
                                        TextWrapping="Wrap"
                                        Style="{StaticResource MaterialDesignCaptionTextBlock}"
@@ -139,6 +142,7 @@
                             <TextBlock Grid.Row="1"
                                        Margin="0 5 0 0"
                                        TextAlignment="Center"
+                                       TextOptions.TextRenderingMode="ClearType"
                                        TextWrapping="Wrap"
                                        Style="{StaticResource MaterialDesignCaptionTextBlock}"
                                        Text="Backup and Restore" />
@@ -165,6 +169,7 @@
                             <TextBlock Grid.Row="1"
                                        Margin="0 5 0 0"
                                        TextAlignment="Center"
+                                       TextOptions.TextRenderingMode="ClearType"
                                        TextWrapping="Wrap"
                                        Style="{StaticResource MaterialDesignCaptionTextBlock}"
                                        Text="Clear current database" />
