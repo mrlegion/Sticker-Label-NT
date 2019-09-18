@@ -17,13 +17,19 @@ namespace StickerLib.Domain.Build
         public void Create(IEnumerable<Group> groups, bool saveEachFile)
         {
             var groupList = groups.ToList();
-            foreach (Group group in groupList)
+            foreach (var group in groupList)
                 Create(group, saveEachFile);
         }
 
-        public void Create(IEnumerable<Group> groups) => Create(groups, false);
+        public void Create(IEnumerable<Group> groups)
+        {
+            Create(groups, false);
+        }
 
-        public void Create(Group group) => Create(group, false);
+        public void Create(Group group)
+        {
+            Create(group, false);
+        }
 
         public void Create(Group group, bool saveEachFile)
         {

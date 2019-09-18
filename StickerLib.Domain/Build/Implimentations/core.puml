@@ -1,0 +1,66 @@
+@startuml
+
+interface INuper {
+    + Nup(int[] source) : Queue<Page>
+    + Nup(IEnumerable<int[]> sources) : IEnumerable<Queue<Page>>
+}
+
+interface ISuffler {
+    + Shuffle(int[] source, int group) : int[]
+}
+
+interface IPageManager {
+    + AddEmptyPages(int[] source, int count, int defaultValue) : int[]
+    + DublicatePages(int[] source, int count, DuplicationType type) : int[]
+}
+
+interface IStickerBuilder {
+    + DublicatedPages() : void
+    + ShufflePages() : void
+    + NupPages() : void
+    + SafeDocument(bool saveEachFile) : void
+    + SetGroup(Group group) : void
+}
+
+class Creator {
+    - _builder : IStickerBuilder
+    + Create(IEnumerable<Group> groups, bool saveEachFile) : void
+    + Create(IEnumerable<Group> groups) : void
+    + Create(Group group, bool saveEachFile) : void
+    + Create(Group group) : void
+}
+
+class StickerBuilder {
+    - _group : GroupDao
+    - _nuper : INuper
+    - _shuffler : ISuffler
+    - _pageManager : IPageManager
+}
+
+class GroupDao {
+    - _group : Group
+    - GenerateSourcePagesArray() : void
+    + GroupDao(Group group)
+}
+
+class PageManager
+class Shuffler
+class Nuper
+
+
+IStickerBuilder <.. Creator
+IStickerBuilder <|.. StickerBuilder
+INuper --* StickerBuilder
+ISuffler --* StickerBuilder
+IPageManager --* StickerBuilder
+ISuffler <|.. Shuffler
+INuper <|.. Nuper
+IPageManager <|.. PageManager
+
+enum DuplicationType {
+    None : 0
+    EachPage : 1
+    GroupPage : 2
+}
+
+@enduml

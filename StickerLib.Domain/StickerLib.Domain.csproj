@@ -141,7 +141,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Build\Implimentations\core.puml" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StickerLib.DAL\StickerLib.DAL.csproj">
       <Project>{e73319ea-0a54-48e7-8a3f-c7ed84b91d1a}</Project>
